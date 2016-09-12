@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<agency.tango.materialintroscreen.parallax.ParallaxLinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="false"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:id="@+id/slide_background"
+    android:background="@android:color/transparent"
+    android:layout_marginTop="16dp"
+    android:paddingBottom="164dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp">
+
+    <ImageView
+        android:id="@+id/image_slide"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:adjustViewBounds="true"
+        app:layout_parallaxFactor="0.6"
+        tools:src="@android:drawable/sym_action_call"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/txt_title_slide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        app:layout_parallaxFactor="0.5"
+        tools:text="Lorem ipsum"/>
+
+    <TextView
+        android:id="@+id/txt_description_slide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        app:layout_parallaxFactor="0.2"
+        tools:text="Lorem ipsum dolor sit amet, consectetur, adipisci velit, …"
+        android:layout_marginBottom="8dp"/>
+
+</agency.tango.materialintroscreen.parallax.ParallaxLinearLayout>
