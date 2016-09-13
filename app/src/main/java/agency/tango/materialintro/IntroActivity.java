@@ -1,13 +1,13 @@
 package agency.tango.materialintro;
 
-import agency.tango.materialintroscreen.MaterialIntroActivity;
-import agency.tango.materialintroscreen.SlideFragmentBuilder;
 import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Toast;
+
+import agency.tango.materialintroscreen.MaterialIntroActivity;
+import agency.tango.materialintroscreen.SlideFragmentBuilder;
 
 public class IntroActivity extends MaterialIntroActivity
 {
@@ -18,8 +18,8 @@ public class IntroActivity extends MaterialIntroActivity
         enableLastSlideAlphaExitTransition(true);
 
         addSlide(new SlideFragmentBuilder()
-                .primaryColor(color(android.R.color.holo_red_light))
-                .secondaryColor(color(android.R.color.holo_green_light))
+                .primaryColor(R.color.colorAccent)
+                .secondaryColor(R.color.colorPrimary)
                 .image(agency.tango.materialintroscreen.R.drawable.ic_next)
                 .title("title 1")
                 .description("Description 1")
@@ -35,15 +35,17 @@ public class IntroActivity extends MaterialIntroActivity
                 .build());
 
         addSlide(new SlideFragmentBuilder()
-                .primaryColor(color(android.R.color.holo_blue_dark))
-                .secondaryColor(color(android.R.color.holo_blue_bright))
+                .primaryColor(R.color.colorPrimary)
+                .secondaryColor(R.color.colorAccent)
                 .title("title 2")
                 .description("Description 2")
                 .build());
 
+        addSlide(new CustomSlide());
+
         addSlide(new SlideFragmentBuilder()
-                .primaryColor(color(android.R.color.holo_green_dark))
-                .secondaryColor(color(android.R.color.holo_green_light))
+                .primaryColor(R.color.colorPrimary)
+                .secondaryColor(R.color.colorAccent)
                 .possiblePermissions(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.READ_SMS})
                 .neededPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
                 .image(agency.tango.materialintroscreen.R.drawable.ic_next)
@@ -62,16 +64,11 @@ public class IntroActivity extends MaterialIntroActivity
 
 
         addSlide(new SlideFragmentBuilder()
-                .primaryColor(color(android.R.color.holo_blue_dark))
-                .secondaryColor(color(android.R.color.holo_blue_bright))
+                .primaryColor(R.color.colorAccent)
+                .secondaryColor(R.color.colorPrimary)
                 .title("title 4")
                 .description("Description 4")
                 .build());
-    }
-
-    public int color(int res)
-    {
-        return ContextCompat.getColor(this, res);
     }
 
 }

@@ -117,11 +117,11 @@ public class SlideFragment extends ParallaxFragment {
         return hasPermissionsToGrant(neededPermissions);
     }
 
-    public boolean canPass() {
+    public boolean canMoveFurther() {
         return true;
     }
 
-    public String passingErrorMessage() {
+    public String cantMoveFurtherErrorMessage() {
         return getString(R.string.impassable_slide);
     }
 

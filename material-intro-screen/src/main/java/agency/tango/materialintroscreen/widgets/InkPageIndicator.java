@@ -294,7 +294,6 @@ public class InkPageIndicator extends View implements ViewPager.OnPageChangeList
                 nextXIndex = page + 1;
             }
 
-//            nextXIndex = page == pageCount - 1 ? page : page + 1;
             Path unselectedPath = getUnselectedPath(page,
                     dotCenterX[page],
                     dotCenterX[nextXIndex],

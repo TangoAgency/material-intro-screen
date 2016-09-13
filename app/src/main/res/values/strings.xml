@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Material Intro</string>
+    <string name="check_to_pass">Please check box to go further</string>
+    <string name="error_message">Please check box first</string>
 </resources>

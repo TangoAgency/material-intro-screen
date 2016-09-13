@@ -4,6 +4,7 @@ import android.animation.ArgbEvaluator;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -30,7 +31,6 @@ import agency.tango.materialintroscreen.listeners.IPageSelectedListener;
 import agency.tango.materialintroscreen.listeners.MessageButtonBehaviourOnPageSelected;
 import agency.tango.materialintroscreen.listeners.ViewBehavioursOnPageChangeListener;
 import agency.tango.materialintroscreen.listeners.clickListeners.FinishScreenClickListener;
-import agency.tango.materialintroscreen.listeners.clickListeners.NextSlideClickListener;
 import agency.tango.materialintroscreen.listeners.clickListeners.PermissionNotGrantedClickListener;
 import agency.tango.materialintroscreen.listeners.scrollListeners.ParallaxScrollListener;
 import agency.tango.materialintroscreen.widgets.InkPageIndicator;
@@ -55,7 +55,6 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
 
     private View.OnClickListener permissionNotGrantedClickListener;
     private View.OnClickListener finishScreenClickListener;
-    private View.OnClickListener nextSlideClickListener;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,15 +78,14 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         adapter = new SlidesAdapter(getSupportFragmentManager());
 
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(2);
         inkIndicator.setViewPager(viewPager);
 
-        nextButton.setOnClickListener(new NextSlideClickListener(viewPager));
         nextButtonTranslationWrapper = new NextButtonTranslationWrapper(nextButton);
         initOnPageChangeListeners();
 
         permissionNotGrantedClickListener = new PermissionNotGrantedClickListener(this, nextButtonTranslationWrapper);
         finishScreenClickListener = new FinishScreenClickListener(this);
-        nextSlideClickListener = new NextSlideClickListener(viewPager);
 
         setBackButtonVisible();
 
@@ -155,13 +153,13 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
                         viewPager.post(new Runnable() {
                             @Override
                             public void run() {
-                                if (adapter.getItem(position).hasNeededPermissionsToGrant() || adapter.getItem(position).canPass() == false) {
+                                if (adapter.getItem(position).hasNeededPermissionsToGrant() || adapter.getItem(position).canMoveFurther() == false) {
                                     viewPager.setCurrentItem(position);
                                     inkIndicator.clearJoiningFractions();
                                 }
-                                nextButtonBehaviour(position, adapter.getItem(position));
                             }
                         });
+                        nextButtonBehaviour(position, adapter.getItem(position));
                     }
                 })
                 .registerOnPageScrolled(new ColorTransitionScrollListener())
@@ -178,42 +176,51 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
                 }));
     }
 
-    private void nextButtonBehaviour(int position, final SlideFragment fragment) {
-        if (fragment.hasNeededPermissionsToGrant()) {
+    @SuppressWarnings("PointlessBooleanExpression")
+    private void nextButtonBehaviour(final int position, final SlideFragment fragment) {
+        boolean hasPermissionToGrant = fragment.hasNeededPermissionsToGrant();
+        if (hasPermissionToGrant) {
             nextButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_next));
             nextButton.setOnClickListener(permissionNotGrantedClickListener);
-            viewPager.setAllowedSwipeDirection(SwipeableViewPager.SwipeDirection.left);
-        } else if (fragment.canPass() == false) {
-            nextButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_next));
-            nextButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    nextButtonTranslationWrapper.error();
-                    showError(fragment.passingErrorMessage());
-                }
-            });
-            viewPager.setAllowedSwipeDirection(SwipeableViewPager.SwipeDirection.left);
         } else if (adapter.isLastSlide(position)) {
             nextButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_finish));
             nextButton.setOnClickListener(finishScreenClickListener);
         } else {
             nextButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_next));
-            nextButton.setOnClickListener(nextSlideClickListener);
+            nextButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (fragment.canMoveFurther() == false) {
+                        nextButtonTranslationWrapper.error();
+                        showError(fragment.cantMoveFurtherErrorMessage());
+                    } else {
+                        viewPager.setCurrentItem(position + 1);
+                    }
+                }
+            });
+        }
+
+        if (fragment.canMoveFurther() == false || hasPermissionToGrant) {
+            viewPager.setAllowedSwipeDirection(SwipeableViewPager.SwipeDirection.left);
+        } else {
             viewPager.setAllowedSwipeDirection(SwipeableViewPager.SwipeDirection.all);
         }
     }
 
     private Integer getPrimaryColor(int position, float positionOffset) {
-        return (Integer) argbEvaluator.evaluate(positionOffset, adapter.getItem(position).primaryColor(), adapter.getItem(position + 1).primaryColor());
+        return (Integer) argbEvaluator.evaluate(positionOffset, color(adapter.getItem(position).primaryColor()), color(adapter.getItem(position + 1).primaryColor()));
     }
 
     private Integer getSecondaryColor(int position, float positionOffset) {
-        return (Integer) argbEvaluator.evaluate(positionOffset, adapter.getItem(position).secondaryColor(), adapter.getItem(position + 1).secondaryColor());
+        return (Integer) argbEvaluator.evaluate(positionOffset, color(adapter.getItem(position).secondaryColor()), color(adapter.getItem(position + 1).secondaryColor()));
+    }
+
+    private int color(@ColorRes int color) {
+        return ContextCompat.getColor(this, color);
     }
 
     /**
      * Add SlideFragment to IntroScreen
-     *
      * @param slideFragment Fragment to add
      */
     public void addSlide(SlideFragment slideFragment) {
@@ -232,9 +239,9 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 for (int position = viewPager.getCurrentItem(); position < adapter.getCalculatedCount(); position++) {
-                    if (adapter.getItem(position).canPass() == false) {
+                    if (adapter.getItem(position).canMoveFurther() == false) {
                         viewPager.setCurrentItem(position);
-                        showError(adapter.getItem(position).passingErrorMessage());
+                        showError(adapter.getItem(position).cantMoveFurtherErrorMessage());
                         return;
                     }
                 }
