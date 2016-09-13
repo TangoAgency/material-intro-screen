@@ -10,33 +10,28 @@ import android.view.ViewGroup;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class ParallaxFragment extends Fragment implements Parallaxable
-{
+public class ParallaxFragment extends Fragment implements Parallaxable {
     @Nullable
     private Parallaxable parallaxLayout;
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
-    {
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         parallaxLayout = findParallaxLayout(view);
     }
 
-    public Parallaxable findParallaxLayout(View root)
-    {
+    @SuppressWarnings("PointlessBooleanExpression")
+    public Parallaxable findParallaxLayout(View root) {
         Queue<View> queue = new LinkedList<>();
         queue.add(root);
-        while (queue.isEmpty() == false)
-        {
+
+        while (queue.isEmpty() == false) {
             View child = queue.remove();
-            if (child instanceof Parallaxable)
-            {
+
+            if (child instanceof Parallaxable) {
                 return (Parallaxable) child;
-            }
-            else if (child instanceof ViewGroup)
-            {
+            } else if (child instanceof ViewGroup) {
                 ViewGroup viewGroup = (ViewGroup) child;
-                for (int i = viewGroup.getChildCount() - 1; i >= 0; i--)
-                {
+                for (int i = viewGroup.getChildCount() - 1; i >= 0; i--) {
                     queue.add(viewGroup.getChildAt(i));
                 }
             }
@@ -45,10 +40,8 @@ public class ParallaxFragment extends Fragment implements Parallaxable
     }
 
     @Override
-    public void setOffset(@FloatRange(from = -1.0, to = 1.0) float offset)
-    {
-        if (parallaxLayout != null)
-        {
+    public void setOffset(@FloatRange(from = -1.0, to = 1.0) float offset) {
+        if (parallaxLayout != null) {
             parallaxLayout.setOffset(offset);
         }
     }

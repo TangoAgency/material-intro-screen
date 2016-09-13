@@ -10,20 +10,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import agency.tango.materialintroscreen.parallax.ParallaxFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class SlideFragment extends ParallaxFragment
-{
+import agency.tango.materialintroscreen.parallax.ParallaxFragment;
+
+public class SlideFragment extends ParallaxFragment {
     private final static String PRIMARY_COLOR = "primary_color";
-    private final static String SECONDARY_COLOR = "secondary_color";
-    private final static String TITLE = "title";
-    private final static String DESCRIPTION = "description";
-    private final static String NEEDED_PERMISSIONS = "needed_permission";
-    private final static String POSSIBLE_PERMISSIONS = "possible_permission";
+    private static final String SECONDARY_COLOR = "secondary_color";
+    private static final String TITLE = "title";
+    private static final String DESCRIPTION = "description";
+    private static final String NEEDED_PERMISSIONS = "needed_permission";
+    private static final String POSSIBLE_PERMISSIONS = "possible_permission";
     private static final String IMAGE = "image";
     private static final String MESSAGE_BTN_TEXT = "message_btn_text";
     private static final int PERMISSIONS_REQUEST_CODE = 15621;
@@ -42,8 +42,7 @@ public class SlideFragment extends ParallaxFragment
     private ImageView imageView;
     private View.OnClickListener messageButtonOnClickListener;
 
-    public static SlideFragment createInstance(SlideFragmentBuilder builder)
-    {
+    public static SlideFragment createInstance(SlideFragmentBuilder builder) {
         SlideFragment slideFragment = new SlideFragment();
 
         Bundle bundle = new Bundle();
@@ -61,10 +60,13 @@ public class SlideFragment extends ParallaxFragment
         return slideFragment;
     }
 
+    public static boolean isNotNullOrEmpty(String string) {
+        return string != null && string.isEmpty() == false;
+    }
+
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_slide, container, false);
         titleTextView = (TextView) view.findViewById(R.id.txt_title_slide);
         descriptionTextView = (TextView) view.findViewById(R.id.txt_description_slide);
@@ -73,8 +75,7 @@ public class SlideFragment extends ParallaxFragment
         return view;
     }
 
-    public void initializeView()
-    {
+    public void initializeView() {
         Bundle bundle = getArguments();
         primaryColor = bundle.getInt(PRIMARY_COLOR);
         secondaryColor = bundle.getInt(SECONDARY_COLOR);
@@ -88,93 +89,68 @@ public class SlideFragment extends ParallaxFragment
         updateViewWithValues();
     }
 
-    public int primaryColor()
-    {
+    public int primaryColor() {
         return primaryColor;
     }
 
-    public int secondaryColor()
-    {
+    public int secondaryColor() {
         return secondaryColor;
     }
 
-    public String messageButtonText()
-    {
+    public String messageButtonText() {
         return messageButtonText;
     }
 
-    public View.OnClickListener messageButtonClickListener()
-    {
+    public View.OnClickListener messageButtonClickListener() {
         return messageButtonOnClickListener;
     }
 
-    public boolean hasAnyPermissionsToGrant()
-    {
+    public boolean hasAnyPermissionsToGrant() {
         boolean hasPermissionToGrant = hasPermissionsToGrant(neededPermissions);
-        if (hasPermissionToGrant == false)
-        {
+        if (hasPermissionToGrant == false) {
             hasPermissionToGrant = hasPermissionsToGrant(possiblePermissions);
         }
         return hasPermissionToGrant;
     }
 
-    public boolean hasNeededPermissionsToGrant()
-    {
+    public boolean hasNeededPermissionsToGrant() {
         return hasPermissionsToGrant(neededPermissions);
     }
 
-    public boolean canPass()
-    {
+    public boolean canPass() {
         return true;
     }
 
-    public String passingErrorMessage()
-    {
+    public String passingErrorMessage() {
         return getString(R.string.impassable_slide);
     }
 
-    public static boolean isNotNullOrEmpty(String string)
-    {
-        return string != null && string.isEmpty() == false;
-    }
-
-    private void updateViewWithValues()
-    {
+    private void updateViewWithValues() {
         titleTextView.setText(title);
         descriptionTextView.setText(description);
 
-        if (image != 0)
-        {
+        if (image != 0) {
             imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), image));
             imageView.setVisibility(View.VISIBLE);
         }
     }
 
-    public void askForPermissions()
-    {
+    public void askForPermissions() {
         ArrayList<String> notGrantedPermissions = new ArrayList<>();
 
-        if (neededPermissions != null)
-        {
-            for (String permission : neededPermissions)
-            {
-                if (isNotNullOrEmpty(permission))
-                {
-                    if (ContextCompat.checkSelfPermission(getContext(), permission) != PackageManager.PERMISSION_GRANTED)
-                    {
+        if (neededPermissions != null) {
+            for (String permission : neededPermissions) {
+                if (isNotNullOrEmpty(permission)) {
+                    if (ContextCompat.checkSelfPermission(getContext(), permission) != PackageManager.PERMISSION_GRANTED) {
                         notGrantedPermissions.add(permission);
                     }
                 }
             }
         }
-        if (possiblePermissions != null)
-        {
-            for (String permission : possiblePermissions)
-            {
-                if (isNotNullOrEmpty(permission))
-                {
-                    if (ContextCompat.checkSelfPermission(getContext(), permission) != PackageManager.PERMISSION_GRANTED)
-                    {
+        if (possiblePermissions != null) {
+            for (String permission : possiblePermissions) {
+                if (isNotNullOrEmpty(permission)) {
+                    if (ContextCompat.checkSelfPermission(getContext(), permission) != PackageManager.PERMISSION_GRANTED) {
                         notGrantedPermissions.add(permission);
                     }
                 }
@@ -185,16 +161,11 @@ public class SlideFragment extends ParallaxFragment
         ActivityCompat.requestPermissions(this.getActivity(), permissionsToGrant, PERMISSIONS_REQUEST_CODE);
     }
 
-    private boolean hasPermissionsToGrant(String[] permissions)
-    {
-        if (permissions != null)
-        {
-            for (int i = 0; i < permissions.length; i++)
-            {
-                if (isNotNullOrEmpty(permissions[i]))
-                {
-                    if (ContextCompat.checkSelfPermission(getContext(), permissions[i]) != PackageManager.PERMISSION_GRANTED)
-                    {
+    private boolean hasPermissionsToGrant(String[] permissions) {
+        if (permissions != null) {
+            for (int i = 0; i < permissions.length; i++) {
+                if (isNotNullOrEmpty(permissions[i])) {
+                    if (ContextCompat.checkSelfPermission(getContext(), permissions[i]) != PackageManager.PERMISSION_GRANTED) {
                         return true;
                     }
                 }
@@ -203,15 +174,13 @@ public class SlideFragment extends ParallaxFragment
         return false;
     }
 
-    private String[] removeEmptyAndNullStrings(final ArrayList<String> permissions)
-    {
+    private String[] removeEmptyAndNullStrings(final ArrayList<String> permissions) {
         List<String> list = new ArrayList<>(permissions);
         list.removeAll(Collections.singleton(null));
         return list.toArray(new String[list.size()]);
     }
 
-    private void setMessageButtonOnClickListener(View.OnClickListener messageButtonOnClickListener)
-    {
+    private void setMessageButtonOnClickListener(View.OnClickListener messageButtonOnClickListener) {
         this.messageButtonOnClickListener = messageButtonOnClickListener;
     }
 }

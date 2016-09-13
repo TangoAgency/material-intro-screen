@@ -1,83 +1,68 @@
 package agency.tango.materialintroscreen.listeners;
 
 import android.support.v4.view.ViewPager;
-import agency.tango.materialintroscreen.adapter.SlidesAdapter;
-import agency.tango.materialintroscreen.animations.ViewTranslationWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewBehavioursOnPageChangeListener implements ViewPager.OnPageChangeListener
-{
+import agency.tango.materialintroscreen.adapter.SlidesAdapter;
+import agency.tango.materialintroscreen.animations.ViewTranslationWrapper;
+
+public class ViewBehavioursOnPageChangeListener implements ViewPager.OnPageChangeListener {
     private final SlidesAdapter adapter;
 
     private List<IPageSelectedListener> listeners = new ArrayList<>();
     private List<ViewTranslationWrapper> wrappers = new ArrayList<>();
     private List<IPageScrolledListener> pageScrolledListeners = new ArrayList<>();
 
-    public ViewBehavioursOnPageChangeListener(SlidesAdapter adapter)
-    {
+    public ViewBehavioursOnPageChangeListener(SlidesAdapter adapter) {
         this.adapter = adapter;
     }
 
-    public ViewBehavioursOnPageChangeListener registerPageSelectedListener(IPageSelectedListener pageSelectedListener)
-    {
+    public ViewBehavioursOnPageChangeListener registerPageSelectedListener(IPageSelectedListener pageSelectedListener) {
         listeners.add(pageSelectedListener);
         return this;
     }
 
-    public ViewBehavioursOnPageChangeListener registerViewTranslationWrapper(ViewTranslationWrapper wrapper)
-    {
+    public ViewBehavioursOnPageChangeListener registerViewTranslationWrapper(ViewTranslationWrapper wrapper) {
         wrappers.add(wrapper);
         return this;
     }
 
-    public ViewBehavioursOnPageChangeListener registerOnPageScrolled(IPageScrolledListener pageScrolledListener)
-    {
+    public ViewBehavioursOnPageChangeListener registerOnPageScrolled(IPageScrolledListener pageScrolledListener) {
         pageScrolledListeners.add(pageScrolledListener);
         return this;
     }
 
     @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
-    {
-        if (isFirstSlide(position))
-        {
-            for(ViewTranslationWrapper wrapper : wrappers)
-            {
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        if (isFirstSlide(position)) {
+            for (ViewTranslationWrapper wrapper : wrappers) {
                 wrapper.enterTranslate(positionOffset);
             }
-        }
-        else if (adapter.isLastSlide(position))
-        {
-            for(ViewTranslationWrapper wrapper : wrappers)
-            {
+        } else if (adapter.isLastSlide(position)) {
+            for (ViewTranslationWrapper wrapper : wrappers) {
                 wrapper.exitTranslate(positionOffset);
             }
         }
 
-        for (IPageScrolledListener pageScrolledListener : pageScrolledListeners)
-        {
+        for (IPageScrolledListener pageScrolledListener : pageScrolledListeners) {
             pageScrolledListener.pageScrolled(position, positionOffset);
         }
     }
 
     @Override
-    public void onPageSelected(int position)
-    {
-        for (IPageSelectedListener pageSelectedListener : listeners)
-        {
+    public void onPageSelected(int position) {
+        for (IPageSelectedListener pageSelectedListener : listeners) {
             pageSelectedListener.pageSelected(position);
         }
     }
 
     @Override
-    public void onPageScrollStateChanged(int state)
-    {
+    public void onPageScrollStateChanged(int state) {
     }
 
-    private boolean isFirstSlide(int position)
-    {
+    private boolean isFirstSlide(int position) {
         return position == 0;
     }
 }
