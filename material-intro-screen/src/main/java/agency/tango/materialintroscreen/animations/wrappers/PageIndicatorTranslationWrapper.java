@@ -3,12 +3,14 @@ package agency.tango.materialintroscreen.animations.wrappers;
 import android.view.View;
 
 import agency.tango.materialintroscreen.animations.ViewTranslationWrapper;
+import agency.tango.materialintroscreen.animations.translations.DefaultPositionTranslation;
 import agency.tango.materialintroscreen.animations.translations.ExitDefaultTranslation;
 
 public class PageIndicatorTranslationWrapper extends ViewTranslationWrapper {
     public PageIndicatorTranslationWrapper(View view) {
         super(view);
 
-        this.setExitTranslation(new ExitDefaultTranslation());
+        this.setDefaultTranslation(new DefaultPositionTranslation())
+                .setExitTranslation(new ExitDefaultTranslation());
     }
 }

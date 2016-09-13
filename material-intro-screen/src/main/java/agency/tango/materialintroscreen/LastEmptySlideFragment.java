@@ -12,4 +12,14 @@ public class LastEmptySlideFragment extends SlideFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.empty_fragment_slide, container, false);
     }
+
+    @Override
+    public int primaryColor() {
+        return R.color.transparent;
+    }
+
+    @Override
+    public int secondaryColor() {
+        return R.color.transparent;
+    }
 }

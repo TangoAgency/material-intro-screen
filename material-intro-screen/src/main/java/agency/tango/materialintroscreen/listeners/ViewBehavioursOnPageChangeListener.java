@@ -44,6 +44,10 @@ public class ViewBehavioursOnPageChangeListener implements ViewPager.OnPageChang
             for (ViewTranslationWrapper wrapper : wrappers) {
                 wrapper.exitTranslate(positionOffset);
             }
+        } else {
+            for (ViewTranslationWrapper wrapper : wrappers) {
+                wrapper.defaultTranslate(positionOffset);
+            }
         }
 
         for (IPageScrolledListener pageScrolledListener : pageScrolledListeners) {

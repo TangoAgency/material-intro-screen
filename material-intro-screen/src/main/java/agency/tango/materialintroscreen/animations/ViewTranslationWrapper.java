@@ -13,6 +13,7 @@ public class ViewTranslationWrapper {
 
     private IViewTranslation enterTranslation;
     private IViewTranslation exitTranslation;
+    private IViewTranslation defaultTranslation;
     private Animation errorAnimation;
 
     public ViewTranslationWrapper(View view) {
@@ -33,6 +34,11 @@ public class ViewTranslationWrapper {
         return this;
     }
 
+    public ViewTranslationWrapper setDefaultTranslation(IViewTranslation defaultTranslation) {
+        this.defaultTranslation = defaultTranslation;
+        return this;
+    }
+
     public ViewTranslationWrapper setErrorAnimation(@AnimRes int errorAnimation) {
         if (errorAnimation != 0) {
             this.errorAnimation = AnimationUtils.loadAnimation(view.getContext(), errorAnimation);
@@ -46,6 +52,10 @@ public class ViewTranslationWrapper {
 
     public void exitTranslate(float percentage) {
         this.exitTranslation.translate(view, percentage);
+    }
+
+    public void defaultTranslate(float percentage) {
+        this.defaultTranslation.translate(view, percentage);
     }
 
     public void error() {

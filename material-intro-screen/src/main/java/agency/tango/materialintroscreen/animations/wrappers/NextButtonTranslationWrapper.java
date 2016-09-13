@@ -4,6 +4,7 @@ import android.view.View;
 
 import agency.tango.materialintroscreen.R;
 import agency.tango.materialintroscreen.animations.ViewTranslationWrapper;
+import agency.tango.materialintroscreen.animations.translations.DefaultPositionTranslation;
 import agency.tango.materialintroscreen.animations.translations.ExitDefaultTranslation;
 
 public class NextButtonTranslationWrapper extends ViewTranslationWrapper {
@@ -11,6 +12,7 @@ public class NextButtonTranslationWrapper extends ViewTranslationWrapper {
         super(view);
 
         this.setExitTranslation(new ExitDefaultTranslation())
+                .setDefaultTranslation(new DefaultPositionTranslation())
                 .setErrorAnimation(R.anim.shake_it);
     }
 }
