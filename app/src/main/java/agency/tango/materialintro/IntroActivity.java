@@ -16,8 +16,8 @@ public class IntroActivity extends MaterialIntroActivity {
         enableLastSlideAlphaExitTransition(true);
 
         addSlide(new SlideFragmentBuilder()
-                .primaryColor(R.color.first_slide_primary)
-                .secondaryColor(R.color.first_slide_secondary)
+                .backgroundColor(R.color.first_slide_background)
+                .buttonsColor(R.color.first_slide_buttons)
                 .image(R.drawable.img_office)
                 .title("Organize your time with us")
                 .description("Would you try?")
@@ -31,8 +31,8 @@ public class IntroActivity extends MaterialIntroActivity {
                 .build());
 
         addSlide(new SlideFragmentBuilder()
-                .primaryColor(R.color.second_slide_primary)
-                .secondaryColor(R.color.second_slide_secondary)
+                .backgroundColor(R.color.second_slide_background)
+                .buttonsColor(R.color.second_slide_buttons)
                 .title("Want more?")
                 .description("Go on")
                 .build());
@@ -40,8 +40,8 @@ public class IntroActivity extends MaterialIntroActivity {
         addSlide(new CustomSlide());
 
         addSlide(new SlideFragmentBuilder()
-                .primaryColor(R.color.third_slide_primary)
-                .secondaryColor(R.color.third_slide_secondary)
+                .backgroundColor(R.color.third_slide_background)
+                .buttonsColor(R.color.third_slide_buttons)
                 .possiblePermissions(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.READ_SMS})
                 .neededPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
                 .image(R.drawable.img_equipment)
@@ -57,8 +57,8 @@ public class IntroActivity extends MaterialIntroActivity {
                 .build());
 
         addSlide(new SlideFragmentBuilder()
-                .primaryColor(R.color.colorAccent)
-                .secondaryColor(R.color.colorPrimary)
+                .backgroundColor(R.color.colorAccent)
+                .buttonsColor(R.color.colorPrimary)
                 .title("That's it")
                 .description("Would you join us?")
                 .build());

@@ -5,8 +5,8 @@ import android.support.annotation.DrawableRes;
 import android.view.View;
 
 public class SlideFragmentBuilder {
-    int primaryColor;
-    int secondaryColor;
+    int backgroundColor;
+    int buttonsColor;
     String title;
     String description;
     String messageButtonText;
@@ -15,13 +15,13 @@ public class SlideFragmentBuilder {
     int image;
     View.OnClickListener messageButtonClickListener = null;
 
-    public SlideFragmentBuilder primaryColor(@ColorRes int primaryColor) {
-        this.primaryColor = primaryColor;
+    public SlideFragmentBuilder backgroundColor(@ColorRes int backgroundColor) {
+        this.backgroundColor = backgroundColor;
         return this;
     }
 
-    public SlideFragmentBuilder secondaryColor(@ColorRes int secondaryColor) {
-        this.secondaryColor = secondaryColor;
+    public SlideFragmentBuilder buttonsColor(@ColorRes int buttonsColor) {
+        this.buttonsColor = buttonsColor;
         return this;
     }
 

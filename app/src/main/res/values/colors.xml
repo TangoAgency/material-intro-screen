@@ -4,13 +4,13 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#880E4F</color>
 
-    <color name="first_slide_primary">#880E4F</color>
-    <color name="first_slide_secondary">#F44336</color>
+    <color name="first_slide_background">#880E4F</color>
+    <color name="first_slide_buttons">#F44336</color>
 
-    <color name="second_slide_primary">#9C27B0</color>
-    <color name="second_slide_secondary">#283593</color>
+    <color name="second_slide_background">#9C27B0</color>
+    <color name="second_slide_buttons">#283593</color>
 
-    <color name="third_slide_primary">#009688</color>
-    <color name="third_slide_secondary">#00BCD4</color>
+    <color name="third_slide_background">#009688</color>
+    <color name="third_slide_buttons">#00BCD4</color>
 
 </resources>

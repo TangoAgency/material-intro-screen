@@ -18,8 +18,8 @@ import java.util.List;
 import agency.tango.materialintroscreen.parallax.ParallaxFragment;
 
 public class SlideFragment extends ParallaxFragment {
-    private final static String PRIMARY_COLOR = "primary_color";
-    private static final String SECONDARY_COLOR = "secondary_color";
+    private final static String BACKGROUND_COLOR = "background_color";
+    private static final String BUTTONS_COLOR = "buttons_color";
     private static final String TITLE = "title";
     private static final String DESCRIPTION = "description";
     private static final String NEEDED_PERMISSIONS = "needed_permission";
@@ -28,8 +28,8 @@ public class SlideFragment extends ParallaxFragment {
     private static final String MESSAGE_BTN_TEXT = "message_btn_text";
     private static final int PERMISSIONS_REQUEST_CODE = 15621;
 
-    private int primaryColor;
-    private int secondaryColor;
+    private int backgroundColor;
+    private int buttonsColor;
     private int image;
     private String title;
     private String description;
@@ -46,8 +46,8 @@ public class SlideFragment extends ParallaxFragment {
         SlideFragment slideFragment = new SlideFragment();
 
         Bundle bundle = new Bundle();
-        bundle.putInt(PRIMARY_COLOR, builder.primaryColor);
-        bundle.putInt(SECONDARY_COLOR, builder.secondaryColor);
+        bundle.putInt(BACKGROUND_COLOR, builder.backgroundColor);
+        bundle.putInt(BUTTONS_COLOR, builder.buttonsColor);
         bundle.putInt(IMAGE, builder.image);
         bundle.putString(TITLE, builder.title);
         bundle.putString(DESCRIPTION, builder.description);
@@ -77,8 +77,8 @@ public class SlideFragment extends ParallaxFragment {
 
     public void initializeView() {
         Bundle bundle = getArguments();
-        primaryColor = bundle.getInt(PRIMARY_COLOR);
-        secondaryColor = bundle.getInt(SECONDARY_COLOR);
+        backgroundColor = bundle.getInt(BACKGROUND_COLOR);
+        buttonsColor = bundle.getInt(BUTTONS_COLOR);
         image = bundle.getInt(IMAGE, 0);
         title = bundle.getString(TITLE);
         description = bundle.getString(DESCRIPTION);
@@ -89,12 +89,12 @@ public class SlideFragment extends ParallaxFragment {
         updateViewWithValues();
     }
 
-    public int primaryColor() {
-        return primaryColor;
+    public int backgroundColor() {
+        return backgroundColor;
     }
 
-    public int secondaryColor() {
-        return secondaryColor;
+    public int buttonsColor() {
+        return buttonsColor;
     }
 
     public String messageButtonText() {

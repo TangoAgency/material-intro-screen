@@ -205,12 +205,12 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         }
     }
 
-    private Integer getPrimaryColor(int position, float positionOffset) {
-        return (Integer) argbEvaluator.evaluate(positionOffset, color(adapter.getItem(position).primaryColor()), color(adapter.getItem(position + 1).primaryColor()));
+    private Integer getBackgroundColor(int position, float positionOffset) {
+        return (Integer) argbEvaluator.evaluate(positionOffset, color(adapter.getItem(position).backgroundColor()), color(adapter.getItem(position + 1).backgroundColor()));
     }
 
-    private Integer getSecondaryColor(int position, float positionOffset) {
-        return (Integer) argbEvaluator.evaluate(positionOffset, color(adapter.getItem(position).secondaryColor()), color(adapter.getItem(position + 1).secondaryColor()));
+    private Integer getButtonsColor(int position, float positionOffset) {
+        return (Integer) argbEvaluator.evaluate(positionOffset, color(adapter.getItem(position).buttonsColor()), color(adapter.getItem(position + 1).buttonsColor()));
     }
 
     private int color(@ColorRes int color) {
@@ -287,25 +287,25 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
             if (position < adapter.getCount() - 1) {
                 setViewsColor(position, offset);
             } else if (adapter.getCount() == 1) {
-                viewPager.setBackgroundColor(adapter.getItem(position).primaryColor());
-                messageButton.setTextColor(adapter.getItem(position).primaryColor());
+                viewPager.setBackgroundColor(adapter.getItem(position).backgroundColor());
+                messageButton.setTextColor(adapter.getItem(position).backgroundColor());
 
-                tintButtons(ColorStateList.valueOf(adapter.getItem(position).secondaryColor()));
+                tintButtons(ColorStateList.valueOf(adapter.getItem(position).buttonsColor()));
             }
         }
 
         private void setViewsColor(int position, float offset) {
-            int primaryColor = getPrimaryColor(position, offset);
-            viewPager.setBackgroundColor(primaryColor);
-            messageButton.setTextColor(primaryColor);
+            int backgroundColor = getBackgroundColor(position, offset);
+            viewPager.setBackgroundColor(backgroundColor);
+            messageButton.setTextColor(backgroundColor);
 
-            int secondaryColor = getSecondaryColor(position, offset);
+            int buttonsColor = getButtonsColor(position, offset);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getWindow().setStatusBarColor(secondaryColor);
+                getWindow().setStatusBarColor(buttonsColor);
             }
-            inkIndicator.setPageIndicatorColor(secondaryColor);
+            inkIndicator.setPageIndicatorColor(buttonsColor);
 
-            tintButtons(ColorStateList.valueOf(secondaryColor));
+            tintButtons(ColorStateList.valueOf(buttonsColor));
         }
 
         private void tintButtons(ColorStateList color) {

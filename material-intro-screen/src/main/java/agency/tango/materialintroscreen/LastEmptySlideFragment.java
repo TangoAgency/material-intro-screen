@@ -14,12 +14,12 @@ public class LastEmptySlideFragment extends SlideFragment {
     }
 
     @Override
-    public int primaryColor() {
+    public int backgroundColor() {
         return R.color.transparent;
     }
 
     @Override
-    public int secondaryColor() {
+    public int buttonsColor() {
         return R.color.transparent;
     }
 }
