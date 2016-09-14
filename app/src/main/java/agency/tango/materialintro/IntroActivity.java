@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import agency.tango.materialintroscreen.MaterialIntroActivity;
+import agency.tango.materialintroscreen.MessageButtonBehaviour;
 import agency.tango.materialintroscreen.SlideFragmentBuilder;
 
 public class IntroActivity extends MaterialIntroActivity {
@@ -16,19 +17,18 @@ public class IntroActivity extends MaterialIntroActivity {
         enableLastSlideAlphaExitTransition(true);
 
         addSlide(new SlideFragmentBuilder()
-                .backgroundColor(R.color.first_slide_background)
-                .buttonsColor(R.color.first_slide_buttons)
-                .image(R.drawable.img_office)
-                .title("Organize your time with us")
-                .description("Would you try?")
-                .messageButtonText("Work with love")
-                .messageButtonClickListener(new View.OnClickListener() {
+                        .backgroundColor(R.color.first_slide_background)
+                        .buttonsColor(R.color.first_slide_buttons)
+                        .image(R.drawable.img_office)
+                        .title("Organize your time with us")
+                        .description("Would you try?")
+                        .build(),
+                new MessageButtonBehaviour(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(), "We provide solutions to make you love your work", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(IntroActivity.this, "We provide solutions to make you love your work", Toast.LENGTH_SHORT).show();
                     }
-                })
-                .build());
+                }, "Work with love"));
 
         addSlide(new SlideFragmentBuilder()
                 .backgroundColor(R.color.second_slide_background)
@@ -40,21 +40,20 @@ public class IntroActivity extends MaterialIntroActivity {
         addSlide(new CustomSlide());
 
         addSlide(new SlideFragmentBuilder()
-                .backgroundColor(R.color.third_slide_background)
-                .buttonsColor(R.color.third_slide_buttons)
-                .possiblePermissions(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.READ_SMS})
-                .neededPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
-                .image(R.drawable.img_equipment)
-                .messageButtonText("Tools")
-                .messageButtonClickListener(new View.OnClickListener() {
+                        .backgroundColor(R.color.third_slide_background)
+                        .buttonsColor(R.color.third_slide_buttons)
+                         .possiblePermissions(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.READ_SMS})
+                        .neededPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
+                        .image(R.drawable.img_equipment)
+                        .title("We provide best tools")
+                        .description("ever")
+                        .build(),
+                new MessageButtonBehaviour(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(), "Try us", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(IntroActivity.this, "Try us", Toast.LENGTH_SHORT).show();
                     }
-                })
-                .title("We provide best tools")
-                .description("ever")
-                .build());
+                }, "Tools"));
 
         addSlide(new SlideFragmentBuilder()
                 .backgroundColor(R.color.fourth_slide_background)

@@ -2,18 +2,15 @@ package agency.tango.materialintroscreen;
 
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
-import android.view.View;
 
 public class SlideFragmentBuilder {
     int backgroundColor;
     int buttonsColor;
     String title;
     String description;
-    String messageButtonText;
     String[] neededPermissions;
     String[] possiblePermissions;
     int image;
-    View.OnClickListener messageButtonClickListener = null;
 
     public SlideFragmentBuilder backgroundColor(@ColorRes int backgroundColor) {
         this.backgroundColor = backgroundColor;
@@ -47,16 +44,6 @@ public class SlideFragmentBuilder {
 
     public SlideFragmentBuilder image(@DrawableRes int image) {
         this.image = image;
-        return this;
-    }
-
-    public SlideFragmentBuilder messageButtonText(String messageButtonText) {
-        this.messageButtonText = messageButtonText;
-        return this;
-    }
-
-    public SlideFragmentBuilder messageButtonClickListener(View.OnClickListener messageButtonClickListener) {
-        this.messageButtonClickListener = messageButtonClickListener;
         return this;
     }
 

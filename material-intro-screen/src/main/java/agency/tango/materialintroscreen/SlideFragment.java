@@ -25,7 +25,6 @@ public class SlideFragment extends ParallaxFragment {
     private static final String NEEDED_PERMISSIONS = "needed_permission";
     private static final String POSSIBLE_PERMISSIONS = "possible_permission";
     private static final String IMAGE = "image";
-    private static final String MESSAGE_BTN_TEXT = "message_btn_text";
     private static final int PERMISSIONS_REQUEST_CODE = 15621;
 
     private int backgroundColor;
@@ -33,14 +32,12 @@ public class SlideFragment extends ParallaxFragment {
     private int image;
     private String title;
     private String description;
-    private String messageButtonText;
     private String[] neededPermissions;
     private String[] possiblePermissions;
 
     private TextView titleTextView;
     private TextView descriptionTextView;
     private ImageView imageView;
-    private View.OnClickListener messageButtonOnClickListener;
 
     public static SlideFragment createInstance(SlideFragmentBuilder builder) {
         SlideFragment slideFragment = new SlideFragment();
@@ -51,10 +48,8 @@ public class SlideFragment extends ParallaxFragment {
         bundle.putInt(IMAGE, builder.image);
         bundle.putString(TITLE, builder.title);
         bundle.putString(DESCRIPTION, builder.description);
-        bundle.putString(MESSAGE_BTN_TEXT, builder.messageButtonText);
         bundle.putStringArray(NEEDED_PERMISSIONS, builder.neededPermissions);
         bundle.putStringArray(POSSIBLE_PERMISSIONS, builder.possiblePermissions);
-        slideFragment.setMessageButtonOnClickListener(builder.messageButtonClickListener);
 
         slideFragment.setArguments(bundle);
         return slideFragment;
@@ -82,7 +77,6 @@ public class SlideFragment extends ParallaxFragment {
         image = bundle.getInt(IMAGE, 0);
         title = bundle.getString(TITLE);
         description = bundle.getString(DESCRIPTION);
-        messageButtonText = bundle.getString(MESSAGE_BTN_TEXT);
         neededPermissions = bundle.getStringArray(NEEDED_PERMISSIONS);
         possiblePermissions = bundle.getStringArray(POSSIBLE_PERMISSIONS);
 
@@ -95,14 +89,6 @@ public class SlideFragment extends ParallaxFragment {
 
     public int buttonsColor() {
         return buttonsColor;
-    }
-
-    public String messageButtonText() {
-        return messageButtonText;
-    }
-
-    public View.OnClickListener messageButtonClickListener() {
-        return messageButtonOnClickListener;
     }
 
     public boolean hasAnyPermissionsToGrant() {
@@ -178,9 +164,5 @@ public class SlideFragment extends ParallaxFragment {
         List<String> list = new ArrayList<>(permissions);
         list.removeAll(Collections.singleton(null));
         return list.toArray(new String[list.size()]);
-    }
-
-    private void setMessageButtonOnClickListener(View.OnClickListener messageButtonOnClickListener) {
-        this.messageButtonOnClickListener = messageButtonOnClickListener;
     }
 }

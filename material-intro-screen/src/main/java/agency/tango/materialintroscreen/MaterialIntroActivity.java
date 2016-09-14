@@ -12,6 +12,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -56,6 +57,8 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
 
     private View.OnClickListener permissionNotGrantedClickListener;
     private View.OnClickListener finishScreenClickListener;
+
+    private SparseArray<MessageButtonBehaviour> messageButtonBehaviours = new SparseArray<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -139,7 +142,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     private void initOnPageChangeListeners() {
-        messageButtonBehaviourOnPageSelected = new MessageButtonBehaviourOnPageSelected(messageButton, adapter);
+        messageButtonBehaviourOnPageSelected = new MessageButtonBehaviourOnPageSelected(messageButton, adapter, messageButtonBehaviours);
 
         viewPager.registerOnTouchEventListener(new SwipeStateTouchListener(viewPager, adapter));
 
@@ -224,6 +227,17 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
      */
     public void addSlide(SlideFragment slideFragment) {
         adapter.addItem(slideFragment);
+    }
+
+    /**
+     * Add SlideFragment to IntroScreen
+     *
+     * @param slideFragment          Fragment to add
+     * @param messageButtonBehaviour Add behaviour for message button
+     */
+    public void addSlide(SlideFragment slideFragment, MessageButtonBehaviour messageButtonBehaviour) {
+        adapter.addItem(slideFragment);
+        messageButtonBehaviours.put(adapter.getLastItemPosition(), messageButtonBehaviour);
     }
 
     /**
