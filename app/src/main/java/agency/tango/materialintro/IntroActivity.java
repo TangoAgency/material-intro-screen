@@ -57,8 +57,8 @@ public class IntroActivity extends MaterialIntroActivity {
                 .build());
 
         addSlide(new SlideFragmentBuilder()
-                .backgroundColor(R.color.colorAccent)
-                .buttonsColor(R.color.colorPrimary)
+                .backgroundColor(R.color.fourth_slide_background)
+                .buttonsColor(R.color.fourth_slide_buttons)
                 .title("That's it")
                 .description("Would you join us?")
                 .build());
