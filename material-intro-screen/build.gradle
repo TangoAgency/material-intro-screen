@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 apply from: "$rootDir/versions.gradle"
 android {
@@ -37,4 +38,17 @@ dependencies {
 
     compile "com.android.support:appcompat-v7:${project.androidSupport}"
     compile "com.android.support:design:${project.androidSupport}"
+}
+
+
+
+apply from: 'https://github.com/radzio/gradle-mvn-push/raw/master/gradle-mvn-push.gradle'
+
+publish {
+    userOrg = 'tangoagency'
+    groupId = 'agency.tango.android'
+    artifactId = 'material-intro-screen'
+    publishVersion = '0.0.1'
+    desc = ''
+    website = 'https://github.com/TangoAgency/material-intro-screen'
 }
