@@ -29,6 +29,7 @@ import agency.tango.materialintroscreen.animations.wrappers.ViewPagerTranslation
 import agency.tango.materialintroscreen.listeners.IPageScrolledListener;
 import agency.tango.materialintroscreen.listeners.IPageSelectedListener;
 import agency.tango.materialintroscreen.listeners.MessageButtonBehaviourOnPageSelected;
+import agency.tango.materialintroscreen.listeners.SwipeStateTouchListener;
 import agency.tango.materialintroscreen.listeners.ViewBehavioursOnPageChangeListener;
 import agency.tango.materialintroscreen.listeners.clickListeners.FinishScreenClickListener;
 import agency.tango.materialintroscreen.listeners.clickListeners.PermissionNotGrantedClickListener;
@@ -140,6 +141,8 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     private void initOnPageChangeListeners() {
         messageButtonBehaviourOnPageSelected = new MessageButtonBehaviourOnPageSelected(messageButton, adapter);
 
+        viewPager.registerOnTouchEventListener(new SwipeStateTouchListener(viewPager, adapter));
+
         viewPager.addOnPageChangeListener(new ViewBehavioursOnPageChangeListener(adapter)
                 .registerViewTranslationWrapper(nextButtonTranslationWrapper)
                 .registerViewTranslationWrapper(new BackButtonTranslationWrapper(backButton))
@@ -159,7 +162,6 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
                                 }
                             }
                         });
-                        nextButtonBehaviour(position, adapter.getItem(position));
                     }
                 })
                 .registerOnPageScrolled(new ColorTransitionScrollListener())
@@ -169,6 +171,8 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
                 .registerPageSelectedListener(new IPageSelectedListener() {
                     @Override
                     public void pageSelected(int position) {
+                        nextButtonBehaviour(position, adapter.getItem(position));
+
                         if (adapter.shouldFinish(position)) {
                             finish();
                         }
@@ -199,12 +203,6 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
                 }
             });
         }
-
-        if (fragment.canMoveFurther() == false || hasPermissionToGrant) {
-            viewPager.setAllowedSwipeDirection(SwipeableViewPager.SwipeDirection.left);
-        } else {
-            viewPager.setAllowedSwipeDirection(SwipeableViewPager.SwipeDirection.all);
-        }
     }
 
     private Integer getPrimaryColor(int position, float positionOffset) {
@@ -221,6 +219,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
 
     /**
      * Add SlideFragment to IntroScreen
+     *
      * @param slideFragment Fragment to add
      */
     public void addSlide(SlideFragment slideFragment) {

@@ -25,7 +25,7 @@ public class IntroActivity extends MaterialIntroActivity {
                 .messageButtonClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(), "Love with work", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "We provide solutions to make you love your work", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .build());
@@ -55,7 +55,6 @@ public class IntroActivity extends MaterialIntroActivity {
                 .title("We provide best tools")
                 .description("ever")
                 .build());
-
 
         addSlide(new SlideFragmentBuilder()
                 .primaryColor(R.color.colorAccent)

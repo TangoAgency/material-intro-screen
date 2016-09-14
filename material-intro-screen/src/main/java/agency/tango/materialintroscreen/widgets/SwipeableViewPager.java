@@ -5,11 +5,17 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import agency.tango.materialintroscreen.adapter.SlidesAdapter;
+import agency.tango.materialintroscreen.listeners.ITouchEventListener;
 
 public class SwipeableViewPager extends ViewPager {
     private float initialXValue;
     private SwipeDirection direction;
+
+    List<ITouchEventListener> touchEventListeners = new ArrayList<>();
 
     public SwipeableViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -18,6 +24,10 @@ public class SwipeableViewPager extends ViewPager {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        for (ITouchEventListener eventListener : touchEventListeners) {
+            eventListener.process();
+        }
+
         if (IsSwipeAllowed(event)) {
             return super.onTouchEvent(event);
         }
@@ -35,6 +45,11 @@ public class SwipeableViewPager extends ViewPager {
     @Override
     public SlidesAdapter getAdapter() {
         return (SlidesAdapter) super.getAdapter();
+    }
+
+    public SwipeableViewPager registerOnTouchEventListener(ITouchEventListener eventListener) {
+        touchEventListeners.add(eventListener);
+        return this;
     }
 
     public int getPreviousItem() {
