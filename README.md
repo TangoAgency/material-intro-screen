@@ -1,7 +1,7 @@
 # Android Material Intro Screen
-Material intro screen is inspired by [Material Intro] and developed with love from scratch. I decided to rewrite completely almost all features in order to make Android intro screen easy to use for everyone and extenisble as possible.
+Material intro screen is inspired by [Material Intro] and developed with love from scratch. I decided to rewrite completely almost all features in order to make Android intro screen easy to use for everyone and extensible as possible.
 ## Features
-  - Easly add new slides
+  - Easily add new slides
   - Custom slides
   - Parallax slides
   - Easy extensible api
@@ -19,18 +19,19 @@ Material intro screen is inspired by [Material Intro] and developed with love fr
 ```compile 'agency.tango.android:material-intro-screen:0.0.1'```
 
 ### Step 2:
-First, your intro activity class need to extend MaterialIntroActivity
+First, your intro activity class need to extend MaterialIntroActivity:
 ```java
 public class IntroActivity extends MaterialIntroActivity
 ```
 ### Step 3:
-Add activity to manifest with defined theme
+Add activity to manifest with defined theme:
 ```xml
         <activity
             android:name=".IntroActivity"
             android:theme="@style/Theme.Intro" />
 ```
-### Step 4: Add slides
+### Step 4: 
+Add slides:
 ```java
  @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,9 +57,10 @@ Add activity to manifest with defined theme
 Explanation of SlideFragment usage:
   - ```possiblePermissions``` &#8702; permissions which are not necessary to be granted
   - ```neededPersmissions``` &#8702; permission which are needed to be granted to move further from that slide
-  - ```MessageButtonBehaviour``` &#8702; create new instance only if you want to have custom action or text on message button
+  - ```MessageButtonBehaviour``` &#8702; create a new instance only if you want to have a custom action or text on a message button
 
-### Step 5: Customize Intro Activity
+### Step 5: 
+Customize Intro Activity:
   - ```setSkipButtonVisible()``` &#8702; show skip button instead of back button on the left bottom of screen
   - ```hideBackButton()``` &#8702; hides any button on the left bottom of screen
   - ```enableLastSlideAlphaExitTransition()``` &#8702; set if the last slide should disapear with alpha hiding effect
@@ -67,15 +69,15 @@ Explanation of SlideFragment usage:
 Of course you are able to implement completely custom slides. You only need to extend SlideFragment and override following functions:
  - ```backgroundColor()```
  - ```buttonsColor()```
- - ```canMoveFurther()``` (only if You want to stop user from being able to move further before he will do some action)
+ - ```canMoveFurther()``` (only if you want to stop user from being able to move further before he will do some action)
  - ```cantMoveFurtherErrorMessage()``` (as above)
  
-If you want to use parallax in fragment please use one of below views:
+If you want to use parallax in a fragment please use one of the below views:
   - ```ParallaxFrameLayout```
   - ```ParallaxLinearLayout```
   - ```ParallaxRelativeLayout```
 
-And set there attribute app:layout_parallaxFactor
+And set there attribute app:layout_parallaxFactor:
 ```xml
 <agency.tango.materialintroscreen.parallax.ParallaxLinearLayout
 xmlns:android="http://schemas.android.com/apk/res/android">
@@ -85,7 +87,7 @@ xmlns:android="http://schemas.android.com/apk/res/android">
         app:layout_parallaxFactor="0.6"/>
 ```
 
-All features not available in simple Slide Fragment are shown here: [Custom Slide]
+All features which are not available in simple Slide Fragment are shown here: [Custom Slide]
 
 ## Things I have used to create this
  - For parallax I have used files from [Material Intro] by [@HeinrichReimer]
