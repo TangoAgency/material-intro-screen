@@ -1,37 +1,41 @@
 # Android Material Intro Screen
+ [ ![Download](https://api.bintray.com/packages/tangoagency/maven/material-intro-screen/images/download.svg) ](https://bintray.com/tangoagency/maven/material-intro-screen/_latestVersion)
+[![Build Status](https://travis-ci.org/TangoAgency/material-intro-screen.svg?branch=master)](https://travis-ci.org/TangoAgency/material-intro-screen)
+
 Material intro screen is inspired by [Material Intro] and developed with love from scratch. I decided to rewrite completely almost all features in order to make Android intro screen easy to use for everyone and extensible as possible.
 ## Features
-  - Easily add new slides
-  - Custom slides
-  - Parallax slides
+  - [Easily add new slides][Intro Activity]
+  - [Custom slides][Custom Slide]
+  - [Parallax slides][Parallax Slide]
   - Easy extensible api
   - Material design at it's best!!!
 
-| Simple slide | Custom slide | Permission slide | Finish slide
+| [Simple slide][SimpleSlide] | [Custom slide][Custom Slide] | [Permission slide][PermissionSlide] | [Finish slide][FinishSlide]
 |:-:|:-:|:-:|:-:|
 | ![Simple slide] | ![Customslide] | ![Permission slide] | ![Finish slide] |
 
 ## Usage
 ### Step 1:
- [ ![Download](https://api.bintray.com/packages/tangoagency/maven/material-intro-screen/images/download.svg) ](https://bintray.com/tangoagency/maven/material-intro-screen/_latestVersion)
-
 #### Add gradle dependecy
-```compile 'agency.tango.android:material-intro-screen:0.0.1'```
-
+```
+dependencies {
+  compile 'agency.tango.android:material-intro-screen:0.0.1'
+}
+```
 ### Step 2:
-First, your intro activity class needs to extend MaterialIntroActivity:
+First, your [intro activity][Intro Activity] class needs to extend MaterialIntroActivity:
 ```java
 public class IntroActivity extends MaterialIntroActivity
 ```
 ### Step 3:
-Add activity to manifest with defined theme:
+Add activity to [manifest][Manifest] with defined theme:
 ```xml
         <activity
             android:name=".IntroActivity"
             android:theme="@style/Theme.Intro" />
 ```
 ### Step 4: 
-Add slides:
+[Add slides:][Intro Activity]
 ```java
  @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,7 +81,7 @@ getNextButtonTranslationWrapper()
                     }
                 });
 ```
-Available translation wrappers:
+Available [translation wrappers][TranslationWrapper]:
 - ```getNextButtonTranslationWrapper()```
 - ```getBackButtonTranslationWrapper()```
 - ```getPageIndicatorTranslationWrapper()```
@@ -92,11 +96,11 @@ Of course you are able to implement completely custom slides. You only need to e
  - ```cantMoveFurtherErrorMessage()``` (as above)
  
 If you want to use parallax in a fragment please use one of the below views:
-  - ```ParallaxFrameLayout```
-  - ```ParallaxLinearLayout```
-  - ```ParallaxRelativeLayout```
+  - [```ParallaxFrameLayout```][ParallaxFrame]
+  - [```ParallaxLinearLayout```][ParallaxLinear]
+  - [```ParallaxRelativeLayout```][ParallaxRelative]
 
-And set there the app:layout_parallaxFactor attribute:
+And set there the [app:layout_parallaxFactor][ParallaxFactor] attribute:
 ```xml
 <agency.tango.materialintroscreen.parallax.ParallaxLinearLayout
 xmlns:android="http://schemas.android.com/apk/res/android">
@@ -123,3 +127,14 @@ All features which are not available in simple Slide Fragment are shown here: [C
 [Customslide]: <https://github.com/TangoAgency/material-intro-screen/blob/master/images/custom_slide.gif>
 [Permission slide]: <https://github.com/TangoAgency/material-intro-screen/blob/master/images/permissions_slide.gif>
 [Finish slide]: <https://github.com/TangoAgency/material-intro-screen/blob/master/images/finish_slide.gif>
+[Intro Activity]: <https://github.com/TangoAgency/material-intro-screen/blob/master/app/src/main/java/agency/tango/materialintro/IntroActivity.java>
+[Parallax Slide]: <https://github.com/TangoAgency/material-intro-screen/blob/master/app/src/main/res/layout/fragment_custom_slide.xml>
+[PermissionSlide]: <https://github.com/TangoAgency/material-intro-screen/blob/master/app/src/main/java/agency/tango/materialintro/IntroActivity.java#L52>
+[FinishSlide]: <https://github.com/TangoAgency/material-intro-screen/blob/master/app/src/main/java/agency/tango/materialintro/IntroActivity.java#L19>
+[SimpleSlide]: <https://github.com/TangoAgency/material-intro-screen/blob/master/app/src/main/java/agency/tango/materialintro/IntroActivity.java#L43>
+[ParallaxFrame]: <https://github.com/TangoAgency/material-intro-screen/blob/master/material-intro-screen/src/main/java/agency/tango/materialintroscreen/parallax/ParallaxFrameLayout.java>
+[ParallaxLinear]: <https://github.com/TangoAgency/material-intro-screen/blob/master/material-intro-screen/src/main/java/agency/tango/materialintroscreen/parallax/ParallaxLinearLayout.java>
+[ParallaxRelative]: <https://github.com/TangoAgency/material-intro-screen/blob/master/material-intro-screen/src/main/java/agency/tango/materialintroscreen/parallax/ParallaxRelativeLayout.java>
+[ParallaxFactor]: <https://github.com/TangoAgency/material-intro-screen/blob/master/material-intro-screen/src/main/res/layout/fragment_slide.xml#L29>
+[Manifest]: <https://github.com/TangoAgency/material-intro-screen/blob/master/app/src/main/AndroidManifest.xml#L28>
+[TranslationWrapper]: <https://github.com/TangoAgency/material-intro-screen/blob/master/material-intro-screen/src/main/java/agency/tango/materialintroscreen/animations/ViewTranslationWrapper.java>
