@@ -13,11 +13,24 @@ Material intro screen is inspired by [Material Intro] and developed with love fr
 
 ## Usage
 ### Step 1:
+ [ ![Download](https://api.bintray.com/packages/tangoagency/maven/material-intro-screen/images/download.svg) ](https://bintray.com/tangoagency/maven/material-intro-screen/_latestVersion)
+
+#### Add gradle dependecy
+```compile 'agency.tango.android:material-intro-screen:0.0.1'```
+
+### Step 2:
 First, your intro activity class need to extend MaterialIntroActivity
 ```java
 public class IntroActivity extends MaterialIntroActivity
 ```
-### Step 2: Add slides
+### Step 3:
+Add activity to manifest with defined theme
+```xml
+        <activity
+            android:name=".IntroActivity"
+            android:theme="@style/Theme.Intro" />
+```
+### Step 4: Add slides
 ```java
  @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,7 +58,7 @@ Explanation of SlideFragment usage:
   - ```neededPersmissions``` &#8702; permission which are needed to be granted to move further from that slide
   - ```MessageButtonBehaviour``` &#8702; create new instance only if you want to have custom action or text on message button
 
-### Step 3: Customize Intro Activity
+### Step 5: Customize Intro Activity
   - ```setSkipButtonVisible()``` &#8702; show skip button instead of back button on the left bottom of screen
   - ```hideBackButton()``` &#8702; hides any button on the left bottom of screen
   - ```enableLastSlideAlphaExitTransition()``` &#8702; set if the last slide should disapear with alpha hiding effect
