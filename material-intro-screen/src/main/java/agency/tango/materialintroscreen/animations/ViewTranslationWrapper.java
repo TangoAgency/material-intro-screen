@@ -24,21 +24,37 @@ public class ViewTranslationWrapper {
         this.setErrorAnimation(0);
     }
 
+    /**
+     * Set translation after passing first slide
+     * @param enterTranslation new translation
+     */
     public ViewTranslationWrapper setEnterTranslation(IViewTranslation enterTranslation) {
         this.enterTranslation = enterTranslation;
         return this;
     }
 
+    /**
+     * Set translation after passing last slide
+     * @param exitTranslation new translation
+     */
     public ViewTranslationWrapper setExitTranslation(IViewTranslation exitTranslation) {
         this.exitTranslation = exitTranslation;
         return this;
     }
 
+    /**
+     * Set default translation
+     * @param defaultTranslation new translation
+     */
     public ViewTranslationWrapper setDefaultTranslation(IViewTranslation defaultTranslation) {
         this.defaultTranslation = defaultTranslation;
         return this;
     }
 
+    /**
+     * Set view on error animation
+     * @param errorAnimation new animation
+     */
     public ViewTranslationWrapper setErrorAnimation(@AnimRes int errorAnimation) {
         if (errorAnimation != 0) {
             this.errorAnimation = AnimationUtils.loadAnimation(view.getContext(), errorAnimation);
