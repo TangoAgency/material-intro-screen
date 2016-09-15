@@ -5,7 +5,7 @@ Material intro screen is inspired by [Material Intro] and developed with love fr
   - Custom slides
   - Parallax slides
   - Easy extensible api
-  - Material design as it's best!!!
+  - Material design at it's best!!!
 
 | Simple slide | Custom slide | Permission slide | Finish slide
 |:-:|:-:|:-:|:-:|
@@ -19,7 +19,7 @@ Material intro screen is inspired by [Material Intro] and developed with love fr
 ```compile 'agency.tango.android:material-intro-screen:0.0.1'```
 
 ### Step 2:
-First, your intro activity class need to extend MaterialIntroActivity:
+First, your intro activity class needs to extend MaterialIntroActivity:
 ```java
 public class IntroActivity extends MaterialIntroActivity
 ```
@@ -77,7 +77,7 @@ If you want to use parallax in a fragment please use one of the below views:
   - ```ParallaxLinearLayout```
   - ```ParallaxRelativeLayout```
 
-And set there attribute app:layout_parallaxFactor:
+And set there the app:layout_parallaxFactor attribute:
 ```xml
 <agency.tango.materialintroscreen.parallax.ParallaxLinearLayout
 xmlns:android="http://schemas.android.com/apk/res/android">
