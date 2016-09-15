@@ -9,7 +9,7 @@ Material intro screen is inspired by [Material Intro] and developed with love fr
 
 | Simple slide | Custom slide | Permission slide | Finish slide
 |:-:|:-:|:-:|:-:|
-| ![Simple slide] | ![Custom slide] | ![Permission slide] | ![Finish slide] |
+| ![Simple slide] | ![Customslide] | ![Permission slide] | ![Finish slide] |
 
 ## Usage
 ### Step 1:
@@ -86,6 +86,6 @@ All features not available in simple Slide Fragment are shown here: [Custom Slid
 [@NickButcher]: <https://github.com/nickbutcher>
 [freepik]: <http://www.freepik.com/>
 [Simple slide]: <https://github.com/TangoAgency/material-intro-screen/blob/master/images/simple_slide.gif>
-[Custom slide]: <https://github.com/TangoAgency/material-intro-screen/blob/master/images/custom_slide.gif>
+[Customslide]: <https://github.com/TangoAgency/material-intro-screen/blob/master/images/custom_slide.gif>
 [Permission slide]: <https://github.com/TangoAgency/material-intro-screen/blob/master/images/permissions_slide.gif>
 [Finish slide]: <https://github.com/TangoAgency/material-intro-screen/blob/master/images/finish_slide.gif>
