@@ -6,4 +6,10 @@
         <item name="android:colorControlHighlight">@android:color/darker_gray</item>
         <item name="android:textColor">@android:color/black</item>
     </style>
+
+    <style name="SplashScreen" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowBackground">@drawable/splash_screen_background</item>
+        <item name="android:statusBarColor">@color/splash_background</item>
+    </style>
 </resources>

@@ -12,7 +12,7 @@
     <agency.tango.materialintroscreen.widgets.SwipeableViewPager
         android:id="@+id/view_pager_slides"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <LinearLayout
         android:id="@+id/navigation_view"
