@@ -65,6 +65,25 @@ Customize Intro Activity:
   - ```hideBackButton()``` &#8702; hides any button on the left bottom of screen
   - ```enableLastSlideAlphaExitTransition()``` &#8702; set if the last slide should disapear with alpha hiding effect
 
+Customizing view animations: 
+
+You can set enter, default and exit translation for every view in intro activity. To achive this you need to get translation wrapper for chosen view (for example: ```getNextButtonTranslationWrapper()```) and set there new class which will implement ```IViewTranslation```
+```java
+getNextButtonTranslationWrapper()
+                .setEnterTranslation(new IViewTranslation() {
+                    @Override
+                    public void translate(View view, @FloatRange(from = 0, to = 1.0) float percentage) {
+                        view.setAlpha(percentage);
+                    }
+                });
+```
+Available translation wrappers:
+- ```getNextButtonTranslationWrapper()```
+- ```getBackButtonTranslationWrapper()```
+- ```getPageIndicatorTranslationWrapper()```
+- ```getViewPagerTranslationWrapper()``` 
+- ```getSkipButtonTranslationWrapper()``` 
+
 ## Custom slides
 Of course you are able to implement completely custom slides. You only need to extend SlideFragment and override following functions:
  - ```backgroundColor()```
