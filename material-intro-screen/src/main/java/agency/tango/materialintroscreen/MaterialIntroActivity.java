@@ -42,7 +42,7 @@ import static android.view.View.GONE;
 
 public abstract class MaterialIntroActivity extends AppCompatActivity {
     private SwipeableViewPager viewPager;
-    private InkPageIndicator inkIndicator;
+    private InkPageIndicator pageIndicator;
     private SlidesAdapter adapter;
     private ImageButton backButton;
     private ImageButton skipButton;
@@ -52,7 +52,13 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     private LinearLayout navigationView;
 
     private ArgbEvaluator argbEvaluator = new ArgbEvaluator();
+
     private ViewTranslationWrapper nextButtonTranslationWrapper;
+    private ViewTranslationWrapper backButtonTranslationWrapper;
+    private ViewTranslationWrapper pageIndicatorTranslationWrapper;
+    private ViewTranslationWrapper viewPagerTranslationWrapper;
+    private ViewTranslationWrapper skipButtonTranslationWrapper;
+
     private MessageButtonBehaviourOnPageSelected messageButtonBehaviourOnPageSelected;
 
     private View.OnClickListener permissionNotGrantedClickListener;
@@ -71,7 +77,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_material_intro);
         viewPager = (SwipeableViewPager) findViewById(R.id.view_pager_slides);
-        inkIndicator = (InkPageIndicator) findViewById(R.id.indicator);
+        pageIndicator = (InkPageIndicator) findViewById(R.id.indicator);
         backButton = (ImageButton) findViewById(R.id.button_back);
         nextButton = (ImageButton) findViewById(R.id.button_next);
         skipButton = (ImageButton) findViewById(R.id.button_skip);
@@ -83,7 +89,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
 
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(2);
-        inkIndicator.setViewPager(viewPager);
+        pageIndicator.setViewPager(viewPager);
 
         nextButtonTranslationWrapper = new NextButtonTranslationWrapper(nextButton);
         initOnPageChangeListeners();
@@ -146,12 +152,17 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
 
         viewPager.registerOnTouchEventListener(new SwipeStateTouchListener(viewPager, adapter));
 
+        backButtonTranslationWrapper = new BackButtonTranslationWrapper(backButton);
+        pageIndicatorTranslationWrapper = new PageIndicatorTranslationWrapper(pageIndicator);
+        viewPagerTranslationWrapper = new ViewPagerTranslationWrapper(viewPager);
+        skipButtonTranslationWrapper = new SkipButtonTranslationWrapper(skipButton);
+
         viewPager.addOnPageChangeListener(new ViewBehavioursOnPageChangeListener(adapter)
                 .registerViewTranslationWrapper(nextButtonTranslationWrapper)
-                .registerViewTranslationWrapper(new BackButtonTranslationWrapper(backButton))
-                .registerViewTranslationWrapper(new PageIndicatorTranslationWrapper(inkIndicator))
-                .registerViewTranslationWrapper(new ViewPagerTranslationWrapper(viewPager))
-                .registerViewTranslationWrapper(new SkipButtonTranslationWrapper(skipButton))
+                .registerViewTranslationWrapper(backButtonTranslationWrapper)
+                .registerViewTranslationWrapper(pageIndicatorTranslationWrapper)
+                .registerViewTranslationWrapper(viewPagerTranslationWrapper)
+                .registerViewTranslationWrapper(skipButtonTranslationWrapper)
 
                 .registerOnPageScrolled(new IPageScrolledListener() {
                     @Override
@@ -161,7 +172,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
                             public void run() {
                                 if (adapter.getItem(position).hasNeededPermissionsToGrant() || adapter.getItem(position).canMoveFurther() == false) {
                                     viewPager.setCurrentItem(position);
-                                    inkIndicator.clearJoiningFractions();
+                                    pageIndicator.clearJoiningFractions();
                                 }
                             }
                         });
@@ -288,6 +299,51 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     /**
+     * Get translation wrapper for next button
+     *
+     * @return ViewTranslationWrapper
+     */
+    public ViewTranslationWrapper getNextButtonTranslationWrapper() {
+        return nextButtonTranslationWrapper;
+    }
+
+    /**
+     * Get translation wrapper for back button
+     *
+     * @return ViewTranslationWrapper
+     */
+    public ViewTranslationWrapper getBackButtonTranslationWrapper() {
+        return backButtonTranslationWrapper;
+    }
+
+    /**
+     * Get translation wrapper for page indicator
+     *
+     * @return ViewTranslationWrapper
+     */
+    public ViewTranslationWrapper getPageIndicatorTranslationWrapper() {
+        return pageIndicatorTranslationWrapper;
+    }
+
+    /**
+     * Get translation wrapper for view pager
+     *
+     * @return ViewTranslationWrapper
+     */
+    public ViewTranslationWrapper getViewPagerTranslationWrapper() {
+        return viewPagerTranslationWrapper;
+    }
+
+    /**
+     * Get translation wrapper for skip button
+     *
+     * @return ViewTranslationWrapper
+     */
+    public ViewTranslationWrapper getSkipButtonTranslationWrapper() {
+        return skipButtonTranslationWrapper;
+    }
+
+    /**
      * Set if last screen should be able to exit with alpha transition
      */
     @SuppressWarnings("unused")
@@ -317,7 +373,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getWindow().setStatusBarColor(buttonsColor);
             }
-            inkIndicator.setPageIndicatorColor(buttonsColor);
+            pageIndicator.setPageIndicatorColor(buttonsColor);
 
             tintButtons(ColorStateList.valueOf(buttonsColor));
         }
