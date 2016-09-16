@@ -23,7 +23,7 @@ dependencies {
 }
 ```
 ### Step 2:
-First, your [intro activity][Intro Activity] class needs to extend MaterialIntroActivity:
+#### First, your [intro activity][Intro Activity] class needs to extend MaterialIntroActivity:
 ```java
 public class IntroActivity extends MaterialIntroActivity
 ```
@@ -35,7 +35,7 @@ Add activity to [manifest][Manifest] with defined theme:
             android:theme="@style/Theme.Intro" />
 ```
 ### Step 4: 
-[Add slides:][Intro Activity]
+#### [Add slides:][Intro Activity]
 ```java
  @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,18 +58,18 @@ Add activity to [manifest][Manifest] with defined theme:
                 }, "Work with love"));
 }
 ```
-Explanation of SlideFragment usage:
+#### Explanation of SlideFragment usage:
   - ```possiblePermissions``` &#8702; permissions which are not necessary to be granted
   - ```neededPersmissions``` &#8702; permission which are needed to be granted to move further from that slide
   - ```MessageButtonBehaviour``` &#8702; create a new instance only if you want to have a custom action or text on a message button
 
 ### Step 5: 
-Customize Intro Activity:
+#### Customize Intro Activity:
   - ```setSkipButtonVisible()``` &#8702; show skip button instead of back button on the left bottom of screen
   - ```hideBackButton()``` &#8702; hides any button on the left bottom of screen
   - ```enableLastSlideAlphaExitTransition()``` &#8702; set if the last slide should disapear with alpha hiding effect
 
-Customizing view animations: 
+#### Customizing view animations: 
 
 You can set enter, default and exit translation for every view in intro activity. To achive this you need to get translation wrapper for chosen view (for example: ```getNextButtonTranslationWrapper()```) and set there new class which will implement ```IViewTranslation```
 ```java
@@ -81,7 +81,7 @@ getNextButtonTranslationWrapper()
                     }
                 });
 ```
-Available [translation wrappers][TranslationWrapper]:
+#### Available [translation wrappers][TranslationWrapper]:
 - ```getNextButtonTranslationWrapper()```
 - ```getBackButtonTranslationWrapper()```
 - ```getPageIndicatorTranslationWrapper()```
@@ -89,18 +89,18 @@ Available [translation wrappers][TranslationWrapper]:
 - ```getSkipButtonTranslationWrapper()``` 
 
 ## Custom slides
-Of course you are able to implement completely custom slides. You only need to extend SlideFragment and override following functions:
+#### Of course you are able to implement completely custom slides. You only need to extend SlideFragment and override following functions:
  - ```backgroundColor()```
  - ```buttonsColor()```
  - ```canMoveFurther()``` (only if you want to stop user from being able to move further before he will do some action)
  - ```cantMoveFurtherErrorMessage()``` (as above)
  
-If you want to use parallax in a fragment please use one of the below views:
+#### If you want to use parallax in a fragment please use one of the below views:
   - [```ParallaxFrameLayout```][ParallaxFrame]
   - [```ParallaxLinearLayout```][ParallaxLinear]
   - [```ParallaxRelativeLayout```][ParallaxRelative]
 
-And set there the [app:layout_parallaxFactor][ParallaxFactor] attribute:
+#### And set there the [app:layout_parallaxFactor][ParallaxFactor] attribute:
 ```xml
 <agency.tango.materialintroscreen.parallax.ParallaxLinearLayout
 xmlns:android="http://schemas.android.com/apk/res/android">
