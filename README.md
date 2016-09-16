@@ -28,7 +28,7 @@ dependencies {
 public class IntroActivity extends MaterialIntroActivity
 ```
 ### Step 3:
-Add activity to [manifest][Manifest] with defined theme:
+#### Add activity to [manifest][Manifest] with defined theme:
 ```xml
         <activity
             android:name=".IntroActivity"
