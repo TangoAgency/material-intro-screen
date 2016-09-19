@@ -7,7 +7,7 @@ Material intro screen is inspired by [Material Intro] and developed with love fr
   - [Easily add new slides][Intro Activity]
   - [Custom slides][Custom Slide]
   - [Parallax slides][Parallax Slide]
-  - Easy extensible api
+  - Easy extensible API
   - Material design at it's best!!!
 
 | [Simple slide][SimpleSlide] | [Custom slide][Custom Slide] | [Permission slide][PermissionSlide] | [Finish slide][FinishSlide]
