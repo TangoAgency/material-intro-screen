@@ -1,17 +1,18 @@
 package agency.tango.materialintroscreen.listeners.clickListeners;
 
-import android.support.v7.app.AppCompatActivity;
+import agency.tango.materialintroscreen.MaterialIntroActivity;
 import android.view.View;
 
 public class FinishScreenClickListener implements View.OnClickListener {
-    private AppCompatActivity activity;
+    private MaterialIntroActivity activity;
 
-    public FinishScreenClickListener(AppCompatActivity activity) {
+    public FinishScreenClickListener(MaterialIntroActivity activity) {
         this.activity = activity;
     }
 
     @Override
     public void onClick(View v) {
+        activity.onFinish();
         activity.finish();
     }
 }
