@@ -72,4 +72,10 @@ public class IntroActivity extends MaterialIntroActivity {
                 .description("Would you join us?")
                 .build());
     }
+
+    @Override
+    public void onFinish() {
+        super.onFinish();
+        Toast.makeText(this, "Try this library in your project! :)", Toast.LENGTH_SHORT).show();
+    }
 }

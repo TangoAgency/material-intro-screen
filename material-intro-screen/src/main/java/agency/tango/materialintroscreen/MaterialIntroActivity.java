@@ -188,6 +188,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
                         nextButtonBehaviour(position, adapter.getItem(position));
 
                         if (adapter.shouldFinish(position)) {
+                            onFinish();
                             finish();
                         }
                     }
@@ -349,6 +350,13 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     @SuppressWarnings("unused")
     public void enableLastSlideAlphaExitTransition(boolean enableAlphaExitTransition) {
         adapter.addEmptySlide(new LastEmptySlideFragment());
+    }
+
+    /**
+     * Override to execute this method on finish intro activity
+     */
+    public void onFinish() {
+
     }
 
     private class ColorTransitionScrollListener implements IPageScrolledListener {
