@@ -355,8 +355,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     /**
      * Override to execute this method on finish intro activity
      */
-    public void onFinish()
-    {
+    public void onFinish() {
 
     }
 
