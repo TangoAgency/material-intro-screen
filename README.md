@@ -68,6 +68,15 @@ public class IntroActivity extends MaterialIntroActivity
   - ```setSkipButtonVisible()``` &#8702; show skip button instead of back button on the left bottom of screen
   - ```hideBackButton()``` &#8702; hides any button on the left bottom of screen
   - ```enableLastSlideAlphaExitTransition()``` &#8702; set if the last slide should disapear with alpha hiding effect
+  - [```onFinish()```][onFinish] &#8702; override to perform custom action on finish intro screen
+
+```java
+    @Override
+    public void onFinish() {
+        super.onFinish();
+        Toast.makeText(this, "Try this library in your project! :)", Toast.LENGTH_SHORT).show();
+    }
+```
 
 #### Customizing view animations: 
 
@@ -138,3 +147,4 @@ All features which are not available in simple Slide Fragment are shown here: [C
 [ParallaxFactor]: <https://github.com/TangoAgency/material-intro-screen/blob/master/material-intro-screen/src/main/res/layout/fragment_slide.xml#L29>
 [Manifest]: <https://github.com/TangoAgency/material-intro-screen/blob/master/app/src/main/AndroidManifest.xml#L28>
 [TranslationWrapper]: <https://github.com/TangoAgency/material-intro-screen/blob/master/material-intro-screen/src/main/java/agency/tango/materialintroscreen/animations/ViewTranslationWrapper.java>
+[onFinish]: <https://github.com/TangoAgency/material-intro-screen/blob/master/app/src/main/java/agency/tango/materialintro/IntroActivity.java#L77>
