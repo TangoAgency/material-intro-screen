@@ -18,8 +18,12 @@ Material intro screen is inspired by [Material Intro] and developed with love fr
 ### Step 1:
 #### Add gradle dependecy
 ```
+defaultConfig {
+ minSdkVersion 15
+}
+
 dependencies {
-  compile 'agency.tango.android:material-intro-screen:{latest_release}'
+ compile 'agency.tango.android:material-intro-screen:{latest_release}'
 }
 ```
 ### Step 2:
