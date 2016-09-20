@@ -130,6 +130,8 @@ All features which are not available in simple Slide Fragment are shown here: [C
  - [InkPageIndicator.java] by [@NickButcher]
  - Images used to create sample app are from [freepik]
  
+####Feel free to create issues and pull requests!
+
 [Custom Slide]: <https://github.com/TangoAgency/material-intro-screen/blob/master/app/src/main/java/agency/tango/materialintro/CustomSlide.java>
 [Material Intro]: <https://github.com/HeinrichReimer/material-intro/tree/master/library/src/main/java/com/heinrichreimersoftware/materialintro/view/parallax>
 [@HeinrichReimer]: <https://github.com/HeinrichReimer>
