@@ -32,8 +32,8 @@ public class SlideFragment extends ParallaxFragment {
     private int image;
     private String title;
     private String description;
-    private String[] neededPermissions;
-    private String[] possiblePermissions;
+    protected String[] neededPermissions;
+    protected String[] possiblePermissions;
 
     private TextView titleTextView;
     private TextView descriptionTextView;
