@@ -36,7 +36,7 @@ public class IntroActivity extends MaterialIntroActivity {
                 new MessageButtonBehaviour(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(IntroActivity.this, "We provide solutions to make you love your work", Toast.LENGTH_SHORT).show();
+                        showMessage("We provide solutions to make you love your work");
                     }
                 }, "Work with love"));
 
@@ -61,7 +61,7 @@ public class IntroActivity extends MaterialIntroActivity {
                 new MessageButtonBehaviour(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(IntroActivity.this, "Try us", Toast.LENGTH_SHORT).show();
+                        showMessage("Try us");
                     }
                 }, "Tools"));
 
