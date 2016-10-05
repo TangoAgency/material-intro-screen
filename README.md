@@ -1,6 +1,7 @@
 # Android Material Intro Screen
  [ ![Download](https://api.bintray.com/packages/tangoagency/maven/material-intro-screen/images/download.svg) ](https://bintray.com/tangoagency/maven/material-intro-screen/_latestVersion)
 [![Build Status](https://travis-ci.org/TangoAgency/material-intro-screen.svg?branch=master)](https://travis-ci.org/TangoAgency/material-intro-screen)
+[![Android Arsenal Material Intro Screen](https://img.shields.io/badge/Android%20Arsenal-Material--Intro--Screen-green.svg?style=true)](http://android-arsenal.com/details/1/4368)
 
 Material intro screen is inspired by [Material Intro] and developed with love from scratch. I decided to rewrite completely almost all features in order to make Android intro screen easy to use for everyone and extensible as possible.
 ## Features
@@ -53,7 +54,7 @@ public class IntroActivity extends MaterialIntroActivity
                 new MessageButtonBehaviour(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(IntroActivity.this, "We provide solutions to make you love your work", Toast.LENGTH_SHORT).show();
+                        showMessage("We provide solutions to make you love your work");
                     }
                 }, "Work with love"));
 }
