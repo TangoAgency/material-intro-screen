@@ -102,9 +102,13 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         viewPager.post(new Runnable() {
             @Override
             public void run() {
-                int currentItem = viewPager.getCurrentItem();
-                messageButtonBehaviourOnPageSelected.pageSelected(currentItem);
-                nextButtonBehaviour(currentItem, adapter.getItem(currentItem));
+                if (adapter.getCalculatedCount() == 0) {
+                    finish();
+                } else {
+                    int currentItem = viewPager.getCurrentItem();
+                    messageButtonBehaviourOnPageSelected.pageSelected(currentItem);
+                    nextButtonBehaviour(currentItem, adapter.getItem(currentItem));
+                }
             }
         });
     }

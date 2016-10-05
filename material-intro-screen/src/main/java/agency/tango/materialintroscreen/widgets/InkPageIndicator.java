@@ -148,7 +148,9 @@ public class InkPageIndicator extends View implements ViewPager.OnPageChangeList
                     leftDotPosition = Math.min(currentPosition, position);
                 }
             }
-            setJoiningFraction(leftDotPosition, fraction);
+            if (joiningFractions != null) {
+                setJoiningFraction(leftDotPosition, fraction);
+            }
         }
     }
 
