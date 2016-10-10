@@ -118,7 +118,7 @@ public class InkPageIndicator extends View implements ViewPager.OnPageChangeList
     }
 
     private int getCount() {
-        return InkPageIndicator.this.viewPager.getAdapter().getCalculatedCount();
+        return viewPager.getAdapter().slidesCount();
     }
 
     public void setViewPager(final SwipeableViewPager viewPager) {
@@ -148,9 +148,7 @@ public class InkPageIndicator extends View implements ViewPager.OnPageChangeList
                     leftDotPosition = Math.min(currentPosition, position);
                 }
             }
-            if (joiningFractions != null) {
-                setJoiningFraction(leftDotPosition, fraction);
-            }
+            setJoiningFraction(leftDotPosition, fraction);
         }
     }
 
@@ -447,7 +445,7 @@ public class InkPageIndicator extends View implements ViewPager.OnPageChangeList
     private boolean isDotNotJoining(int page, float joiningFraction, float dotRevealFraction) {
         return (joiningFraction == 0f || joiningFraction == INVALID_FRACTION)
                 && dotRevealFraction == 0f
-                && !(page == currentPage && selectedDotInPosition == true);
+                && !(page == currentPage && selectedDotInPosition);
     }
 
     private Path getRetreatingJoinPath() {
@@ -529,9 +527,11 @@ public class InkPageIndicator extends View implements ViewPager.OnPageChangeList
     }
 
     private void setJoiningFraction(int leftDot, float fraction) {
-        if (leftDot < joiningFractions.length) {
-            joiningFractions[leftDot] = fraction;
-            ViewCompat.postInvalidateOnAnimation(this);
+        if (joiningFractions != null) {
+            if (leftDot < joiningFractions.length) {
+                joiningFractions[leftDot] = fraction;
+                ViewCompat.postInvalidateOnAnimation(this);
+            }
         }
     }
 

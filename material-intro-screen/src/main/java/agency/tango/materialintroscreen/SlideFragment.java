@@ -56,7 +56,7 @@ public class SlideFragment extends ParallaxFragment {
     }
 
     public static boolean isNotNullOrEmpty(String string) {
-        return string != null && string.isEmpty() == false;
+        return string != null && !string.isEmpty();
     }
 
     @Nullable
@@ -93,7 +93,7 @@ public class SlideFragment extends ParallaxFragment {
 
     public boolean hasAnyPermissionsToGrant() {
         boolean hasPermissionToGrant = hasPermissionsToGrant(neededPermissions);
-        if (hasPermissionToGrant == false) {
+        if (!hasPermissionToGrant) {
             hasPermissionToGrant = hasPermissionsToGrant(possiblePermissions);
         }
         return hasPermissionToGrant;
@@ -144,14 +144,14 @@ public class SlideFragment extends ParallaxFragment {
         }
 
         String[] permissionsToGrant = removeEmptyAndNullStrings(notGrantedPermissions);
-        ActivityCompat.requestPermissions(this.getActivity(), permissionsToGrant, PERMISSIONS_REQUEST_CODE);
+        ActivityCompat.requestPermissions(getActivity(), permissionsToGrant, PERMISSIONS_REQUEST_CODE);
     }
 
     private boolean hasPermissionsToGrant(String[] permissions) {
         if (permissions != null) {
-            for (int i = 0; i < permissions.length; i++) {
-                if (isNotNullOrEmpty(permissions[i])) {
-                    if (ContextCompat.checkSelfPermission(getContext(), permissions[i]) != PackageManager.PERMISSION_GRANTED) {
+            for (String permission : permissions) {
+                if (isNotNullOrEmpty(permission)) {
+                    if (ContextCompat.checkSelfPermission(getContext(), permission) != PackageManager.PERMISSION_GRANTED) {
                         return true;
                     }
                 }
@@ -160,6 +160,7 @@ public class SlideFragment extends ParallaxFragment {
         return false;
     }
 
+    @SuppressWarnings("SuspiciousMethodCalls")
     private String[] removeEmptyAndNullStrings(final ArrayList<String> permissions) {
         List<String> list = new ArrayList<>(permissions);
         list.removeAll(Collections.singleton(null));

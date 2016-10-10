@@ -11,7 +11,7 @@ public class BackButtonTranslationWrapper extends ViewTranslationWrapper {
     public BackButtonTranslationWrapper(View view) {
         super(view);
 
-        this.setEnterTranslation(new EnterDefaultTranslation())
+        setEnterTranslation(new EnterDefaultTranslation())
                 .setDefaultTranslation(new DefaultPositionTranslation())
                 .setExitTranslation(new ExitDefaultTranslation());
     }
