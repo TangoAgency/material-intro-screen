@@ -94,19 +94,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         initOnPageChangeListeners();
 
         permissionNotGrantedClickListener = new PermissionNotGrantedClickListener(this, nextButtonTranslationWrapper);
-        finishScreenClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SlideFragment slideFragment = adapter.getItem(adapter.getLastItemPosition());
-                if (slideFragment.canMoveFurther() == false) {
-                    nextButtonTranslationWrapper.error();
-                    showError(slideFragment.cantMoveFurtherErrorMessage());
-                } else {
-                    onFinish();
-                    finish();
-                }
-            }
-        };
+        finishScreenClickListener = new FinishScreenClickListener();
 
         setBackButtonVisible();
 
@@ -401,6 +389,20 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
             ViewCompat.setBackgroundTintList(nextButton, color);
             ViewCompat.setBackgroundTintList(backButton, color);
             ViewCompat.setBackgroundTintList(skipButton, color);
+        }
+    }
+
+    private class FinishScreenClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            SlideFragment slideFragment = adapter.getItem(adapter.getLastItemPosition());
+            if (!slideFragment.canMoveFurther()) {
+                nextButtonTranslationWrapper.error();
+                showError(slideFragment.cantMoveFurtherErrorMessage());
+            } else {
+                onFinish();
+                finish();
+            }
         }
     }
 }
