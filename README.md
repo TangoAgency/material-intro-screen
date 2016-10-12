@@ -118,6 +118,24 @@ All features which are not available in simple Slide Fragment are shown here: [C
  - [InkPageIndicator.java] by [@NickButcher]
  - Images used to create sample app are from [freepik]
  
+## Getting Help
+
+To report a specific problem or feature request, [open a new issue on Github](https://github.com/TangoAgency/material-intro-screen/issues/new).
+
+## Company
+ 
+[![Facebook](https://github.com/TangoAgency/material-intro-screen/blob/master/images/facebook.png)](https://www.facebook.com/TangoDigitalAgency)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![Twitter](https://github.com/TangoAgency/material-intro-screen/blob/master/images/twitter.png)](https://twitter.com/Tango_Agency)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![LinkedIn](https://github.com/TangoAgency/material-intro-screen/blob/master/images/linkedin.png)](https://www.linkedin.com/company/tango-digital-agency)
+
+[Here](https://github.com/TangoAgency/) you can see open source work developed by Tango Agency.
+This and another works is an exclusive property of Tango Agency. 
+
+If you want to use this library in applications which will be available on Google Play, please report us about it or author of the library.
+ 
+Whether you're searching for a new partner or trusted team for creating your new great product we are always ready to start work with you. 
+
+You can contact us via contact@tango.agency.
+Thanks in advance.
+ 
 [Custom Slide]: <https://github.com/TangoAgency/material-intro-screen/blob/master/app/src/main/java/agency/tango/materialintro/CustomSlide.java>
 [Material Intro]: <https://github.com/HeinrichReimer/material-intro/tree/master/library/src/main/java/com/heinrichreimersoftware/materialintro/view/parallax>
 [@HeinrichReimer]: <https://github.com/HeinrichReimer>
