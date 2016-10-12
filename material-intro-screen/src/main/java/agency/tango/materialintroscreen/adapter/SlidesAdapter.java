@@ -28,12 +28,18 @@ public class SlidesAdapter extends FragmentStatePagerAdapter {
         return fragment;
     }
 
+    /**
+     * @return Returns count of fragments in adapter
+     */
     @Override
     public int getCount() {
         return fragments.size();
     }
 
-    public int getCalculatedCount() {
+    /**
+     * @return Returns count of fragments in adapter WITHOUT empty slide if is available
+     */
+    public int slidesCount() {
         if (isLastItemEmptySlide()) {
             return fragments.size() - 1;
         } else {
@@ -42,25 +48,25 @@ public class SlidesAdapter extends FragmentStatePagerAdapter {
     }
 
     public void addItem(SlideFragment fragment) {
-        fragments.add(getCalculatedCount(), fragment);
-        this.notifyDataSetChanged();
+        fragments.add(slidesCount(), fragment);
+        notifyDataSetChanged();
     }
 
     public void addEmptySlide(LastEmptySlideFragment fragment) {
         fragments.add(fragment);
-        this.notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     public int getLastItemPosition() {
-        return getCalculatedCount() - 1;
+        return slidesCount() - 1;
     }
 
     public boolean isLastSlide(int position) {
-        return position == getCalculatedCount() - 1;
+        return position == slidesCount() - 1;
     }
 
     public boolean shouldFinish(int position) {
-        return position == getCalculatedCount();
+        return position == slidesCount();
     }
 
     private boolean isLastItemEmptySlide() {
