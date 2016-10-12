@@ -74,7 +74,7 @@ public class IntroActivity extends MaterialIntroActivity
 
 You can set enter, default and exit translation for every view in intro activity. To achive this you need to get translation wrapper for chosen view (for example: ```getNextButtonTranslationWrapper()```) and set there new class which will implement ```IViewTranslation```
 ```java
-getNextButtonTranslationWrapper()
+getBackButtonTranslationWrapper()
                 .setEnterTranslation(new IViewTranslation() {
                     @Override
                     public void translate(View view, @FloatRange(from = 0, to = 1.0) float percentage) {
