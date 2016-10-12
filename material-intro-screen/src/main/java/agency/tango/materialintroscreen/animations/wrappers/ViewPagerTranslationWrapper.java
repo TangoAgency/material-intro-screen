@@ -10,7 +10,7 @@ public class ViewPagerTranslationWrapper extends ViewTranslationWrapper {
     public ViewPagerTranslationWrapper(View view) {
         super(view);
 
-        this.setDefaultTranslation(new DefaultAlphaTranslation())
+        setDefaultTranslation(new DefaultAlphaTranslation())
                 .setExitTranslation(new AlphaTranslation());
     }
 }

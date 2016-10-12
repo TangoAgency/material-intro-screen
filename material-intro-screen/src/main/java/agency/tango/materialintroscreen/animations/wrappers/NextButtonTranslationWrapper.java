@@ -11,7 +11,7 @@ public class NextButtonTranslationWrapper extends ViewTranslationWrapper {
     public NextButtonTranslationWrapper(View view) {
         super(view);
 
-        this.setExitTranslation(new ExitDefaultTranslation())
+        setExitTranslation(new ExitDefaultTranslation())
                 .setDefaultTranslation(new DefaultPositionTranslation())
                 .setErrorAnimation(R.anim.shake_it);
     }

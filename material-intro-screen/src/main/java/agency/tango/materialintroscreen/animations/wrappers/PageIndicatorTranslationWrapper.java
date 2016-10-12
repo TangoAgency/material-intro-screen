@@ -10,7 +10,7 @@ public class PageIndicatorTranslationWrapper extends ViewTranslationWrapper {
     public PageIndicatorTranslationWrapper(View view) {
         super(view);
 
-        this.setDefaultTranslation(new DefaultPositionTranslation())
+        setDefaultTranslation(new DefaultPositionTranslation())
                 .setExitTranslation(new ExitDefaultTranslation());
     }
 }

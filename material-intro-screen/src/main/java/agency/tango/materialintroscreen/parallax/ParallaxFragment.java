@@ -19,12 +19,11 @@ public class ParallaxFragment extends Fragment implements Parallaxable {
         parallaxLayout = findParallaxLayout(view);
     }
 
-    @SuppressWarnings("PointlessBooleanExpression")
     public Parallaxable findParallaxLayout(View root) {
         Queue<View> queue = new LinkedList<>();
         queue.add(root);
 
-        while (queue.isEmpty() == false) {
+        while (!queue.isEmpty()) {
             View child = queue.remove();
 
             if (child instanceof Parallaxable) {
