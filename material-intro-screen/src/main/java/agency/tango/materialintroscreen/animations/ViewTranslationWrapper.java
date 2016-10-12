@@ -19,13 +19,14 @@ public class ViewTranslationWrapper {
     public ViewTranslationWrapper(View view) {
         this.view = view;
 
-        this.enterTranslation = new NoTranslation();
-        this.exitTranslation = new NoTranslation();
-        this.setErrorAnimation(0);
+        enterTranslation = new NoTranslation();
+        exitTranslation = new NoTranslation();
+        setErrorAnimation(0);
     }
 
     /**
      * Set translation after passing first slide
+     *
      * @param enterTranslation new translation
      */
     public ViewTranslationWrapper setEnterTranslation(IViewTranslation enterTranslation) {
@@ -35,6 +36,7 @@ public class ViewTranslationWrapper {
 
     /**
      * Set translation after passing last slide
+     *
      * @param exitTranslation new translation
      */
     public ViewTranslationWrapper setExitTranslation(IViewTranslation exitTranslation) {
@@ -44,6 +46,7 @@ public class ViewTranslationWrapper {
 
     /**
      * Set default translation
+     *
      * @param defaultTranslation new translation
      */
     public ViewTranslationWrapper setDefaultTranslation(IViewTranslation defaultTranslation) {
@@ -53,6 +56,7 @@ public class ViewTranslationWrapper {
 
     /**
      * Set view on error animation
+     *
      * @param errorAnimation new animation
      */
     public ViewTranslationWrapper setErrorAnimation(@AnimRes int errorAnimation) {
@@ -63,20 +67,20 @@ public class ViewTranslationWrapper {
     }
 
     public void enterTranslate(float percentage) {
-        this.enterTranslation.translate(view, percentage);
+        enterTranslation.translate(view, percentage);
     }
 
     public void exitTranslate(float percentage) {
-        this.exitTranslation.translate(view, percentage);
+        exitTranslation.translate(view, percentage);
     }
 
     public void defaultTranslate(float percentage) {
-        this.defaultTranslation.translate(view, percentage);
+        defaultTranslation.translate(view, percentage);
     }
 
     public void error() {
         if (errorAnimation != null) {
-            this.view.startAnimation(errorAnimation);
+            view.startAnimation(errorAnimation);
         }
     }
 }

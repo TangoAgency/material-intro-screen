@@ -17,7 +17,7 @@ public class SwipeStateTouchListener implements ITouchEventListener {
     @Override
     public void process() {
         SlideFragment fragment = adapter.getItem(viewPager.getCurrentItem());
-        if (fragment.canMoveFurther() == false || fragment.hasNeededPermissionsToGrant()) {
+        if (!fragment.canMoveFurther() || fragment.hasNeededPermissionsToGrant()) {
             viewPager.setAllowedSwipeDirection(SwipeableViewPager.SwipeDirection.left);
         } else {
             viewPager.setAllowedSwipeDirection(SwipeableViewPager.SwipeDirection.all);
