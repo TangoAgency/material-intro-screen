@@ -352,6 +352,15 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     /**
+     * Show snackbar message
+     *
+     * @param message Message which will be visible to user
+     */
+    public void showMessage(String message) {
+        showError(message);
+    }
+
+    /**
      * Override to execute this method on finish intro activity
      */
     public void onFinish() {
