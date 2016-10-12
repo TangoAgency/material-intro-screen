@@ -32,7 +32,6 @@ import agency.tango.materialintroscreen.listeners.IPageSelectedListener;
 import agency.tango.materialintroscreen.listeners.MessageButtonBehaviourOnPageSelected;
 import agency.tango.materialintroscreen.listeners.SwipeStateTouchListener;
 import agency.tango.materialintroscreen.listeners.ViewBehavioursOnPageChangeListener;
-import agency.tango.materialintroscreen.listeners.clickListeners.FinishScreenClickListener;
 import agency.tango.materialintroscreen.listeners.clickListeners.PermissionNotGrantedClickListener;
 import agency.tango.materialintroscreen.listeners.scrollListeners.ParallaxScrollListener;
 import agency.tango.materialintroscreen.widgets.InkPageIndicator;
@@ -95,7 +94,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         initOnPageChangeListeners();
 
         permissionNotGrantedClickListener = new PermissionNotGrantedClickListener(this, nextButtonTranslationWrapper);
-        finishScreenClickListener = new FinishScreenClickListener(this);
+        finishScreenClickListener = new FinishScreenClickListener();
 
         setBackButtonVisible();
 
@@ -409,6 +408,20 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
             ViewCompat.setBackgroundTintList(nextButton, color);
             ViewCompat.setBackgroundTintList(backButton, color);
             ViewCompat.setBackgroundTintList(skipButton, color);
+        }
+    }
+
+    private class FinishScreenClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            SlideFragment slideFragment = adapter.getItem(adapter.getLastItemPosition());
+            if (!slideFragment.canMoveFurther()) {
+                nextButtonTranslationWrapper.error();
+                showError(slideFragment.cantMoveFurtherErrorMessage());
+            } else {
+                onFinish();
+                finish();
+            }
         }
     }
 }
