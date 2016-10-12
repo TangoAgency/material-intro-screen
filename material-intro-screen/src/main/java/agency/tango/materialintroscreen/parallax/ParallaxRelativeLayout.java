@@ -11,8 +11,6 @@ import android.widget.RelativeLayout;
 import agency.tango.materialintroscreen.R;
 
 public class ParallaxRelativeLayout extends RelativeLayout implements Parallaxable {
-    @FloatRange(from = -1.0, to = 1.0)
-    private float offset = 0;
 
     public ParallaxRelativeLayout(Context context) {
         super(context);
@@ -48,7 +46,6 @@ public class ParallaxRelativeLayout extends RelativeLayout implements Parallaxab
 
     @Override
     public void setOffset(@FloatRange(from = -1.0, to = 1.0) float offset) {
-        this.offset = offset;
         for (int i = getChildCount() - 1; i >= 0; i--) {
             View child = getChildAt(i);
             ParallaxRelativeLayout.LayoutParams p = (LayoutParams) child.getLayoutParams();
@@ -61,22 +58,23 @@ public class ParallaxRelativeLayout extends RelativeLayout implements Parallaxab
     public static class LayoutParams extends RelativeLayout.LayoutParams {
         float parallaxFactor = 0f;
 
-        public LayoutParams(Context context, AttributeSet attributeSet) {
+        LayoutParams(Context context, AttributeSet attributeSet) {
             super(context, attributeSet);
             TypedArray typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.ParallaxLayout_Layout);
             parallaxFactor = typedArray.getFloat(R.styleable.ParallaxLayout_Layout_layout_parallaxFactor, parallaxFactor);
             typedArray.recycle();
         }
 
-        public LayoutParams(int width, int height) {
+        LayoutParams(int width, int height) {
             super(width, height);
         }
 
-        public LayoutParams(ViewGroup.LayoutParams source) {
+        LayoutParams(ViewGroup.LayoutParams source) {
             super(source);
         }
 
-        public LayoutParams(MarginLayoutParams source) {
+        @SuppressWarnings("unused")
+        LayoutParams(MarginLayoutParams source) {
             super(source);
         }
     }

@@ -2,6 +2,7 @@ package agency.tango.materialintroscreen;
 
 import android.view.View;
 
+@SuppressWarnings("unused")
 public class MessageButtonBehaviour {
     private View.OnClickListener clickListener;
     private String messageButtonText;

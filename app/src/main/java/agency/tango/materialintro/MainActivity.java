@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, IntroActivity.class);
-                MainActivity.this.startActivity(intent);
+                startActivity(intent);
             }
         });
     }
