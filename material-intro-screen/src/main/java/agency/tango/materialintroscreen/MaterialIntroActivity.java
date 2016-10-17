@@ -30,7 +30,6 @@ import agency.tango.materialintroscreen.animations.wrappers.ViewPagerTranslation
 import agency.tango.materialintroscreen.listeners.IPageScrolledListener;
 import agency.tango.materialintroscreen.listeners.IPageSelectedListener;
 import agency.tango.materialintroscreen.listeners.MessageButtonBehaviourOnPageSelected;
-import agency.tango.materialintroscreen.listeners.SwipeStateTouchListener;
 import agency.tango.materialintroscreen.listeners.ViewBehavioursOnPageChangeListener;
 import agency.tango.materialintroscreen.listeners.clickListeners.PermissionNotGrantedClickListener;
 import agency.tango.materialintroscreen.listeners.scrollListeners.ParallaxScrollListener;
@@ -117,7 +116,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         SlideFragment fragment = adapter.getItem(viewPager.getCurrentItem());
         boolean hasPermissionToGrant = fragment.hasNeededPermissionsToGrant();
         if (!hasPermissionToGrant) {
-            viewPager.setAllowedSwipeDirection(SwipeableViewPager.SwipeDirection.all);
+            viewPager.setSwipingRightAllowed(true);
             nextButtonBehaviour(viewPager.getCurrentItem(), fragment);
             messageButtonBehaviourOnPageSelected.pageSelected(viewPager.getCurrentItem());
         } else {
@@ -132,7 +131,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         if (viewPager.getCurrentItem() == 0) {
             finish();
         } else {
-            viewPager.setCurrentItem(viewPager.getPreviousItem());
+            viewPager.setCurrentItem(viewPager.getPreviousItem(), true);
         }
     }
 
@@ -153,8 +152,6 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     private void initOnPageChangeListeners() {
         messageButtonBehaviourOnPageSelected = new MessageButtonBehaviourOnPageSelected(messageButton, adapter, messageButtonBehaviours);
 
-        viewPager.registerOnTouchEventListener(new SwipeStateTouchListener(viewPager, adapter));
-
         backButtonTranslationWrapper = new BackButtonTranslationWrapper(backButton);
         pageIndicatorTranslationWrapper = new PageIndicatorTranslationWrapper(pageIndicator);
         viewPagerTranslationWrapper = new ViewPagerTranslationWrapper(viewPager);
@@ -174,7 +171,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 if (adapter.getItem(position).hasNeededPermissionsToGrant() || !adapter.getItem(position).canMoveFurther()) {
-                                    viewPager.setCurrentItem(position);
+                                    viewPager.setCurrentItem(position, true);
                                     pageIndicator.clearJoiningFractions();
                                 }
                             }
@@ -216,7 +213,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
                         nextButtonTranslationWrapper.error();
                         showError(fragment.cantMoveFurtherErrorMessage());
                     } else {
-                        viewPager.setCurrentItem(position + 1);
+                        viewPager.setCurrentItem(position + 1, true);
                     }
                 }
             });
@@ -270,12 +267,12 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
             public void onClick(View v) {
                 for (int position = viewPager.getCurrentItem(); position < adapter.slidesCount(); position++) {
                     if (!adapter.getItem(position).canMoveFurther()) {
-                        viewPager.setCurrentItem(position);
+                        viewPager.setCurrentItem(position, true);
                         showError(adapter.getItem(position).cantMoveFurtherErrorMessage());
                         return;
                     }
                 }
-                viewPager.setCurrentItem(adapter.getLastItemPosition());
+                viewPager.setCurrentItem(adapter.getLastItemPosition(), true);
             }
         });
     }
@@ -290,7 +287,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewPager.setCurrentItem(viewPager.getPreviousItem());
+                viewPager.setCurrentItem(viewPager.getPreviousItem(), true);
             }
         });
     }
