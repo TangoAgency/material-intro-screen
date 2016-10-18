@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 
 import agency.tango.materialintroscreen.R;
 
-public class OverscrollViewPager extends OverscrollContainer<SwipeableViewPager> {
+public class OverscrollViewPager extends OverscrollContainer {
 
     public OverscrollViewPager(Context context) {
         this(context, null);

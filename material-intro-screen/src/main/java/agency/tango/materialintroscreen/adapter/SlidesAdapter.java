@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import agency.tango.materialintroscreen.LastEmptySlideFragment;
 import agency.tango.materialintroscreen.SlideFragment;
 
 public class SlidesAdapter extends FragmentStatePagerAdapter {
@@ -40,11 +39,8 @@ public class SlidesAdapter extends FragmentStatePagerAdapter {
      * @return Returns count of fragments in adapter WITHOUT empty slide if is available
      */
     public int slidesCount() {
-        if (isLastItemEmptySlide()) {
-            return fragments.size() - 1;
-        } else {
             return fragments.size();
-        }
+
     }
 
     public void addItem(SlideFragment fragment) {
@@ -52,10 +48,10 @@ public class SlidesAdapter extends FragmentStatePagerAdapter {
         notifyDataSetChanged();
     }
 
-    public void addEmptySlide(LastEmptySlideFragment fragment) {
-        fragments.add(fragment);
-        notifyDataSetChanged();
-    }
+//    public void addEmptySlide(LastEmptySlideFragment fragment) {
+//        fragments.add(fragment);
+//        notifyDataSetChanged();
+//    }
 
     public int getLastItemPosition() {
         return slidesCount() - 1;
@@ -67,9 +63,5 @@ public class SlidesAdapter extends FragmentStatePagerAdapter {
 
     public boolean shouldFinish(int position) {
         return position == slidesCount() && getItem(slidesCount() - 1).canMoveFurther();
-    }
-
-    private boolean isLastItemEmptySlide() {
-        return fragments.size() > 0 && fragments.get(fragments.size() - 1) instanceof LastEmptySlideFragment;
     }
 }

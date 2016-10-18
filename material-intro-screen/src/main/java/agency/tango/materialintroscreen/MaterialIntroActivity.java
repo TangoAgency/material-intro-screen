@@ -358,7 +358,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
      */
     @SuppressWarnings("unused")
     public void enableLastSlideAlphaExitTransition(boolean enableAlphaExitTransition) {
-        adapter.addEmptySlide(new LastEmptySlideFragment());
+//        adapter.addEmptySlide(new LastEmptySlideFragment());
     }
 
     /**

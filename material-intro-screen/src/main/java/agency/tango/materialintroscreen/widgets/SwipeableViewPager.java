@@ -73,6 +73,10 @@ public class SwipeableViewPager extends CustomViewPager {
         return (SlidesAdapter) super.getAdapter();
     }
 
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+    }
+
     public int getPreviousItem() {
         return getCurrentItem() - 1;
     }

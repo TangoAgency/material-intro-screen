@@ -4,21 +4,21 @@ import android.content.Context;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.RelativeLayout;
 
-public abstract class OverscrollContainer<T extends View> extends RelativeLayout {
-    private T mOverscrollView = null;
+public abstract class OverscrollContainer extends RelativeLayout {
+    private SwipeableViewPager swipeableViewPager = null;
     private boolean mIsBeingDragged = false;
     private float mMotionBeginX = 0;
+    private float positionOffset = 0;
     private int mTouchSlop;
 
     abstract protected boolean canOverscrollAtEnd();
 
-    abstract protected T createOverscrollView();
+    abstract protected SwipeableViewPager createOverscrollView();
 
     public OverscrollContainer(Context context) {
         this(context, null);
@@ -31,17 +31,17 @@ public abstract class OverscrollContainer<T extends View> extends RelativeLayout
     public OverscrollContainer(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        mOverscrollView = createOverscrollView();
+        swipeableViewPager = createOverscrollView();
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.MATCH_PARENT);
-        addView(mOverscrollView, layoutParams);
+        addView(swipeableViewPager, layoutParams);
 
         mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
     }
 
-    public T getOverscrollView() {
-        return mOverscrollView;
+    public SwipeableViewPager getOverscrollView() {
+        return swipeableViewPager;
     }
 
     @Override
@@ -74,23 +74,43 @@ public abstract class OverscrollContainer<T extends View> extends RelativeLayout
         float moveOffset = event.getX() - mMotionBeginX;
 
         if (action == MotionEvent.ACTION_MOVE) {
-            moveOverscrollView(moveOffset);
-
+            if (getScrollX() > 0) {
+                positionOffset = ((100f * getScrollX()) / getWidth()) / 100f;
+            }
+            moveOverscrollView(moveOffset, positionOffset);
         } else if (action == MotionEvent.ACTION_UP) {
-            resetOverscrollViewWithAnimation(moveOffset);
-            mIsBeingDragged = false;
+            if (positionOffset > 0.5f) {
+                finishOverscrollViewWithAnimation(getWidth());
+                moveOverscrollView(moveOffset, 1f);
+
+            } else {
+                resetOverscrollViewWithAnimation(moveOffset);
+
+                mIsBeingDragged = false;
+            }
+
         }
 
         return true;
     }
 
-    private void moveOverscrollView(float currentX) {
+    private void moveOverscrollView(float currentX, float positionOffset) {
         scrollTo(-(int) currentX, 0);
+
+        if (getScrollX() > 0) {
+            swipeableViewPager.onPageScrolled(swipeableViewPager.getAdapter().getLastItemPosition(), positionOffset, 0);
+        }
     }
 
     private void resetOverscrollViewWithAnimation(float currentX) {
         Interpolator scrollAnimationInterpolator = new DecelerateInterpolator();
         SmoothScrollRunnable smoothScrollRunnable = new SmoothScrollRunnable((int) currentX, 0, 300, scrollAnimationInterpolator);
+        post(smoothScrollRunnable);
+    }
+
+    private void finishOverscrollViewWithAnimation(float currentX) {
+        Interpolator scrollAnimationInterpolator = new DecelerateInterpolator();
+        SmoothScrollRunnable smoothScrollRunnable = new SmoothScrollRunnable((int) currentX, getWidth(), 300, scrollAnimationInterpolator);
         post(smoothScrollRunnable);
     }
 
@@ -123,7 +143,7 @@ public abstract class OverscrollContainer<T extends View> extends RelativeLayout
                         * mInterpolator.getInterpolation(normalizedTime / 1000f));
                 mCurrentPosition = mScrollFromPosition - deltaY;
 
-                moveOverscrollView(mCurrentPosition);
+                moveOverscrollView(mCurrentPosition, 0);
             }
 
             if (mContinueRunning && mScrollToPosition != mCurrentPosition) {
