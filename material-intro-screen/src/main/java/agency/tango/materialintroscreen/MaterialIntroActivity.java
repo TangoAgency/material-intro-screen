@@ -34,6 +34,7 @@ import agency.tango.materialintroscreen.listeners.ViewBehavioursOnPageChangeList
 import agency.tango.materialintroscreen.listeners.clickListeners.PermissionNotGrantedClickListener;
 import agency.tango.materialintroscreen.listeners.scrollListeners.ParallaxScrollListener;
 import agency.tango.materialintroscreen.widgets.InkPageIndicator;
+import agency.tango.materialintroscreen.widgets.OverscrollViewPager;
 import agency.tango.materialintroscreen.widgets.SwipeableViewPager;
 
 import static android.view.View.GONE;
@@ -74,7 +75,9 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_material_intro);
-        viewPager = (SwipeableViewPager) findViewById(R.id.view_pager_slides);
+
+        OverscrollViewPager overscrollViewPager = (OverscrollViewPager) findViewById(R.id.view_pager_slides);
+        viewPager = overscrollViewPager.getOverscrollView();
         pageIndicator = (InkPageIndicator) findViewById(R.id.indicator);
         backButton = (ImageButton) findViewById(R.id.button_back);
         nextButton = (ImageButton) findViewById(R.id.button_next);
