@@ -5,7 +5,6 @@ import android.support.v4.view.CustomViewPager;
 import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.Scroller;
 
 import agency.tango.materialintroscreen.SlideFragment;
 import agency.tango.materialintroscreen.adapter.SlidesAdapter;
@@ -14,7 +13,6 @@ public class SwipeableViewPager extends CustomViewPager {
     float startPos = 0;
     private int currentIt;
     private boolean swipingAllowed;
-    private Scroller scroller;
 
     public SwipeableViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
