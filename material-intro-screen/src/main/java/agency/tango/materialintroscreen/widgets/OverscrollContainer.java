@@ -5,33 +5,36 @@ import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
-import android.view.animation.DecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.RelativeLayout;
 
-public abstract class OverscrollContainer extends RelativeLayout {
+import agency.tango.materialintroscreen.listeners.IFinishListener;
+
+public abstract class OverScrollContainer extends RelativeLayout {
     private SwipeableViewPager swipeableViewPager = null;
     private boolean mIsBeingDragged = false;
     private float mMotionBeginX = 0;
     private float positionOffset = 0;
     private int mTouchSlop;
+    private IFinishListener finishListener;
 
-    abstract protected boolean canOverscrollAtEnd();
+    abstract protected boolean canOverScrollAtEnd();
 
-    abstract protected SwipeableViewPager createOverscrollView();
+    abstract protected SwipeableViewPager createOverScrollView();
 
-    public OverscrollContainer(Context context) {
+    public OverScrollContainer(Context context) {
         this(context, null);
     }
 
-    public OverscrollContainer(Context context, AttributeSet attrs) {
+    public OverScrollContainer(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public OverscrollContainer(Context context, AttributeSet attrs, int defStyle) {
+    public OverScrollContainer(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        swipeableViewPager = createOverscrollView();
+        swipeableViewPager = createOverScrollView();
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.MATCH_PARENT);
@@ -40,24 +43,23 @@ public abstract class OverscrollContainer extends RelativeLayout {
         mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
     }
 
-    public SwipeableViewPager getOverscrollView() {
+    public SwipeableViewPager getOverScrollView() {
         return swipeableViewPager;
     }
 
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        int action = ev.getAction();
+    public boolean onInterceptTouchEvent(MotionEvent event) {
+        int action = event.getAction();
 
         if (action == MotionEvent.ACTION_DOWN) {
-            mMotionBeginX = ev.getX();
+            mMotionBeginX = event.getX();
             mIsBeingDragged = false;
         } else if (action == MotionEvent.ACTION_MOVE) {
             if (!mIsBeingDragged) {
-                float scrollDirectionDiff = ev.getX() - mMotionBeginX;
-                float absScrollDirectionDiff = Math.abs(scrollDirectionDiff);
+                float scrollDirectionDiff = event.getX() - mMotionBeginX;
 
-                if (absScrollDirectionDiff > mTouchSlop) {
-                    if (canOverscrollAtEnd() && scrollDirectionDiff < 0f) {
+                if (Math.abs(scrollDirectionDiff) > mTouchSlop) {
+                    if (canOverScrollAtEnd() && scrollDirectionDiff < 0f) {
                         mIsBeingDragged = true;
                     }
                 }
@@ -70,84 +72,80 @@ public abstract class OverscrollContainer extends RelativeLayout {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction();
-
         float moveOffset = event.getX() - mMotionBeginX;
 
         if (action == MotionEvent.ACTION_MOVE) {
-            if (getScrollX() > 0) {
-                positionOffset = ((100f * getScrollX()) / getWidth()) / 100f;
-            }
-            moveOverscrollView(moveOffset, positionOffset);
+            moveOverScrollView(moveOffset);
         } else if (action == MotionEvent.ACTION_UP) {
             if (positionOffset > 0.5f) {
-                finishOverscrollViewWithAnimation(getWidth());
-                moveOverscrollView(moveOffset, 1f);
-
+                finishOverScrollViewWithAnimation(moveOffset);
             } else {
-                resetOverscrollViewWithAnimation(moveOffset);
-
-                mIsBeingDragged = false;
+                resetOverScrollViewWithAnimation(moveOffset);
             }
-
+            mIsBeingDragged = false;
         }
 
         return true;
     }
 
-    private void moveOverscrollView(float currentX, float positionOffset) {
-        scrollTo(-(int) currentX, 0);
+    public void registerFinishListener(IFinishListener listener) {
+        finishListener = listener;
+    }
 
-        if (getScrollX() > 0) {
+    private void moveOverScrollView(float currentX) {
+        if (currentX <= 0f) {
+            scrollTo(-(int) currentX, 0);
+
+            positionOffset = ((100f * getScrollX()) / getWidth()) / 100f;
             swipeableViewPager.onPageScrolled(swipeableViewPager.getAdapter().getLastItemPosition(), positionOffset, 0);
+
+            if (positionOffset == 1f) {
+                finishListener.doOnFinish();
+            }
         }
     }
 
-    private void resetOverscrollViewWithAnimation(float currentX) {
-        Interpolator scrollAnimationInterpolator = new DecelerateInterpolator();
-        SmoothScrollRunnable smoothScrollRunnable = new SmoothScrollRunnable((int) currentX, 0, 300, scrollAnimationInterpolator);
-        post(smoothScrollRunnable);
+    private void resetOverScrollViewWithAnimation(final float currentX) {
+        post(new SmoothScrollRunnable((int) currentX, 0, 300, new AccelerateInterpolator()));
     }
 
-    private void finishOverscrollViewWithAnimation(float currentX) {
-        Interpolator scrollAnimationInterpolator = new DecelerateInterpolator();
-        SmoothScrollRunnable smoothScrollRunnable = new SmoothScrollRunnable((int) currentX, getWidth(), 300, scrollAnimationInterpolator);
-        post(smoothScrollRunnable);
+    private void finishOverScrollViewWithAnimation(float currentX) {
+        post(new SmoothScrollRunnable((int) currentX, -getWidth(), 300, new AccelerateInterpolator()));
     }
 
     final class SmoothScrollRunnable implements Runnable {
-        private final Interpolator mInterpolator;
-        private final int mScrollToPosition;
-        private final int mScrollFromPosition;
-        private final long mDuration;
+        private final Interpolator interpolator;
+        private final int scrollToPosition;
+        private final int scrollFromPosition;
+        private final long duration;
 
-        private boolean mContinueRunning = true;
-        private long mStartTime = -1;
-        private int mCurrentPosition = -1;
+        private long startTime = -1;
+        private int currentPosition = -1;
 
         SmoothScrollRunnable(int fromPosition, int toPosition, long duration, Interpolator scrollAnimationInterpolator) {
-            mScrollFromPosition = fromPosition;
-            mScrollToPosition = toPosition;
-            mInterpolator = scrollAnimationInterpolator;
-            mDuration = duration;
+            scrollFromPosition = fromPosition;
+            scrollToPosition = toPosition;
+            interpolator = scrollAnimationInterpolator;
+            this.duration = duration;
         }
 
         @Override
         public void run() {
-            if (mStartTime == -1) {
-                mStartTime = System.currentTimeMillis();
+            if (startTime == -1) {
+                startTime = System.currentTimeMillis();
             } else {
-                long normalizedTime = (1000 * (System.currentTimeMillis() - mStartTime)) / mDuration;
+                long normalizedTime = (1000 * (System.currentTimeMillis() - startTime)) / duration;
                 normalizedTime = Math.max(Math.min(normalizedTime, 1000), 0);
 
-                final int deltaY = Math.round((mScrollFromPosition - mScrollToPosition)
-                        * mInterpolator.getInterpolation(normalizedTime / 1000f));
-                mCurrentPosition = mScrollFromPosition - deltaY;
+                final int deltaY = Math.round((scrollFromPosition - scrollToPosition)
+                        * interpolator.getInterpolation(normalizedTime / 1000f));
+                currentPosition = scrollFromPosition - deltaY;
 
-                moveOverscrollView(mCurrentPosition, 0);
+                moveOverScrollView(currentPosition);
             }
 
-            if (mContinueRunning && mScrollToPosition != mCurrentPosition) {
-                ViewCompat.postOnAnimation(OverscrollContainer.this, this);
+            if (scrollToPosition != currentPosition) {
+                ViewCompat.postOnAnimation(OverScrollContainer.this, this);
             }
         }
     }

@@ -6,26 +6,26 @@ import android.util.AttributeSet;
 
 import agency.tango.materialintroscreen.R;
 
-public class OverscrollViewPager extends OverscrollContainer {
+public class OverScrollLayout extends OverScrollContainer {
 
-    public OverscrollViewPager(Context context) {
+    public OverScrollLayout(Context context) {
         this(context, null);
     }
 
-    public OverscrollViewPager(Context context, AttributeSet attrs) {
+    public OverScrollLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public OverscrollViewPager(Context context, AttributeSet attrs, int defStyle) {
+    public OverScrollLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
     @Override
-    protected boolean canOverscrollAtEnd() {
-        SwipeableViewPager viewPager = getOverscrollView();
+    protected boolean canOverScrollAtEnd() {
+        SwipeableViewPager viewPager = getOverScrollView();
         PagerAdapter adapter = viewPager.getAdapter();
         if (null != adapter && adapter.getCount() > 0) {
-            if (viewPager.getCurrentItem() == adapter.getCount() - 1) {
+            if (viewPager.alphaExitTransitionEnabled() && viewPager.getCurrentItem() == adapter.getCount() - 1) {
                 return true;
             }
             return false;
@@ -34,9 +34,8 @@ public class OverscrollViewPager extends OverscrollContainer {
         return false;
     }
 
-
     @Override
-    protected SwipeableViewPager createOverscrollView() {
+    protected SwipeableViewPager createOverScrollView() {
         SwipeableViewPager swipeableViewPager = new SwipeableViewPager(getContext(), null);
         swipeableViewPager.setId(R.id.swipeable_view_pager);
         return swipeableViewPager;

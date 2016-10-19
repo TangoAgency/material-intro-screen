@@ -13,6 +13,7 @@ public class SwipeableViewPager extends CustomViewPager {
     float startPos = 0;
     private int currentIt;
     private boolean swipingAllowed;
+    private boolean alphaExitTransitionEnabled = false;
 
     public SwipeableViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -83,6 +84,14 @@ public class SwipeableViewPager extends CustomViewPager {
 
     public void setSwipingRightAllowed(boolean allowed) {
         swipingAllowed = allowed;
+    }
+
+    public void alphaExitTransitionEnabled(boolean alphaExitTransitionEnabled) {
+        this.alphaExitTransitionEnabled = alphaExitTransitionEnabled;
+    }
+
+    public boolean alphaExitTransitionEnabled() {
+        return alphaExitTransitionEnabled && swipingAllowed;
     }
 
     private void resolveSwipingRightAllowed() {

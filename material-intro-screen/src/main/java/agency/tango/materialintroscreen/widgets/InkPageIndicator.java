@@ -118,7 +118,7 @@ public class InkPageIndicator extends View implements CustomViewPager.OnPageChan
     }
 
     private int getCount() {
-        return viewPager.getAdapter().slidesCount();
+        return viewPager.getAdapter().getCount();
     }
 
     public void setViewPager(final SwipeableViewPager viewPager) {

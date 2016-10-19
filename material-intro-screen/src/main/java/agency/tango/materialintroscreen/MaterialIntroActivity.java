@@ -27,6 +27,7 @@ import agency.tango.materialintroscreen.animations.wrappers.NextButtonTranslatio
 import agency.tango.materialintroscreen.animations.wrappers.PageIndicatorTranslationWrapper;
 import agency.tango.materialintroscreen.animations.wrappers.SkipButtonTranslationWrapper;
 import agency.tango.materialintroscreen.animations.wrappers.ViewPagerTranslationWrapper;
+import agency.tango.materialintroscreen.listeners.IFinishListener;
 import agency.tango.materialintroscreen.listeners.IPageScrolledListener;
 import agency.tango.materialintroscreen.listeners.IPageSelectedListener;
 import agency.tango.materialintroscreen.listeners.MessageButtonBehaviourOnPageSelected;
@@ -34,7 +35,7 @@ import agency.tango.materialintroscreen.listeners.ViewBehavioursOnPageChangeList
 import agency.tango.materialintroscreen.listeners.clickListeners.PermissionNotGrantedClickListener;
 import agency.tango.materialintroscreen.listeners.scrollListeners.ParallaxScrollListener;
 import agency.tango.materialintroscreen.widgets.InkPageIndicator;
-import agency.tango.materialintroscreen.widgets.OverscrollViewPager;
+import agency.tango.materialintroscreen.widgets.OverScrollLayout;
 import agency.tango.materialintroscreen.widgets.SwipeableViewPager;
 
 import static android.view.View.GONE;
@@ -49,6 +50,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     private CoordinatorLayout coordinatorLayout;
     private Button messageButton;
     private LinearLayout navigationView;
+    private OverScrollLayout overscrollLayout;
 
     private ArgbEvaluator argbEvaluator = new ArgbEvaluator();
 
@@ -76,8 +78,8 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_material_intro);
 
-        OverscrollViewPager overscrollViewPager = (OverscrollViewPager) findViewById(R.id.view_pager_slides);
-        viewPager = overscrollViewPager.getOverscrollView();
+        overscrollLayout = (OverScrollLayout) findViewById(R.id.view_pager_slides);
+        viewPager = overscrollLayout.getOverScrollView();
         pageIndicator = (InkPageIndicator) findViewById(R.id.indicator);
         backButton = (ImageButton) findViewById(R.id.button_back);
         nextButton = (ImageButton) findViewById(R.id.button_next);
@@ -103,7 +105,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         viewPager.post(new Runnable() {
             @Override
             public void run() {
-                if (adapter.slidesCount() == 0) {
+                if (adapter.getCount() == 0) {
                     finish();
                 } else {
                     int currentItem = viewPager.getCurrentItem();
@@ -159,6 +161,14 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         pageIndicatorTranslationWrapper = new PageIndicatorTranslationWrapper(pageIndicator);
         viewPagerTranslationWrapper = new ViewPagerTranslationWrapper(viewPager);
         skipButtonTranslationWrapper = new SkipButtonTranslationWrapper(skipButton);
+
+        overscrollLayout.registerFinishListener(new IFinishListener() {
+            @Override
+            public void doOnFinish() {
+                onFinish();
+                finish();
+            }
+        });
 
         viewPager.addOnPageChangeListener(new ViewBehavioursOnPageChangeListener(adapter)
                 .registerViewTranslationWrapper(nextButtonTranslationWrapper)
@@ -268,7 +278,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int position = viewPager.getCurrentItem(); position < adapter.slidesCount(); position++) {
+                for (int position = viewPager.getCurrentItem(); position < adapter.getCount(); position++) {
                     if (!adapter.getItem(position).canMoveFurther()) {
                         viewPager.setCurrentItem(position, true);
                         showError(adapter.getItem(position).cantMoveFurtherErrorMessage());
@@ -358,7 +368,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
      */
     @SuppressWarnings("unused")
     public void enableLastSlideAlphaExitTransition(boolean enableAlphaExitTransition) {
-//        adapter.addEmptySlide(new LastEmptySlideFragment());
+        viewPager.alphaExitTransitionEnabled(enableAlphaExitTransition);
     }
 
     /**

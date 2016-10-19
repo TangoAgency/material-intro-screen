@@ -9,7 +9,7 @@
     android:background="@android:color/transparent"
     android:orientation="vertical">
 
-    <agency.tango.materialintroscreen.widgets.OverscrollViewPager
+    <agency.tango.materialintroscreen.widgets.OverScrollLayout
         android:id="@+id/view_pager_slides"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
