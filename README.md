@@ -117,6 +117,7 @@ All features which are not available in simple Slide Fragment are shown here: [C
  - For parallax I have used files from [Material Intro] by [@HeinrichReimer]
  - [InkPageIndicator.java] by [@NickButcher]
  - Images used to create sample app are from [freepik]
+ - For over scroll effect on last slide I have partially used [Android-Overscroll-ViewPager]
  
 ## Getting Help
 
@@ -154,3 +155,4 @@ Thanks in advance.
 [ParallaxFactor]: <https://github.com/TangoAgency/material-intro-screen/blob/master/material-intro-screen/src/main/res/layout/fragment_slide.xml#L29>
 [Manifest]: <https://github.com/TangoAgency/material-intro-screen/blob/master/app/src/main/AndroidManifest.xml#L28>
 [TranslationWrapper]: <https://github.com/TangoAgency/material-intro-screen/blob/master/material-intro-screen/src/main/java/agency/tango/materialintroscreen/animations/ViewTranslationWrapper.java>
+[Android-Overscroll-ViewPager]: <https://github.com/iamjiex/Android-Overscroll-ViewPager>

@@ -10,7 +10,7 @@ import agency.tango.materialintroscreen.SlideFragment;
 import agency.tango.materialintroscreen.adapter.SlidesAdapter;
 
 public class SwipeableViewPager extends CustomViewPager {
-    float startPos = 0;
+    private float startPos = 0;
     private int currentIt;
     private boolean swipingAllowed;
     private boolean alphaExitTransitionEnabled = false;

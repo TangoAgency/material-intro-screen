@@ -35,7 +35,7 @@ import agency.tango.materialintroscreen.listeners.ViewBehavioursOnPageChangeList
 import agency.tango.materialintroscreen.listeners.clickListeners.PermissionNotGrantedClickListener;
 import agency.tango.materialintroscreen.listeners.scrollListeners.ParallaxScrollListener;
 import agency.tango.materialintroscreen.widgets.InkPageIndicator;
-import agency.tango.materialintroscreen.widgets.OverScrollLayout;
+import agency.tango.materialintroscreen.widgets.OverScrollViewPager;
 import agency.tango.materialintroscreen.widgets.SwipeableViewPager;
 
 import static android.view.View.GONE;
@@ -50,7 +50,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     private CoordinatorLayout coordinatorLayout;
     private Button messageButton;
     private LinearLayout navigationView;
-    private OverScrollLayout overscrollLayout;
+    private OverScrollViewPager overScrollLayout;
 
     private ArgbEvaluator argbEvaluator = new ArgbEvaluator();
 
@@ -78,8 +78,8 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_material_intro);
 
-        overscrollLayout = (OverScrollLayout) findViewById(R.id.view_pager_slides);
-        viewPager = overscrollLayout.getOverScrollView();
+        overScrollLayout = (OverScrollViewPager) findViewById(R.id.view_pager_slides);
+        viewPager = overScrollLayout.getOverScrollView();
         pageIndicator = (InkPageIndicator) findViewById(R.id.indicator);
         backButton = (ImageButton) findViewById(R.id.button_back);
         nextButton = (ImageButton) findViewById(R.id.button_next);
@@ -162,7 +162,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         viewPagerTranslationWrapper = new ViewPagerTranslationWrapper(viewPager);
         skipButtonTranslationWrapper = new SkipButtonTranslationWrapper(skipButton);
 
-        overscrollLayout.registerFinishListener(new IFinishListener() {
+        overScrollLayout.registerFinishListener(new IFinishListener() {
             @Override
             public void doOnFinish() {
                 onFinish();

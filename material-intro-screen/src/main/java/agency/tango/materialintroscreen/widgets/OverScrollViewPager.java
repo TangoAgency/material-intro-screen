@@ -1,6 +1,7 @@
 package agency.tango.materialintroscreen.widgets;
 
 import android.content.Context;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -9,9 +10,10 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.RelativeLayout;
 
+import agency.tango.materialintroscreen.R;
 import agency.tango.materialintroscreen.listeners.IFinishListener;
 
-public abstract class OverScrollContainer extends RelativeLayout {
+public class OverScrollViewPager extends RelativeLayout {
     private SwipeableViewPager swipeableViewPager = null;
     private boolean mIsBeingDragged = false;
     private float mMotionBeginX = 0;
@@ -19,19 +21,15 @@ public abstract class OverScrollContainer extends RelativeLayout {
     private int mTouchSlop;
     private IFinishListener finishListener;
 
-    abstract protected boolean canOverScrollAtEnd();
-
-    abstract protected SwipeableViewPager createOverScrollView();
-
-    public OverScrollContainer(Context context) {
+    public OverScrollViewPager(Context context) {
         this(context, null);
     }
 
-    public OverScrollContainer(Context context, AttributeSet attrs) {
+    public OverScrollViewPager(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public OverScrollContainer(Context context, AttributeSet attrs, int defStyle) {
+    public OverScrollViewPager(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
         swipeableViewPager = createOverScrollView();
@@ -41,10 +39,6 @@ public abstract class OverScrollContainer extends RelativeLayout {
         addView(swipeableViewPager, layoutParams);
 
         mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
-    }
-
-    public SwipeableViewPager getOverScrollView() {
-        return swipeableViewPager;
     }
 
     @Override
@@ -88,21 +82,37 @@ public abstract class OverScrollContainer extends RelativeLayout {
         return true;
     }
 
+    public SwipeableViewPager getOverScrollView() {
+        return swipeableViewPager;
+    }
+
     public void registerFinishListener(IFinishListener listener) {
         finishListener = listener;
     }
 
     private void moveOverScrollView(float currentX) {
-        if (currentX <= 0f) {
-            scrollTo(-(int) currentX, 0);
+        if (canScroll(currentX)) {
+            scrollTo((int) -currentX, 0);
 
-            positionOffset = ((100f * getScrollX()) / getWidth()) / 100f;
+            positionOffset = calculateOffset();
             swipeableViewPager.onPageScrolled(swipeableViewPager.getAdapter().getLastItemPosition(), positionOffset, 0);
 
-            if (positionOffset == 1f) {
+            if (shouldFinish()) {
                 finishListener.doOnFinish();
             }
         }
+    }
+
+    private float calculateOffset() {
+        return ((100f * getScrollX()) / getWidth()) / 100f;
+    }
+
+    private boolean shouldFinish() {
+        return positionOffset == 1f;
+    }
+
+    private boolean canScroll(float currentX) {
+        return currentX <= 0f;
     }
 
     private void resetOverScrollViewWithAnimation(final float currentX) {
@@ -111,6 +121,25 @@ public abstract class OverScrollContainer extends RelativeLayout {
 
     private void finishOverScrollViewWithAnimation(float currentX) {
         post(new SmoothScrollRunnable((int) currentX, -getWidth(), 300, new AccelerateInterpolator()));
+    }
+
+    private boolean canOverScrollAtEnd() {
+        SwipeableViewPager viewPager = getOverScrollView();
+        PagerAdapter adapter = viewPager.getAdapter();
+        if (null != adapter && adapter.getCount() > 0) {
+            if (viewPager.alphaExitTransitionEnabled() && viewPager.getCurrentItem() == adapter.getCount() - 1) {
+                return true;
+            }
+            return false;
+        }
+
+        return false;
+    }
+
+    private SwipeableViewPager createOverScrollView() {
+        SwipeableViewPager swipeableViewPager = new SwipeableViewPager(getContext(), null);
+        swipeableViewPager.setId(R.id.swipeable_view_pager);
+        return swipeableViewPager;
     }
 
     final class SmoothScrollRunnable implements Runnable {
@@ -145,7 +174,7 @@ public abstract class OverScrollContainer extends RelativeLayout {
             }
 
             if (scrollToPosition != currentPosition) {
-                ViewCompat.postOnAnimation(OverScrollContainer.this, this);
+                ViewCompat.postOnAnimation(OverScrollViewPager.this, this);
             }
         }
     }
