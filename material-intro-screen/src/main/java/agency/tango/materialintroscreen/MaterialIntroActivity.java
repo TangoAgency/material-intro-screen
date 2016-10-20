@@ -365,6 +365,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
 
     /**
      * Set if last screen should be able to exit with alpha transition
+     * @param enableAlphaExitTransition should enable alpha exit transition
      */
     @SuppressWarnings("unused")
     public void enableLastSlideAlphaExitTransition(boolean enableAlphaExitTransition) {

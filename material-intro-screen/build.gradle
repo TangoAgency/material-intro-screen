@@ -3,12 +3,12 @@ apply plugin: 'com.novoda.bintray-release'
 
 apply from: "$rootDir/versions.gradle"
 android {
-    compileSdkVersion 24
+    compileSdkVersion 25
     buildToolsVersion "24.0.2"
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
 
@@ -19,36 +19,48 @@ android {
         debug {
             defaultPublishConfig "debug"
         }
+
+        android.libraryVariants.all { variant ->
+            project.task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
+                title = "Documentation for Android $project.android.defaultConfig.versionName v$project.android.defaultConfig.versionCode"
+                description = "Generates Javadoc for $variant.name."
+                group = 'Documentation'
+
+                destinationDir = new File("${project.getProjectDir()}/javaDoc/", variant.baseName)
+                source = variant.javaCompile.source
+
+                ext.androidJar = "${project.android.sdkDirectory}/platforms/${project.android.compileSdkVersion}/android.jar"
+                classpath = project.files(variant.javaCompile.classpath.files) + project.files(ext.androidJar)
+
+                options.memberLevel = JavadocMemberLevel.PROTECTED
+                options.links("http://docs.oracle.com/javase/7/docs/api/")
+                options.links("http://developer.android.com/reference/")
+                options.tags = ['sample']
+                exclude '**/BuildConfig.java'
+                exclude '**/R.java'
+            }
+        }
     }
 
     lintOptions {
         abortOnError false
     }
 
-    dataBinding {
-        enabled = true
+    dependencies {
+        compile fileTree(include: ['*.jar'], dir: 'libs')
+        androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+            exclude group: 'com.android.support', module: 'support-annotations'
+        })
+        compile "com.android.support:appcompat-v7:${project.androidSupport}"
+        compile "com.android.support:design:${project.androidSupport}"
     }
-}
 
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-
-    compile "com.android.support:appcompat-v7:${project.androidSupport}"
-    compile "com.android.support:design:${project.androidSupport}"
-}
-
-
-
-apply from: 'https://github.com/radzio/gradle-mvn-push/raw/master/gradle-mvn-push.gradle'
-
-publish {
-    userOrg = 'tangoagency'
-    groupId = 'agency.tango.android'
-    artifactId = 'material-intro-screen'
-    publishVersion = '0.0.3'
-    desc = ''
-    website = 'https://github.com/TangoAgency/material-intro-screen'
+    publish {
+        userOrg = 'tangoagency'
+        groupId = 'agency.tango.android'
+        artifactId = 'material-intro-screen'
+        publishVersion = '0.0.3'
+        desc = ''
+        website = 'https://github.com/TangoAgency/material-intro-screen'
+    }
 }

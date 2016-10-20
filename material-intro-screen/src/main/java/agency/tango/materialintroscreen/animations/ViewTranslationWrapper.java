@@ -28,6 +28,7 @@ public class ViewTranslationWrapper {
      * Set translation after passing first slide
      *
      * @param enterTranslation new translation
+     * @return ViewTranslationWrapper object
      */
     public ViewTranslationWrapper setEnterTranslation(IViewTranslation enterTranslation) {
         this.enterTranslation = enterTranslation;
@@ -38,6 +39,7 @@ public class ViewTranslationWrapper {
      * Set translation after passing last slide
      *
      * @param exitTranslation new translation
+     * @return ViewTranslationWrapper object
      */
     public ViewTranslationWrapper setExitTranslation(IViewTranslation exitTranslation) {
         this.exitTranslation = exitTranslation;
@@ -48,6 +50,7 @@ public class ViewTranslationWrapper {
      * Set default translation
      *
      * @param defaultTranslation new translation
+     * @return ViewTranslationWrapper object
      */
     public ViewTranslationWrapper setDefaultTranslation(IViewTranslation defaultTranslation) {
         this.defaultTranslation = defaultTranslation;
@@ -58,6 +61,7 @@ public class ViewTranslationWrapper {
      * Set view on error animation
      *
      * @param errorAnimation new animation
+     * @return ViewTranslationWrapper object
      */
     public ViewTranslationWrapper setErrorAnimation(@AnimRes int errorAnimation) {
         if (errorAnimation != 0) {
