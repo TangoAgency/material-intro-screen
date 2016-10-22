@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -125,6 +126,24 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         }
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_DPAD_CENTER:
+            case KeyEvent.KEYCODE_ENTER:
+                if (adapter.isLastSlide(viewPager.getCurrentItem())) {
+                    // Finish
+                    onFinish();
+                    finish();
+                } else {
+                    // Go to next
+                    viewPager.setCurrentItem(viewPager.getNextItem());
+                }
+                return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

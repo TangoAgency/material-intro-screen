@@ -66,6 +66,7 @@ public class SlideFragment extends ParallaxFragment {
         titleTextView = (TextView) view.findViewById(R.id.txt_title_slide);
         descriptionTextView = (TextView) view.findViewById(R.id.txt_description_slide);
         imageView = (ImageView) view.findViewById(R.id.image_slide);
+        view.requestFocus();
         initializeView();
         return view;
     }
