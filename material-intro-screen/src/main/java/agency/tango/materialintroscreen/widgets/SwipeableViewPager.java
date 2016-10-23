@@ -56,6 +56,10 @@ public class SwipeableViewPager extends ViewPager {
         return this.getCurrentItem() - 1;
     }
 
+    public int getNextItem() {
+        return this.getCurrentItem() + 1;
+    }
+
     public void setAllowedSwipeDirection(SwipeDirection direction) {
         this.direction = direction;
     }
