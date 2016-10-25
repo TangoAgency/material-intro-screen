@@ -6,6 +6,8 @@
     android:id="@+id/coordinator_layout_slide"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:background="@android:color/transparent"
     android:orientation="vertical">
 
