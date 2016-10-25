@@ -9,6 +9,7 @@ Material intro screen is inspired by [Material Intro] and developed with love fr
   - [Custom slides][Custom Slide]
   - [Parallax slides][Parallax Slide]
   - Easy extensible api
+  - Android TV support!
   - Material design at it's best!!!
 
 | [Simple slide][SimpleSlide] | [Custom slide][Custom Slide] | [Permission slide][PermissionSlide] | [Finish slide][FinishSlide]
