@@ -43,7 +43,6 @@ public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListen
         } else if (messageButton.getVisibility() != View.INVISIBLE) {
             messageButton.startAnimation(AnimationUtils.loadAnimation(slideFragment.getContext(), R.anim.fade_out));
             messageButton.setVisibility(View.INVISIBLE);
-
         }
     }
 
@@ -51,10 +50,13 @@ public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListen
         return messageButtonBehaviours.get(position) != null && isNotNullOrEmpty(messageButtonBehaviours.get(position).getMessageButtonText());
     }
 
-    private void showMessageButton(SlideFragment fragment) {
+    private void showMessageButton(final SlideFragment fragment) {
         if (messageButton.getVisibility() != View.VISIBLE) {
             messageButton.setVisibility(View.VISIBLE);
-            messageButton.startAnimation(AnimationUtils.loadAnimation(fragment.getActivity(), R.anim.fade_in));
+            if (fragment.getActivity() != null) {
+                messageButton.startAnimation(AnimationUtils.loadAnimation(fragment.getActivity(), R.anim.fade_in));
+
+            }
         }
     }
 }
