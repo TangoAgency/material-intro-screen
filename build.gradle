@@ -16,6 +16,17 @@ allprojects {
     repositories {
         jcenter()
     }
+
+    tasks.withType(Javadoc) {
+
+        options.memberLevel = JavadocMemberLevel.PROTECTED
+        options.links("http://docs.oracle.com/javase/7/docs/api/")
+        options.links("http://developer.android.com/reference/")
+        options.tags = ['sample']
+        exclude '**/BuildConfig.java'
+        exclude '**/R.java'
+    }
+
 }
 
 task clean(type: Delete) {
