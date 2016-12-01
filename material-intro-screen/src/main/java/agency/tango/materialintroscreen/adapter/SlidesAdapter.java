@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import agency.tango.materialintroscreen.LastEmptySlideFragment;
 import agency.tango.materialintroscreen.SlideFragment;
 
 public class SlidesAdapter extends FragmentStatePagerAdapter {
@@ -28,48 +27,30 @@ public class SlidesAdapter extends FragmentStatePagerAdapter {
         return fragment;
     }
 
-    /**
-     * @return Returns count of fragments in adapter
-     */
     @Override
     public int getCount() {
         return fragments.size();
     }
 
-    /**
-     * @return Returns count of fragments in adapter WITHOUT empty slide if is available
-     */
-    public int slidesCount() {
-        if (isLastItemEmptySlide()) {
-            return fragments.size() - 1;
-        } else {
-            return fragments.size();
-        }
-    }
-
     public void addItem(SlideFragment fragment) {
-        fragments.add(slidesCount(), fragment);
-        notifyDataSetChanged();
-    }
-
-    public void addEmptySlide(LastEmptySlideFragment fragment) {
-        fragments.add(fragment);
+        fragments.add(getCount(), fragment);
         notifyDataSetChanged();
     }
 
     public int getLastItemPosition() {
-        return slidesCount() - 1;
+        return getCount() - 1;
     }
 
     public boolean isLastSlide(int position) {
-        return position == slidesCount() - 1;
+        return position == getCount() - 1;
     }
 
     public boolean shouldFinish(int position) {
-        return position == slidesCount();
+        return position == getCount() && getItem(getCount() - 1).canMoveFurther();
     }
 
-    private boolean isLastItemEmptySlide() {
-        return fragments.size() > 0 && fragments.get(fragments.size() - 1) instanceof LastEmptySlideFragment;
+    public boolean shouldLockSlide(int position) {
+        SlideFragment fragment = getItem(position);
+        return !fragment.canMoveFurther() || fragment.hasNeededPermissionsToGrant();
     }
 }

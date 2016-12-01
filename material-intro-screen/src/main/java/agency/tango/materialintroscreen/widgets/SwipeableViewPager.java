@@ -1,45 +1,72 @@
 package agency.tango.materialintroscreen.widgets;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
+import android.support.v4.view.CustomViewPager;
+import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import agency.tango.materialintroscreen.adapter.SlidesAdapter;
-import agency.tango.materialintroscreen.listeners.ITouchEventListener;
 
-public class SwipeableViewPager extends ViewPager {
-    private float initialXValue;
-    private SwipeDirection direction;
-
-    List<ITouchEventListener> touchEventListeners = new ArrayList<>();
+public class SwipeableViewPager extends CustomViewPager {
+    private float startPos = 0;
+    private int currentIt;
+    private boolean swipingAllowed;
+    private boolean alphaExitTransitionEnabled = false;
 
     public SwipeableViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.direction = SwipeDirection.all;
+        swipingAllowed = true;
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        for (ITouchEventListener eventListener : touchEventListeners) {
-            eventListener.process();
-        }
+    public boolean onInterceptTouchEvent(final MotionEvent event) {
+        int action = MotionEventCompat.getActionMasked(event);
 
-        if (IsSwipeAllowed(event)) {
-            return super.onTouchEvent(event);
+        switch (action) {
+            case (MotionEvent.ACTION_DOWN):
+                return super.onInterceptTouchEvent(event);
+            case (MotionEvent.ACTION_MOVE):
+                if (!swipingAllowed) {
+                    return false;
+                }
+                return super.onInterceptTouchEvent(event);
+            case (MotionEvent.ACTION_UP):
+                if (!swipingAllowed) {
+                    return false;
+                }
+                return super.onInterceptTouchEvent(event);
+            default:
+                return super.onInterceptTouchEvent(event);
         }
-        return false;
     }
 
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent event) {
-        if (IsSwipeAllowed(event)) {
-            return super.onInterceptTouchEvent(event);
+    public boolean onTouchEvent(final MotionEvent event) {
+        int action = MotionEventCompat.getActionMasked(event);
+
+        switch (action) {
+            case (MotionEvent.ACTION_DOWN):
+                startPos = event.getX();
+                currentIt = getCurrentItem();
+                resolveSwipingRightAllowed();
+                return super.onTouchEvent(event);
+            case (MotionEvent.ACTION_MOVE):
+                if (!swipingAllowed && startPos - event.getX() > 16) {
+                    return true;
+                }
+                return super.onTouchEvent(event);
+            case (MotionEvent.ACTION_UP):
+                if (!swipingAllowed && startPos - event.getX() > 16) {
+                    smoothScrollTo(getWidth() * currentIt, 0);
+                    return true;
+                }
+                startPos = 0;
+                return super.onTouchEvent(event);
+            default:
+                return super.onTouchEvent(event);
         }
-        return false;
     }
 
     @Override
@@ -47,49 +74,41 @@ public class SwipeableViewPager extends ViewPager {
         return (SlidesAdapter) super.getAdapter();
     }
 
-    public SwipeableViewPager registerOnTouchEventListener(ITouchEventListener eventListener) {
-        touchEventListeners.add(eventListener);
-        return this;
+    @Override
+    public boolean executeKeyEvent(KeyEvent event) {
+        return false;
+    }
+
+    public void moveToNextPage()
+    {
+        setCurrentItem(getCurrentItem() + 1, true);
+    }
+
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        super.onPageScrolled(position, positionOffset, positionOffsetPixels);
     }
 
     public int getPreviousItem() {
-        return this.getCurrentItem() - 1;
+        return getCurrentItem() - 1;
     }
 
-    public void setAllowedSwipeDirection(SwipeDirection direction) {
-        this.direction = direction;
+    public void setSwipingRightAllowed(boolean allowed) {
+        swipingAllowed = allowed;
     }
 
-    private boolean IsSwipeAllowed(MotionEvent event) {
-        if (direction == SwipeDirection.all) return true;
-
-        if (direction == SwipeDirection.none) {
-            return false;
-        }
-
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            initialXValue = event.getX();
-            return true;
-        }
-
-        if (event.getAction() == MotionEvent.ACTION_MOVE) {
-            try {
-                float diffX = event.getX() - initialXValue;
-                if (diffX > 0 && direction == SwipeDirection.right) {
-                    // swipe from left to right detected
-                    return false;
-                } else if (diffX < 0 && direction == SwipeDirection.left) {
-                    // swipe from right to left detected
-                    return false;
-                }
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        }
-        return true;
+    public void alphaExitTransitionEnabled(boolean alphaExitTransitionEnabled) {
+        this.alphaExitTransitionEnabled = alphaExitTransitionEnabled;
     }
 
-    public enum SwipeDirection {
-        all, left, right, none
+    public boolean alphaExitTransitionEnabled() {
+        return alphaExitTransitionEnabled && swipingAllowed;
+    }
+
+    private void resolveSwipingRightAllowed() {
+        if (getAdapter().shouldLockSlide(getCurrentItem())) {
+            setSwipingRightAllowed(false);
+        } else {
+            setSwipingRightAllowed(true);
+        }
     }
 }
