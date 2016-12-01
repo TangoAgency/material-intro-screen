@@ -4,9 +4,9 @@ import android.content.Context;
 import android.support.v4.view.CustomViewPager;
 import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 
-import agency.tango.materialintroscreen.SlideFragment;
 import agency.tango.materialintroscreen.adapter.SlidesAdapter;
 
 public class SwipeableViewPager extends CustomViewPager {
@@ -74,6 +74,16 @@ public class SwipeableViewPager extends CustomViewPager {
         return (SlidesAdapter) super.getAdapter();
     }
 
+    @Override
+    public boolean executeKeyEvent(KeyEvent event) {
+        return false;
+    }
+
+    public void moveToNextPage()
+    {
+        setCurrentItem(getCurrentItem() + 1, true);
+    }
+
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         super.onPageScrolled(position, positionOffset, positionOffsetPixels);
     }
@@ -95,8 +105,7 @@ public class SwipeableViewPager extends CustomViewPager {
     }
 
     private void resolveSwipingRightAllowed() {
-        SlideFragment fragment = getAdapter().getItem(getCurrentItem());
-        if (!fragment.canMoveFurther() || fragment.hasNeededPermissionsToGrant()) {
+        if (getAdapter().shouldLockSlide(getCurrentItem())) {
             setSwipingRightAllowed(false);
         } else {
             setSwipingRightAllowed(true);
