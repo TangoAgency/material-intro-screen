@@ -1,5 +1,9 @@
 ## CHANGELOG:
 
+#### 0.0.5
+- Reimplemented blocking swipes on slides
+- Reimplemented last slide alpha exit transition effect
+
 #### 0.0.4
 - Added support for showing snackbars
 - Added support for asking permissions in custom slides
