@@ -59,7 +59,7 @@ android {
         userOrg = 'tangoagency'
         groupId = 'agency.tango.android'
         artifactId = 'material-intro-screen'
-        publishVersion = '0.0.3'
+        publishVersion = '0.0.5'
         desc = ''
         website = 'https://github.com/TangoAgency/material-intro-screen'
     }
