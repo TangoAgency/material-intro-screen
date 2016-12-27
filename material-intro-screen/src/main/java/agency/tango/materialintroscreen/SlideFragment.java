@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,10 +54,6 @@ public class SlideFragment extends ParallaxFragment {
 
         slideFragment.setArguments(bundle);
         return slideFragment;
-    }
-
-    public static boolean isNotNullOrEmpty(String string) {
-        return string != null && !string.isEmpty();
     }
 
     @Nullable
@@ -126,7 +123,7 @@ public class SlideFragment extends ParallaxFragment {
 
         if (neededPermissions != null) {
             for (String permission : neededPermissions) {
-                if (isNotNullOrEmpty(permission)) {
+                if (!TextUtils.isEmpty(permission)) {
                     if (ContextCompat.checkSelfPermission(getContext(), permission) != PackageManager.PERMISSION_GRANTED) {
                         notGrantedPermissions.add(permission);
                     }
@@ -135,7 +132,7 @@ public class SlideFragment extends ParallaxFragment {
         }
         if (possiblePermissions != null) {
             for (String permission : possiblePermissions) {
-                if (isNotNullOrEmpty(permission)) {
+                if (!TextUtils.isEmpty(permission)) {
                     if (ContextCompat.checkSelfPermission(getContext(), permission) != PackageManager.PERMISSION_GRANTED) {
                         notGrantedPermissions.add(permission);
                     }
@@ -150,7 +147,7 @@ public class SlideFragment extends ParallaxFragment {
     private boolean hasPermissionsToGrant(String[] permissions) {
         if (permissions != null) {
             for (String permission : permissions) {
-                if (isNotNullOrEmpty(permission)) {
+                if (!TextUtils.isEmpty(permission)) {
                     if (ContextCompat.checkSelfPermission(getContext(), permission) != PackageManager.PERMISSION_GRANTED) {
                         return true;
                     }
