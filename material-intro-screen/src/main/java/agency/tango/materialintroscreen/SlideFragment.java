@@ -1,21 +1,34 @@
 package agency.tango.materialintroscreen;
 
+import android.Manifest;
+import android.app.AppOpsManager;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Binder;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import agency.tango.materialintroscreen.parallax.ParallaxFragment;
+
+import static android.content.Context.WINDOW_SERVICE;
 
 public class SlideFragment extends ParallaxFragment {
     private final static String BACKGROUND_COLOR = "background_color";
@@ -145,12 +158,80 @@ public class SlideFragment extends ParallaxFragment {
 
         String[] permissionsToGrant = removeEmptyAndNullStrings(notGrantedPermissions);
         ActivityCompat.requestPermissions(getActivity(), permissionsToGrant, PERMISSIONS_REQUEST_CODE);
+        for (String permission : permissionsToGrant) {
+            switch (permission) {
+                case Manifest.permission.SYSTEM_ALERT_WINDOW:
+                    if (!canDrawOverOtherApps()) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getContext().getPackageName()));
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        } else if (Build.MANUFACTURER.equals("Xiaomi") && Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                            Toast.makeText(getContext(), R.string.grant_permission_xiaomi_draw, Toast.LENGTH_LONG).show();
+                            Intent i = new Intent();
+                            i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            i.addCategory(Intent.CATEGORY_DEFAULT);
+                            i.setData(Uri.parse("package:" + getContext().getPackageName()));
+                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                            getContext().startActivity(i);
+                        }
+                    }
+                    break;
+                case Manifest.permission.WRITE_SETTINGS:
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (!Settings.System.canWrite(getContext())) {
+                            Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS, Uri.parse("package:" + getContext().getPackageName()));
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
+                    }
+                    break;
+            }
+        }
+    }
+
+    private boolean canDrawOverlaysUsingReflection() {
+        try {
+            AppOpsManager manager = (AppOpsManager) getContext().getSystemService(Context.APP_OPS_SERVICE);
+            Class clazz = AppOpsManager.class;
+            Method dispatchMethod = clazz.getMethod("checkOp", int.class, int.class, String.class);
+            int mode = (Integer) dispatchMethod.invoke(manager, 24, Binder.getCallingUid(), getContext().getApplicationContext().getPackageName());
+            return AppOpsManager.MODE_ALLOWED == mode;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+    private boolean canDrawOverOtherApps() {
+        if (Build.MANUFACTURER.equals("Xiaomi") && Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+            return canDrawOverlaysUsingReflection();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            return Settings.canDrawOverlays(getContext());
+        try {
+            WindowManager.LayoutParams lp = new WindowManager.LayoutParams(-1, -1, 2003, 65794, -2);
+            lp.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
+            View view = new View(getContext());
+            ((WindowManager) getContext().getSystemService(WINDOW_SERVICE)).addView(view, lp);
+            ((WindowManager) getContext().getSystemService(WINDOW_SERVICE)).removeView(view);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private boolean hasPermissionsToGrant(String[] permissions) {
         if (permissions != null) {
             for (String permission : permissions) {
                 if (isNotNullOrEmpty(permission)) {
+                    if (permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
+                        return !canDrawOverOtherApps();
+                    }
+                    if (permission.equals(Manifest.permission.WRITE_SETTINGS)) {
+                        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.System.canWrite(getContext());
+                    }
                     if (ContextCompat.checkSelfPermission(getContext(), permission) != PackageManager.PERMISSION_GRANTED) {
                         return true;
                     }

@@ -3,4 +3,5 @@
     <string name="grant_permissions">Grant permissions</string>
     <string name="please_grant_permissions">Please grant needed permissions</string>
     <string name="impassable_slide">Can\'t pass this slide.</string>
+    <string name="grant_permission_xiaomi_draw">Scroll down, click permission manager, enable Display pop-up window</string>
 </resources>
