@@ -13,9 +13,6 @@
 #### 0.0.3
 - Added onFinish method
 
-#### 0.0.3
-- Added onFinish method
-
 #### 0.0.2
 - Added API for animations
 - Added Travis config file
