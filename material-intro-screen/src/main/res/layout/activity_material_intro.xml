@@ -69,11 +69,11 @@
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="16dp"
                 android:layout_weight="1"
-                app:animationDuration="320"
-                app:currentPageIndicatorColor="@android:color/white"
-                app:dotDiameter="8dp"
-                app:dotGap="8dp"
-                app:pageIndicatorColor="@android:color/holo_red_light" />
+                app:mis_animationDuration="320"
+                app:mis_currentPageIndicatorColor="@android:color/white"
+                app:mis_dotDiameter="8dp"
+                app:mis_dotGap="8dp"
+                app:mis_pageIndicatorColor="@android:color/holo_red_light" />
 
             <ImageButton
                 android:id="@+id/button_next"

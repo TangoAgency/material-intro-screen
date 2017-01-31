@@ -61,7 +61,7 @@ public class ParallaxFrameLayout extends FrameLayout implements Parallaxable {
         LayoutParams(Context context, AttributeSet attributeSet) {
             super(context, attributeSet);
             TypedArray typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.ParallaxLayout_Layout);
-            parallaxFactor = typedArray.getFloat(R.styleable.ParallaxLayout_Layout_layout_parallaxFactor, parallaxFactor);
+            parallaxFactor = typedArray.getFloat(R.styleable.ParallaxLayout_Layout_mis_layout_parallaxFactor, parallaxFactor);
             typedArray.recycle();
         }
 

@@ -92,14 +92,14 @@ public class InkPageIndicator extends View implements CustomViewPager.OnPageChan
         final TypedArray typedArray = getContext().obtainStyledAttributes(
                 attrs, R.styleable.InkPageIndicator, defStyle, 0);
 
-        dotDiameter = typedArray.getDimensionPixelSize(R.styleable.InkPageIndicator_dotDiameter, DEFAULT_DOT_SIZE * density);
+        dotDiameter = typedArray.getDimensionPixelSize(R.styleable.InkPageIndicator_mis_dotDiameter, DEFAULT_DOT_SIZE * density);
         dotRadius = dotDiameter / 2;
         halfDotRadius = dotRadius / 2;
-        gap = typedArray.getDimensionPixelSize(R.styleable.InkPageIndicator_dotGap, DEFAULT_GAP * density);
-        animDuration = (long) typedArray.getInteger(R.styleable.InkPageIndicator_animationDuration, DEFAULT_ANIM_DURATION);
+        gap = typedArray.getDimensionPixelSize(R.styleable.InkPageIndicator_mis_dotGap, DEFAULT_GAP * density);
+        animDuration = (long) typedArray.getInteger(R.styleable.InkPageIndicator_mis_animationDuration, DEFAULT_ANIM_DURATION);
         animHalfDuration = animDuration / 2;
-        unselectedColour = typedArray.getColor(R.styleable.InkPageIndicator_pageIndicatorColor, DEFAULT_UNSELECTED_COLOUR);
-        int selectedColour = typedArray.getColor(R.styleable.InkPageIndicator_currentPageIndicatorColor, DEFAULT_SELECTED_COLOUR);
+        unselectedColour = typedArray.getColor(R.styleable.InkPageIndicator_mis_pageIndicatorColor, DEFAULT_UNSELECTED_COLOUR);
+        int selectedColour = typedArray.getColor(R.styleable.InkPageIndicator_mis_currentPageIndicatorColor, DEFAULT_SELECTED_COLOUR);
         typedArray.recycle();
 
         unselectedPaint = new Paint(Paint.ANTI_ALIAS_FLAG);

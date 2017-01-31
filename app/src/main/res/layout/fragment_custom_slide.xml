@@ -25,6 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
         android:text="@string/check_to_pass"
-        app:layout_parallaxFactor="0.4" />
+        app:mis_layout_parallaxFactor="0.4" />
 
 </agency.tango.materialintroscreen.parallax.ParallaxLinearLayout>
