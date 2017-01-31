@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
-            android:theme="@style/ColoredButton"
+            android:theme="@style/mis_ColoredButton"
             android:visibility="invisible"
             tools:text="Message btn" />
 
@@ -46,9 +46,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:layout_marginLeft="16dp"
-                android:background="@drawable/button_background"
+                android:background="@drawable/mis_button_background"
                 android:padding="16dp"
-                android:src="@drawable/ic_previous"
+                android:src="@drawable/mis_ic_previous"
                 android:visibility="invisible" />
 
             <ImageButton
@@ -57,9 +57,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:layout_marginLeft="16dp"
-                android:background="@drawable/button_background"
+                android:background="@drawable/mis_button_background"
                 android:padding="16dp"
-                android:src="@drawable/ic_skip"
+                android:src="@drawable/mis_ic_skip"
                 android:visibility="gone" />
 
             <agency.tango.materialintroscreen.widgets.InkPageIndicator
@@ -81,9 +81,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:layout_marginRight="16dp"
-                android:background="@drawable/button_background"
+                android:background="@drawable/mis_button_background"
                 android:padding="16dp"
-                android:src="@drawable/ic_next" />
+                android:src="@drawable/mis_ic_next" />
         </LinearLayout>
     </LinearLayout>
 

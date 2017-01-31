@@ -1,5 +1,5 @@
 <resources>
-    <declare-styleable name="InkPageIndicator">
+    <declare-styleable name="mis_InkPageIndicator">
         <attr name="mis_dotDiameter" format="dimension" />
         <attr name="mis_dotGap" format="dimension" />
         <attr name="mis_animationDuration" format="integer" />
@@ -7,7 +7,7 @@
         <attr name="mis_currentPageIndicatorColor" format="color" />
     </declare-styleable>
 
-    <declare-styleable name="ParallaxLayout_Layout">
+    <declare-styleable name="mis_ParallaxLayout_Layout">
         <attr name="mis_layout_parallaxFactor" format="float" />
     </declare-styleable>
 </resources>

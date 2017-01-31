@@ -29,7 +29,7 @@ public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListen
 
         if (slideFragment.hasAnyPermissionsToGrant()) {
             showMessageButton(slideFragment);
-            messageButton.setText(slideFragment.getActivity().getString(R.string.grant_permissions));
+            messageButton.setText(slideFragment.getActivity().getString(R.string.mis_grant_permissions));
             messageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -41,7 +41,7 @@ public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListen
             messageButton.setText(messageButtonBehaviours.get(position).getMessageButtonText());
             messageButton.setOnClickListener(messageButtonBehaviours.get(position).getClickListener());
         } else if (messageButton.getVisibility() != View.INVISIBLE) {
-            messageButton.startAnimation(AnimationUtils.loadAnimation(slideFragment.getContext(), R.anim.fade_out));
+            messageButton.startAnimation(AnimationUtils.loadAnimation(slideFragment.getContext(), R.anim.mis_fade_out));
             messageButton.setVisibility(View.INVISIBLE);
         }
     }
@@ -54,7 +54,7 @@ public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListen
         if (messageButton.getVisibility() != View.VISIBLE) {
             messageButton.setVisibility(View.VISIBLE);
             if (fragment.getActivity() != null) {
-                messageButton.startAnimation(AnimationUtils.loadAnimation(fragment.getActivity(), R.anim.fade_in));
+                messageButton.startAnimation(AnimationUtils.loadAnimation(fragment.getActivity(), R.anim.mis_fade_in));
 
             }
         }
