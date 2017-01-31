@@ -1,5 +1,6 @@
 # Android Material Intro Screen
  [ ![Download](https://api.bintray.com/packages/tangoagency/maven/material-intro-screen/images/download.svg) ](https://bintray.com/tangoagency/maven/material-intro-screen/_latestVersion)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/753f46972d8740d1984f8beb7d04fb9d)](https://www.codacy.com/app/TangoAgency/material-intro-screen?utm_source=github.com&utm_medium=referral&utm_content=TangoAgency/material-intro-screen&utm_campaign=badger)
 [![Build Status](https://travis-ci.org/TangoAgency/material-intro-screen.svg?branch=master)](https://travis-ci.org/TangoAgency/material-intro-screen)
 [![Android Arsenal Material Intro Screen](https://img.shields.io/badge/Android%20Arsenal-Material--Intro--Screen-green.svg?style=true)](http://android-arsenal.com/details/1/4368)
 
