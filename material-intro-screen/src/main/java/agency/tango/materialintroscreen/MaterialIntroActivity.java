@@ -4,6 +4,7 @@ import android.animation.ArgbEvaluator;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -41,6 +42,7 @@ import agency.tango.materialintroscreen.widgets.SwipeableViewPager;
 
 import static android.view.View.GONE;
 
+@SuppressWarnings("unused")
 public abstract class MaterialIntroActivity extends AppCompatActivity {
     private SwipeableViewPager viewPager;
     private InkPageIndicator pageIndicator;
@@ -69,6 +71,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     private SparseArray<MessageButtonBehaviour> messageButtonBehaviours = new SparseArray<>();
 
     @Override
+    @CallSuper
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -173,7 +176,6 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
      *
      * @param slideFragment Fragment to add
      */
-    @SuppressWarnings("unused")
     public void addSlide(SlideFragment slideFragment) {
         adapter.addItem(slideFragment);
     }
@@ -184,7 +186,6 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
      * @param slideFragment          Fragment to add
      * @param messageButtonBehaviour Add behaviour for message button
      */
-    @SuppressWarnings("unused")
     public void addSlide(SlideFragment slideFragment, MessageButtonBehaviour messageButtonBehaviour) {
         adapter.addItem(slideFragment);
         messageButtonBehaviours.put(adapter.getLastItemPosition(), messageButtonBehaviour);
@@ -193,7 +194,6 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     /**
      * Set skip button instead of back button
      */
-    @SuppressWarnings("unused")
     public void setSkipButtonVisible() {
         backButton.setVisibility(GONE);
 
@@ -231,7 +231,6 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     /**
      * Hides any back button
      */
-    @SuppressWarnings("unused")
     public void hideBackButton() {
         backButton.setVisibility(View.INVISIBLE);
         skipButton.setVisibility(View.GONE);
@@ -251,7 +250,6 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
      *
      * @return ViewTranslationWrapper
      */
-    @SuppressWarnings("unused")
     public ViewTranslationWrapper getBackButtonTranslationWrapper() {
         return backButtonTranslationWrapper;
     }
@@ -261,7 +259,6 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
      *
      * @return ViewTranslationWrapper
      */
-    @SuppressWarnings("unused")
     public ViewTranslationWrapper getPageIndicatorTranslationWrapper() {
         return pageIndicatorTranslationWrapper;
     }
@@ -271,7 +268,6 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
      *
      * @return ViewTranslationWrapper
      */
-    @SuppressWarnings("unused")
     public ViewTranslationWrapper getViewPagerTranslationWrapper() {
         return viewPagerTranslationWrapper;
     }
@@ -281,7 +277,6 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
      *
      * @return ViewTranslationWrapper
      */
-    @SuppressWarnings("unused")
     public ViewTranslationWrapper getSkipButtonTranslationWrapper() {
         return skipButtonTranslationWrapper;
     }
@@ -291,7 +286,6 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
      *
      * @param enableAlphaExitTransition should enable alpha exit transition
      */
-    @SuppressWarnings("unused")
     public void enableLastSlideAlphaExitTransition(boolean enableAlphaExitTransition) {
         viewPager.alphaExitTransitionEnabled(enableAlphaExitTransition);
     }
@@ -308,8 +302,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     /**
      * Override to execute this method on finish intro activity
      */
-    public void onFinish() {
-    }
+    public abstract void onFinish();
 
     private void initOnPageChangeListeners() {
         messageButtonBehaviourOnPageSelected = new MessageButtonBehaviourOnPageSelected(messageButton, adapter, messageButtonBehaviours);
@@ -433,10 +426,10 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
             if (position < adapter.getCount() - 1) {
                 setViewsColor(position, offset);
             } else if (adapter.getCount() == 1) {
-                viewPager.setBackgroundColor(adapter.getItem(position).backgroundColor());
-                messageButton.setTextColor(adapter.getItem(position).backgroundColor());
+                viewPager.setBackgroundColor(color(adapter.getItem(position).backgroundColor()));
+                messageButton.setTextColor(color(adapter.getItem(position).backgroundColor()));
 
-                tintButtons(ColorStateList.valueOf(adapter.getItem(position).buttonsColor()));
+                tintButtons(ColorStateList.valueOf(color(adapter.getItem(position).buttonsColor())));
             }
         }
 

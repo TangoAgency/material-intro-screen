@@ -3,15 +3,21 @@ package agency.tango.materialintroscreen;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 
-@SuppressWarnings({"unused", "WeakerAccess"})
+@SuppressWarnings("unused")
 public class SlideFragmentBuilder {
+    @ColorRes
     int backgroundColor;
+
+    @ColorRes
     int buttonsColor;
+
+    @DrawableRes
+    int image;
+
     String title;
     String description;
     String[] neededPermissions;
     String[] possiblePermissions;
-    int image;
 
     public SlideFragmentBuilder backgroundColor(@ColorRes int backgroundColor) {
         this.backgroundColor = backgroundColor;

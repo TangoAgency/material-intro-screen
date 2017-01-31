@@ -2,6 +2,8 @@ package agency.tango.materialintroscreen;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -27,9 +29,15 @@ public class SlideFragment extends ParallaxFragment {
     private static final String IMAGE = "image";
     private static final int PERMISSIONS_REQUEST_CODE = 15621;
 
+    @ColorRes
     private int backgroundColor;
+
+    @ColorRes
     private int buttonsColor;
+
+    @DrawableRes
     private int image;
+
     private String title;
     private String description;
     private String[] neededPermissions;
@@ -83,10 +91,12 @@ public class SlideFragment extends ParallaxFragment {
         updateViewWithValues();
     }
 
+    @ColorRes
     public int backgroundColor() {
         return backgroundColor;
     }
 
+    @ColorRes
     public int buttonsColor() {
         return buttonsColor;
     }
