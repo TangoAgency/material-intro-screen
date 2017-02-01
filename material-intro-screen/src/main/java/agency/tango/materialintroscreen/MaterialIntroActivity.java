@@ -4,6 +4,7 @@ import android.animation.ArgbEvaluator;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -423,16 +424,17 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         return (Integer) argbEvaluator.evaluate(positionOffset, getButtonsColor(position), getButtonsColor(position + 1));
     }
 
-    private int color(@ColorRes int color) {
+    @ColorInt
+    private int getColorFromRes(@ColorRes int color) {
         return ContextCompat.getColor(this, color);
     }
 
     private int getButtonsColor(int position) {
-        return color(adapter.getItem(position).buttonsColor());
+        return getColorFromRes(adapter.getItem(position).buttonsColor());
     }
 
     private int getBackgroundColor(int position) {
-        return color(adapter.getItem(position).backgroundColor());
+        return getColorFromRes(adapter.getItem(position).backgroundColor());
     }
 
     private class ColorTransitionScrollListener implements IPageScrolledListener {
