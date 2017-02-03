@@ -416,12 +416,12 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         }).show();
     }
 
-    private Integer getBackgroundEvaluatedColor(int position, float positionOffset) {
-        return (Integer) argbEvaluator.evaluate(positionOffset, getBackgroundColor(position), getBackgroundColor(position + 1));
+    private int getBackgroundEvaluatedColor(int position, float positionOffset) {
+        return (int) argbEvaluator.evaluate(positionOffset, getBackgroundColor(position), getBackgroundColor(position + 1));
     }
 
-    private Integer getButtonsEvaluatedColor(int position, float positionOffset) {
-        return (Integer) argbEvaluator.evaluate(positionOffset, getButtonsColor(position), getButtonsColor(position + 1));
+    private int getButtonsEvaluatedColor(int position, float positionOffset) {
+        return (int) argbEvaluator.evaluate(positionOffset, getButtonsColor(position), getButtonsColor(position + 1));
     }
 
     @ColorInt
