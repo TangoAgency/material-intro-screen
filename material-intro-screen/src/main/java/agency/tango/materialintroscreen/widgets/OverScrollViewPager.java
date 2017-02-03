@@ -98,7 +98,7 @@ public class OverScrollViewPager extends RelativeLayout {
             swipeableViewPager.onPageScrolled(swipeableViewPager.getAdapter().getLastItemPosition(), positionOffset, 0);
 
             if (shouldFinish()) {
-                finishListener.doOnFinish();
+                finishListener.onFinish();
             }
         }
     }

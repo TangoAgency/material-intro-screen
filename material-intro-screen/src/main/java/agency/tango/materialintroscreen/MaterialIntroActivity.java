@@ -300,9 +300,12 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     /**
-     * Override to execute this method on finish intro activity
+     * Override in order to perform some action after passing last slide
      */
-    public abstract void onFinish();
+    public void onLastSlidePassed()
+    {
+
+    }
 
     private void initOnPageChangeListeners() {
         messageButtonBehaviourOnPageSelected = new MessageButtonBehaviourOnPageSelected(messageButton, adapter, messageButtonBehaviours);
@@ -314,7 +317,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
 
         overScrollLayout.registerFinishListener(new IFinishListener() {
             @Override
-            public void doOnFinish() {
+            public void onFinish() {
                 performFinish();
             }
         });
@@ -381,7 +384,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     private void performFinish() {
-        onFinish();
+        onLastSlidePassed();
         finish();
     }
 

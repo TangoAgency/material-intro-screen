@@ -74,7 +74,7 @@ public class IntroActivity extends MaterialIntroActivity {
     }
 
     @Override
-    public void onFinish() {
+    public void onLastSlidePassed() {
         Toast.makeText(this, "Try this library in your project! :)", Toast.LENGTH_SHORT).show();
     }
 }
