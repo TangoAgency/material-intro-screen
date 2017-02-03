@@ -70,7 +70,7 @@ public class SlideFragment extends ParallaxFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_slide, container, false);
+        View view = inflater.inflate(R.layout.mis_fragment_slide, container, false);
         titleTextView = (TextView) view.findViewById(R.id.txt_title_slide);
         descriptionTextView = (TextView) view.findViewById(R.id.txt_description_slide);
         imageView = (ImageView) view.findViewById(R.id.image_slide);
@@ -118,7 +118,7 @@ public class SlideFragment extends ParallaxFragment {
     }
 
     public String cantMoveFurtherErrorMessage() {
-        return getString(R.string.impassable_slide);
+        return getString(R.string.mis_impassable_slide);
     }
 
     private void updateViewWithValues() {

@@ -138,7 +138,7 @@ public class OverScrollViewPager extends RelativeLayout {
 
     private SwipeableViewPager createOverScrollView() {
         SwipeableViewPager swipeableViewPager = new SwipeableViewPager(getContext(), null);
-        swipeableViewPager.setId(R.id.swipeable_view_pager);
+        swipeableViewPager.setId(R.id.mis_swipeable_view_pager);
         return swipeableViewPager;
     }
 
