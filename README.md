@@ -35,7 +35,7 @@ public class IntroActivity extends MaterialIntroActivity
 ```xml
         <activity
             android:name=".IntroActivity"
-            android:theme="@style/Theme.Intro" />
+            android:theme="@style/Theme.MaterialIntro" />
 ```
 ### Step 4: 
 #### [Add slides:][Intro Activity]
