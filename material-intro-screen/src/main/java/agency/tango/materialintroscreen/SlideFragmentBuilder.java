@@ -1,7 +1,16 @@
 package agency.tango.materialintroscreen;
 
+import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+
+import static agency.tango.materialintroscreen.SlideFragment.BACKGROUND_COLOR;
+import static agency.tango.materialintroscreen.SlideFragment.BUTTONS_COLOR;
+import static agency.tango.materialintroscreen.SlideFragment.DESCRIPTION;
+import static agency.tango.materialintroscreen.SlideFragment.IMAGE;
+import static agency.tango.materialintroscreen.SlideFragment.NEEDED_PERMISSIONS;
+import static agency.tango.materialintroscreen.SlideFragment.POSSIBLE_PERMISSIONS;
+import static agency.tango.materialintroscreen.SlideFragment.TITLE;
 
 @SuppressWarnings("unused")
 public class SlideFragmentBuilder {
@@ -55,35 +64,27 @@ public class SlideFragmentBuilder {
         return this;
     }
 
-    public int backgroundColor() {
-        return backgroundColor;
-    }
-
-    public int buttonsColor() {
-        return buttonsColor;
-    }
-
-    public int image() {
-        return image;
-    }
-
-    public String title() {
-        return title;
-    }
-
-    public String description() {
-        return description;
-    }
-
-    public String[] neededPermissions() {
-        return neededPermissions;
-    }
-
-    public String[] possiblePermissions() {
-        return possiblePermissions;
-    }
-
     public SlideFragment build() {
-        return SlideFragment.createInstance(this);
+        String missing = "";
+        if (backgroundColor == 0) {
+            missing += " backgroundColor";
+        }
+        if (buttonsColor == 0) {
+            missing += " buttonsColor";
+        }
+        if (!missing.isEmpty()) {
+            throw new IllegalStateException("Missing required properties in SlideFragmentBuilder:" + missing);
+        }
+
+        Bundle bundle = new Bundle();
+        bundle.putInt(BACKGROUND_COLOR, backgroundColor);
+        bundle.putInt(BUTTONS_COLOR, buttonsColor);
+        bundle.putInt(IMAGE, image);
+        bundle.putString(TITLE, title);
+        bundle.putString(DESCRIPTION, description);
+        bundle.putStringArray(NEEDED_PERMISSIONS, neededPermissions);
+        bundle.putStringArray(POSSIBLE_PERMISSIONS, possiblePermissions);
+
+        return SlideFragment.createInstance(bundle);
     }
 }

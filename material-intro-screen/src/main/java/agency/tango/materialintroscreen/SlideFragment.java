@@ -20,13 +20,13 @@ import java.util.List;
 import agency.tango.materialintroscreen.parallax.ParallaxFragment;
 
 public class SlideFragment extends ParallaxFragment {
-    private final static String BACKGROUND_COLOR = "background_color";
-    private static final String BUTTONS_COLOR = "buttons_color";
-    private static final String TITLE = "title";
-    private static final String DESCRIPTION = "description";
-    private static final String NEEDED_PERMISSIONS = "needed_permission";
-    private static final String POSSIBLE_PERMISSIONS = "possible_permission";
-    private static final String IMAGE = "image";
+    public static final String BACKGROUND_COLOR = "background_color";
+    public static final String BUTTONS_COLOR = "buttons_color";
+    public static final String TITLE = "title";
+    public static final String DESCRIPTION = "description";
+    public static final String NEEDED_PERMISSIONS = "needed_permission";
+    public static final String POSSIBLE_PERMISSIONS = "possible_permission";
+    public static final String IMAGE = "image";
     private static final int PERMISSIONS_REQUEST_CODE = 15621;
 
     @ColorRes
@@ -47,18 +47,8 @@ public class SlideFragment extends ParallaxFragment {
     private TextView descriptionTextView;
     private ImageView imageView;
 
-    public static SlideFragment createInstance(SlideFragmentBuilder builder) {
+    public static SlideFragment createInstance(Bundle bundle) {
         SlideFragment slideFragment = new SlideFragment();
-
-        Bundle bundle = new Bundle();
-        bundle.putInt(BACKGROUND_COLOR, builder.backgroundColor());
-        bundle.putInt(BUTTONS_COLOR, builder.buttonsColor());
-        bundle.putInt(IMAGE, builder.image());
-        bundle.putString(TITLE, builder.title());
-        bundle.putString(DESCRIPTION, builder.description());
-        bundle.putStringArray(NEEDED_PERMISSIONS, builder.neededPermissions());
-        bundle.putStringArray(POSSIBLE_PERMISSIONS, builder.possiblePermissions());
-
         slideFragment.setArguments(bundle);
         return slideFragment;
     }
