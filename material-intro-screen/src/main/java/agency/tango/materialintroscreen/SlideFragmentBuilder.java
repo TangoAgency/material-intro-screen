@@ -73,7 +73,8 @@ public class SlideFragmentBuilder {
             missing += " buttonsColor";
         }
         if (!missing.isEmpty()) {
-            throw new IllegalStateException("Missing required properties in SlideFragmentBuilder:" + missing);
+            throw new IllegalStateException(
+                    "Missing required properties in SlideFragmentBuilder:" + missing);
         }
 
         Bundle bundle = new Bundle();

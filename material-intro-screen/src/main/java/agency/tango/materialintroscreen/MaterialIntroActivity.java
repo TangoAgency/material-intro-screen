@@ -35,13 +35,11 @@ import agency.tango.materialintroscreen.listeners.IPageScrolledListener;
 import agency.tango.materialintroscreen.listeners.IPageSelectedListener;
 import agency.tango.materialintroscreen.listeners.MessageButtonBehaviourOnPageSelected;
 import agency.tango.materialintroscreen.listeners.ViewBehavioursOnPageChangeListener;
-import agency.tango.materialintroscreen.listeners.clickListeners.PermissionNotGrantedClickListener;
-import agency.tango.materialintroscreen.listeners.scrollListeners.ParallaxScrollListener;
+import agency.tango.materialintroscreen.listeners.click.PermissionNotGrantedClickListener;
+import agency.tango.materialintroscreen.listeners.scroll.ParallaxScrollListener;
 import agency.tango.materialintroscreen.widgets.InkPageIndicator;
 import agency.tango.materialintroscreen.widgets.OverScrollViewPager;
 import agency.tango.materialintroscreen.widgets.SwipeableViewPager;
-
-import static android.view.View.GONE;
 
 @SuppressWarnings("unused")
 public abstract class MaterialIntroActivity extends AppCompatActivity {
@@ -196,7 +194,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
      * Set skip button instead of back button
      */
     public void setSkipButtonVisible() {
-        backButton.setVisibility(GONE);
+        backButton.setVisibility(View.GONE);
 
         skipButton.setVisibility(View.VISIBLE);
         skipButton.setOnClickListener(new View.OnClickListener() {
@@ -218,7 +216,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
      * Set back button visible
      */
     public void setBackButtonVisible() {
-        skipButton.setVisibility(GONE);
+        skipButton.setVisibility(View.GONE);
 
         backButton.setVisibility(View.VISIBLE);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -303,8 +301,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     /**
      * Override in order to perform some action after passing last slide
      */
-    public void onLastSlidePassed()
-    {
+    public void onLastSlidePassed() {
         // This method is intentionally empty, because we didn't want to make this method
         // abstract as it would force user to implement this, even if he wouldn't like to.
     }
@@ -375,10 +372,10 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
             nextButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (fragment.canMoveFurther() == false) {
-                        errorOccurred(fragment);
-                    } else {
+                    if (fragment.canMoveFurther()) {
                         viewPager.moveToNextPage();
+                    } else {
+                        errorOccurred(fragment);
                     }
                 }
             });

@@ -13,11 +13,13 @@ import agency.tango.materialintroscreen.adapter.SlidesAdapter;
 import static agency.tango.materialintroscreen.SlideFragment.isNotNullOrEmpty;
 
 public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListener {
+
     private Button messageButton;
     private SlidesAdapter adapter;
     private SparseArray<MessageButtonBehaviour> messageButtonBehaviours;
 
-    public MessageButtonBehaviourOnPageSelected(Button messageButton, SlidesAdapter adapter, SparseArray<MessageButtonBehaviour> messageButtonBehaviours) {
+    public MessageButtonBehaviourOnPageSelected(Button messageButton, SlidesAdapter adapter,
+            SparseArray<MessageButtonBehaviour> messageButtonBehaviours) {
         this.messageButton = messageButton;
         this.adapter = adapter;
         this.messageButtonBehaviours = messageButtonBehaviours;
@@ -29,7 +31,8 @@ public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListen
 
         if (slideFragment.hasAnyPermissionsToGrant()) {
             showMessageButton(slideFragment);
-            messageButton.setText(slideFragment.getActivity().getString(R.string.mis_grant_permissions));
+            messageButton
+                    .setText(slideFragment.getActivity().getString(R.string.mis_grant_permissions));
             messageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -39,22 +42,26 @@ public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListen
         } else if (checkIfMessageButtonHasBehaviour(position)) {
             showMessageButton(slideFragment);
             messageButton.setText(messageButtonBehaviours.get(position).getMessageButtonText());
-            messageButton.setOnClickListener(messageButtonBehaviours.get(position).getClickListener());
+            messageButton
+                    .setOnClickListener(messageButtonBehaviours.get(position).getClickListener());
         } else if (messageButton.getVisibility() != View.INVISIBLE) {
-            messageButton.startAnimation(AnimationUtils.loadAnimation(slideFragment.getContext(), R.anim.mis_fade_out));
+            messageButton.startAnimation(
+                    AnimationUtils.loadAnimation(slideFragment.getContext(), R.anim.mis_fade_out));
             messageButton.setVisibility(View.INVISIBLE);
         }
     }
 
     private boolean checkIfMessageButtonHasBehaviour(int position) {
-        return messageButtonBehaviours.get(position) != null && isNotNullOrEmpty(messageButtonBehaviours.get(position).getMessageButtonText());
+        return messageButtonBehaviours.get(position) != null && isNotNullOrEmpty(
+                messageButtonBehaviours.get(position).getMessageButtonText());
     }
 
     private void showMessageButton(final SlideFragment fragment) {
         if (messageButton.getVisibility() != View.VISIBLE) {
             messageButton.setVisibility(View.VISIBLE);
             if (fragment.getActivity() != null) {
-                messageButton.startAnimation(AnimationUtils.loadAnimation(fragment.getActivity(), R.anim.mis_fade_in));
+                messageButton.startAnimation(
+                        AnimationUtils.loadAnimation(fragment.getActivity(), R.anim.mis_fade_in));
 
             }
         }

@@ -1,4 +1,4 @@
-package agency.tango.materialintroscreen.listeners.scrollListeners;
+package agency.tango.materialintroscreen.listeners.scroll;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;

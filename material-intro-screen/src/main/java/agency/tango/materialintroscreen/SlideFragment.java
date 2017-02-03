@@ -17,9 +17,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import agency.tango.materialintroscreen.parallax.ParallaxFragment;
+public class SlideFragment extends SlideFragmentBase {
 
-public class SlideFragment extends ParallaxFragment {
     public static final String BACKGROUND_COLOR = "background_color";
     public static final String BUTTONS_COLOR = "buttons_color";
     public static final String TITLE = "title";
@@ -53,13 +52,10 @@ public class SlideFragment extends ParallaxFragment {
         return slideFragment;
     }
 
-    public static boolean isNotNullOrEmpty(String string) {
-        return string != null && !string.isEmpty();
-    }
-
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.mis_fragment_slide, container, false);
         titleTextView = (TextView) view.findViewById(R.id.txt_title_slide);
         descriptionTextView = (TextView) view.findViewById(R.id.txt_description_slide);
@@ -68,27 +64,26 @@ public class SlideFragment extends ParallaxFragment {
         return view;
     }
 
-    public void initializeView() {
-        Bundle bundle = getArguments();
-        backgroundColor = bundle.getInt(BACKGROUND_COLOR);
-        buttonsColor = bundle.getInt(BUTTONS_COLOR);
-        image = bundle.getInt(IMAGE, 0);
-        title = bundle.getString(TITLE);
-        description = bundle.getString(DESCRIPTION);
-        neededPermissions = bundle.getStringArray(NEEDED_PERMISSIONS);
-        possiblePermissions = bundle.getStringArray(POSSIBLE_PERMISSIONS);
-
-        updateViewWithValues();
-    }
-
+    @Override
     @ColorRes
     public int backgroundColor() {
         return backgroundColor;
     }
 
+    @Override
     @ColorRes
     public int buttonsColor() {
         return buttonsColor;
+    }
+
+    @Override
+    public boolean canMoveFurther() {
+        return true;
+    }
+
+    @Override
+    public String cantMoveFurtherErrorMessage() {
+        return getString(R.string.mis_impassable_slide);
     }
 
     public boolean hasAnyPermissionsToGrant() {
@@ -103,12 +98,47 @@ public class SlideFragment extends ParallaxFragment {
         return hasPermissionsToGrant(neededPermissions);
     }
 
-    public boolean canMoveFurther() {
-        return true;
+    @SuppressWarnings({"PMD.SimplifyBooleanReturns", "RedundantIfStatement"})
+    public void askForPermissions() {
+        ArrayList<String> notGrantedPermissions = new ArrayList<>();
+
+        if (neededPermissions != null) {
+            for (String permission : neededPermissions) {
+                if (isNotNullOrEmpty(permission)) {
+                    if (ContextCompat.checkSelfPermission(getContext(), permission)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        notGrantedPermissions.add(permission);
+                    }
+                }
+            }
+        }
+        if (possiblePermissions != null) {
+            for (String permission : possiblePermissions) {
+                if (isNotNullOrEmpty(permission)) {
+                    if (ContextCompat.checkSelfPermission(getContext(), permission)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        notGrantedPermissions.add(permission);
+                    }
+                }
+            }
+        }
+
+        String[] permissionsToGrant = removeEmptyAndNullStrings(notGrantedPermissions);
+        ActivityCompat
+                .requestPermissions(getActivity(), permissionsToGrant, PERMISSIONS_REQUEST_CODE);
     }
 
-    public String cantMoveFurtherErrorMessage() {
-        return getString(R.string.mis_impassable_slide);
+    private void initializeView() {
+        Bundle bundle = getArguments();
+        backgroundColor = bundle.getInt(BACKGROUND_COLOR);
+        buttonsColor = bundle.getInt(BUTTONS_COLOR);
+        image = bundle.getInt(IMAGE, 0);
+        title = bundle.getString(TITLE);
+        description = bundle.getString(DESCRIPTION);
+        neededPermissions = bundle.getStringArray(NEEDED_PERMISSIONS);
+        possiblePermissions = bundle.getStringArray(POSSIBLE_PERMISSIONS);
+
+        updateViewWithValues();
     }
 
     private void updateViewWithValues() {
@@ -121,37 +151,13 @@ public class SlideFragment extends ParallaxFragment {
         }
     }
 
-    public void askForPermissions() {
-        ArrayList<String> notGrantedPermissions = new ArrayList<>();
-
-        if (neededPermissions != null) {
-            for (String permission : neededPermissions) {
-                if (isNotNullOrEmpty(permission)) {
-                    if (ContextCompat.checkSelfPermission(getContext(), permission) != PackageManager.PERMISSION_GRANTED) {
-                        notGrantedPermissions.add(permission);
-                    }
-                }
-            }
-        }
-        if (possiblePermissions != null) {
-            for (String permission : possiblePermissions) {
-                if (isNotNullOrEmpty(permission)) {
-                    if (ContextCompat.checkSelfPermission(getContext(), permission) != PackageManager.PERMISSION_GRANTED) {
-                        notGrantedPermissions.add(permission);
-                    }
-                }
-            }
-        }
-
-        String[] permissionsToGrant = removeEmptyAndNullStrings(notGrantedPermissions);
-        ActivityCompat.requestPermissions(getActivity(), permissionsToGrant, PERMISSIONS_REQUEST_CODE);
-    }
-
+    @SuppressWarnings({"PMD.SimplifyBooleanReturns", "RedundantIfStatement"})
     private boolean hasPermissionsToGrant(String[] permissions) {
         if (permissions != null) {
             for (String permission : permissions) {
                 if (isNotNullOrEmpty(permission)) {
-                    if (ContextCompat.checkSelfPermission(getContext(), permission) != PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(getContext(), permission)
+                            != PackageManager.PERMISSION_GRANTED) {
                         return true;
                     }
                 }
@@ -165,5 +171,9 @@ public class SlideFragment extends ParallaxFragment {
         List<String> list = new ArrayList<>(permissions);
         list.removeAll(Collections.singleton(null));
         return list.toArray(new String[list.size()]);
+    }
+
+    public static boolean isNotNullOrEmpty(String string) {
+        return string != null && !string.isEmpty();
     }
 }
