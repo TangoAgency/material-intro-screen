@@ -78,7 +78,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
             window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
 
-        setContentView(R.layout.activity_material_intro);
+        setContentView(R.layout.mis_activity_material_intro);
 
         overScrollLayout = (OverScrollViewPager) findViewById(R.id.view_pager_slides);
         viewPager = overScrollLayout.getOverScrollView();
@@ -166,7 +166,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     public void showPermissionsNotGrantedError() {
-        showError(getString(R.string.please_grant_permissions));
+        showError(getString(R.string.mis_please_grant_permissions));
     }
 
     /**
@@ -368,13 +368,13 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     private void nextButtonBehaviour(final int position, final SlideFragment fragment) {
         boolean hasPermissionToGrant = fragment.hasNeededPermissionsToGrant();
         if (hasPermissionToGrant) {
-            nextButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_next));
+            nextButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.mis_ic_next));
             nextButton.setOnClickListener(permissionNotGrantedClickListener);
         } else if (adapter.isLastSlide(position)) {
-            nextButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_finish));
+            nextButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.mis_ic_finish));
             nextButton.setOnClickListener(finishScreenClickListener);
         } else {
-            nextButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_next));
+            nextButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.mis_ic_next));
             nextButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

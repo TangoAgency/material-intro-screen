@@ -5,6 +5,7 @@ apply from: "$rootDir/versions.gradle"
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
+        resourcePrefix 'mis_'
 
     defaultConfig {
         minSdkVersion 15

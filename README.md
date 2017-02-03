@@ -35,7 +35,7 @@ public class IntroActivity extends MaterialIntroActivity
 ```xml
         <activity
             android:name=".IntroActivity"
-            android:theme="@style/Theme.Intro" />
+            android:theme="@style/Theme.MaterialIntro" />
 ```
 ### Step 4: 
 #### [Add slides:][Intro Activity]
@@ -103,14 +103,14 @@ getBackButtonTranslationWrapper()
   - [```ParallaxLinearLayout```][ParallaxLinear]
   - [```ParallaxRelativeLayout```][ParallaxRelative]
 
-#### And set there the [app:layout_parallaxFactor][ParallaxFactor] attribute:
+#### And set there the [app:mis_layout_parallaxFactor][ParallaxFactor] attribute:
 ```xml
 <agency.tango.materialintroscreen.parallax.ParallaxLinearLayout
 xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageView
         android:id="@+id/image_slide"
-        app:layout_parallaxFactor="0.6"/>
+        app:mis_layout_parallaxFactor="0.6"/>
 ```
 
 All features which are not available in simple Slide Fragment are shown here: [Custom Slide]
