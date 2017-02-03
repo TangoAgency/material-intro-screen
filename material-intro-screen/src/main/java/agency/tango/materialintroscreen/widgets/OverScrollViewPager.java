@@ -42,7 +42,7 @@ public class OverScrollViewPager extends RelativeLayout {
         mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
     }
 
-    @SuppressWarnings({"PMD.SimplifyBooleanReturns", "RedundantIfStatement"})
+    @SuppressWarnings({"PMD.CollapsibleIfStatements"})
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
         int action = event.getAction();
@@ -127,7 +127,7 @@ public class OverScrollViewPager extends RelativeLayout {
                 new AccelerateInterpolator()));
     }
 
-    @SuppressWarnings({"PMD.SimplifyBooleanReturns", "RedundantIfStatement"})
+    @SuppressWarnings({"PMD.SimplifyBooleanReturns", "RedundantIfStatement", "PMD.CollapsibleIfStatements"})
     private boolean canOverScrollAtEnd() {
         SwipeableViewPager viewPager = getOverScrollView();
         PagerAdapter adapter = viewPager.getAdapter();

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
+ * Modifications Copyright 2017 Tango Agency
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,9 +71,9 @@ import java.util.List;
  * through pages of data.  You supply an implementation of a
  * {@link PagerAdapter} to generate the pages that the view shows.
  *
- * <p>ViewPager is most often used in conjunction with {@link android.app.Fragment},
+ * <p>CustomViewPager is most often used in conjunction with {@link android.app.Fragment},
  * which is a convenient way to supply and manage the lifecycle of each page.
- * There are standard adapters implemented for using fragments with the ViewPager,
+ * There are standard adapters implemented for using fragments with the CustomViewPager,
  * which cover the most common use cases.  These are
  * {@link android.support.v4.app.FragmentPagerAdapter} and
  * {@link android.support.v4.app.FragmentStatePagerAdapter}; each of these
@@ -84,7 +85,7 @@ import java.util.List;
  * its {@code android:layout_gravity} attribute. For example:
  *
  * <pre>
- * &lt;android.support.v4.view.ViewPager
+ * &lt;android.support.v4.view.CustomViewPager
  *     android:layout_width=&quot;match_parent&quot;
  *     android:layout_height=&quot;match_parent&quot;&gt;
  *
@@ -93,20 +94,22 @@ import java.util.List;
  *         android:layout_height=&quot;wrap_content&quot;
  *         android:layout_gravity=&quot;top&quot; /&gt;
  *
- * &lt;/android.support.v4.view.ViewPager&gt;
+ * &lt;/android.support.v4.view.CustomViewPager&gt;
  * </pre>
  *
- * <p>For more information about how to use ViewPager, read <a
+ * <p>For more information about how to use CustomViewPager, read <a
  * href="{@docRoot}training/implementing-navigation/lateral.html">Creating Swipe Views with
  * Tabs</a>.</p>
  *
- * <p>Below is a more complicated example of ViewPager, using it in conjunction
+ * <p>Below is a more complicated example of CustomViewPager, using it in conjunction
  * with {@link android.app.ActionBar} tabs.  You can find other examples of using
- * ViewPager in the API 4+ Support Demos and API 13+ Support Demos sample code.
+ * CustomViewPager in the API 4+ Support Demos and API 13+ Support Demos sample code.
  *
  * {@sample frameworks/support/samples/Support13Demos/src/com/example/android/supportv13/app/ActionBarTabsPager.java
  * complete}
  */
+
+@SuppressWarnings("PMD")
 public class CustomViewPager extends ViewGroup {
 
     private static final String TAG = "CustomViewPager";

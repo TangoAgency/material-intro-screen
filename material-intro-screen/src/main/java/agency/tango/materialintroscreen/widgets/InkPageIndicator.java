@@ -1,6 +1,6 @@
 /*
  * Copyright 2015 Google Inc.
- * Modification copyright 2017 Tango Agency
+ * Modifications Copyright 2017 Tango Agency
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

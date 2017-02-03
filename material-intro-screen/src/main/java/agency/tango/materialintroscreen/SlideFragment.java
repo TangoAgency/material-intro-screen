@@ -98,7 +98,7 @@ public class SlideFragment extends SlideFragmentBase {
         return hasPermissionsToGrant(neededPermissions);
     }
 
-    @SuppressWarnings({"PMD.SimplifyBooleanReturns", "RedundantIfStatement"})
+    @SuppressWarnings({"PMD.CollapsibleIfStatements"})
     public void askForPermissions() {
         ArrayList<String> notGrantedPermissions = new ArrayList<>();
 
@@ -151,7 +151,7 @@ public class SlideFragment extends SlideFragmentBase {
         }
     }
 
-    @SuppressWarnings({"PMD.SimplifyBooleanReturns", "RedundantIfStatement"})
+    @SuppressWarnings({"PMD.CollapsibleIfStatements"})
     private boolean hasPermissionsToGrant(String[] permissions) {
         if (permissions != null) {
             for (String permission : permissions) {

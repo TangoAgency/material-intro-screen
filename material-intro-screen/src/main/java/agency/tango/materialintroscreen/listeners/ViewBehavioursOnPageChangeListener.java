@@ -9,6 +9,7 @@ import agency.tango.materialintroscreen.adapter.SlidesAdapter;
 import agency.tango.materialintroscreen.animations.ViewTranslationWrapper;
 
 public class ViewBehavioursOnPageChangeListener implements CustomViewPager.OnPageChangeListener {
+
     private final SlidesAdapter adapter;
 
     private List<IPageSelectedListener> listeners = new ArrayList<>();
@@ -19,17 +20,20 @@ public class ViewBehavioursOnPageChangeListener implements CustomViewPager.OnPag
         this.adapter = adapter;
     }
 
-    public ViewBehavioursOnPageChangeListener registerPageSelectedListener(IPageSelectedListener pageSelectedListener) {
+    public ViewBehavioursOnPageChangeListener registerPageSelectedListener(
+            IPageSelectedListener pageSelectedListener) {
         listeners.add(pageSelectedListener);
         return this;
     }
 
-    public ViewBehavioursOnPageChangeListener registerViewTranslationWrapper(ViewTranslationWrapper wrapper) {
+    public ViewBehavioursOnPageChangeListener registerViewTranslationWrapper(
+            ViewTranslationWrapper wrapper) {
         wrappers.add(wrapper);
         return this;
     }
 
-    public ViewBehavioursOnPageChangeListener registerOnPageScrolled(IPageScrolledListener pageScrolledListener) {
+    public ViewBehavioursOnPageChangeListener registerOnPageScrolled(
+            IPageScrolledListener pageScrolledListener) {
         pageScrolledListeners.add(pageScrolledListener);
         return this;
     }
@@ -64,6 +68,7 @@ public class ViewBehavioursOnPageChangeListener implements CustomViewPager.OnPag
 
     @Override
     public void onPageScrollStateChanged(int state) {
+        //This method is intentionally left blank, as it should do nothing
     }
 
     private boolean isFirstSlide(int position) {
