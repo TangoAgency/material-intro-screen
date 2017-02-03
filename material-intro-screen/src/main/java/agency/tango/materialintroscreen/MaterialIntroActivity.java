@@ -4,6 +4,7 @@ import android.animation.ArgbEvaluator;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -415,16 +416,25 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         }).show();
     }
 
-    private Integer getBackgroundColor(int position, float positionOffset) {
-        return (Integer) argbEvaluator.evaluate(positionOffset, color(adapter.getItem(position).backgroundColor()), color(adapter.getItem(position + 1).backgroundColor()));
+    private int getBackgroundEvaluatedColor(int position, float positionOffset) {
+        return (int) argbEvaluator.evaluate(positionOffset, getBackgroundColor(position), getBackgroundColor(position + 1));
     }
 
-    private Integer getButtonsColor(int position, float positionOffset) {
-        return (Integer) argbEvaluator.evaluate(positionOffset, color(adapter.getItem(position).buttonsColor()), color(adapter.getItem(position + 1).buttonsColor()));
+    private int getButtonsEvaluatedColor(int position, float positionOffset) {
+        return (int) argbEvaluator.evaluate(positionOffset, getButtonsColor(position), getButtonsColor(position + 1));
     }
 
-    private int color(@ColorRes int color) {
+    @ColorInt
+    private int getColorFromRes(@ColorRes int color) {
         return ContextCompat.getColor(this, color);
+    }
+
+    private int getButtonsColor(int position) {
+        return getColorFromRes(adapter.getItem(position).buttonsColor());
+    }
+
+    private int getBackgroundColor(int position) {
+        return getColorFromRes(adapter.getItem(position).backgroundColor());
     }
 
     private class ColorTransitionScrollListener implements IPageScrolledListener {
@@ -432,26 +442,31 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         public void pageScrolled(int position, float offset) {
             if (position < adapter.getCount() - 1) {
                 setViewsColor(position, offset);
-            } else if (adapter.getCount() == 1) {
-                viewPager.setBackgroundColor(adapter.getItem(position).backgroundColor());
-                messageButton.setTextColor(adapter.getItem(position).backgroundColor());
+            } else if (adapter.getCount() == 1 || isOnLastSlide(position, offset)) {
+                viewPager.setBackgroundColor(getBackgroundColor(position));
+                messageButton.setTextColor(getBackgroundColor(position));
+                pageIndicator.setPageIndicatorColor(getButtonsColor(position));
 
-                tintButtons(ColorStateList.valueOf(adapter.getItem(position).buttonsColor()));
+                tintButtons(ColorStateList.valueOf(getButtonsColor(position)));
             }
         }
 
         private void setViewsColor(int position, float offset) {
-            int backgroundColor = getBackgroundColor(position, offset);
+            int backgroundColor = getBackgroundEvaluatedColor(position, offset);
             viewPager.setBackgroundColor(backgroundColor);
             messageButton.setTextColor(backgroundColor);
 
-            int buttonsColor = getButtonsColor(position, offset);
+            int buttonsColor = getButtonsEvaluatedColor(position, offset);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getWindow().setStatusBarColor(buttonsColor);
             }
             pageIndicator.setPageIndicatorColor(buttonsColor);
 
             tintButtons(ColorStateList.valueOf(buttonsColor));
+        }
+
+        private boolean isOnLastSlide(int position, float offset) {
+            return position == adapter.getLastItemPosition() && offset == 0;
         }
 
         private void tintButtons(ColorStateList color) {
