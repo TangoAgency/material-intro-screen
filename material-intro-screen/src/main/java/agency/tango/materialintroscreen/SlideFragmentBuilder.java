@@ -55,31 +55,31 @@ public class SlideFragmentBuilder {
         return this;
     }
 
-    int backgroundColor() {
+    public int backgroundColor() {
         return backgroundColor;
     }
 
-    int buttonsColor() {
+    public int buttonsColor() {
         return buttonsColor;
     }
 
-    int image() {
+    public int image() {
         return image;
     }
 
-    String title() {
+    public String title() {
         return title;
     }
 
-    String description() {
+    public String description() {
         return description;
     }
 
-    String[] neededPermissions() {
+    public String[] neededPermissions() {
         return neededPermissions;
     }
 
-    String[] possiblePermissions() {
+    public String[] possiblePermissions() {
         return possiblePermissions;
     }
 
