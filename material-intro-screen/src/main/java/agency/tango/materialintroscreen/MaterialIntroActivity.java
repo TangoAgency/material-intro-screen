@@ -304,7 +304,8 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
      */
     public void onLastSlidePassed()
     {
-
+        // This method is intentionally empty, because we didn't want to make this method
+        // abstract as it would force user to implement this, even if he wouldn't like to.
     }
 
     private void initOnPageChangeListeners() {

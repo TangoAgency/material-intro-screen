@@ -5,19 +5,20 @@ import android.support.annotation.DrawableRes;
 
 @SuppressWarnings("unused")
 public class SlideFragmentBuilder {
-    @ColorRes
-    int backgroundColor;
 
     @ColorRes
-    int buttonsColor;
+    private int backgroundColor;
+
+    @ColorRes
+    private int buttonsColor;
 
     @DrawableRes
-    int image;
+    private int image;
 
-    String title;
-    String description;
-    String[] neededPermissions;
-    String[] possiblePermissions;
+    private String title;
+    private String description;
+    private String[] neededPermissions;
+    private String[] possiblePermissions;
 
     public SlideFragmentBuilder backgroundColor(@ColorRes int backgroundColor) {
         this.backgroundColor = backgroundColor;
@@ -52,6 +53,34 @@ public class SlideFragmentBuilder {
     public SlideFragmentBuilder image(@DrawableRes int image) {
         this.image = image;
         return this;
+    }
+
+    int backgroundColor() {
+        return backgroundColor;
+    }
+
+    int buttonsColor() {
+        return buttonsColor;
+    }
+
+    int image() {
+        return image;
+    }
+
+    String title() {
+        return title;
+    }
+
+    String description() {
+        return description;
+    }
+
+    String[] neededPermissions() {
+        return neededPermissions;
+    }
+
+    String[] possiblePermissions() {
+        return possiblePermissions;
     }
 
     public SlideFragment build() {

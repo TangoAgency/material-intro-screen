@@ -51,13 +51,13 @@ public class SlideFragment extends ParallaxFragment {
         SlideFragment slideFragment = new SlideFragment();
 
         Bundle bundle = new Bundle();
-        bundle.putInt(BACKGROUND_COLOR, builder.backgroundColor);
-        bundle.putInt(BUTTONS_COLOR, builder.buttonsColor);
-        bundle.putInt(IMAGE, builder.image);
-        bundle.putString(TITLE, builder.title);
-        bundle.putString(DESCRIPTION, builder.description);
-        bundle.putStringArray(NEEDED_PERMISSIONS, builder.neededPermissions);
-        bundle.putStringArray(POSSIBLE_PERMISSIONS, builder.possiblePermissions);
+        bundle.putInt(BACKGROUND_COLOR, builder.backgroundColor());
+        bundle.putInt(BUTTONS_COLOR, builder.buttonsColor());
+        bundle.putInt(IMAGE, builder.image());
+        bundle.putString(TITLE, builder.title());
+        bundle.putString(DESCRIPTION, builder.description());
+        bundle.putStringArray(NEEDED_PERMISSIONS, builder.neededPermissions());
+        bundle.putStringArray(POSSIBLE_PERMISSIONS, builder.possiblePermissions());
 
         slideFragment.setArguments(bundle);
         return slideFragment;
