@@ -166,7 +166,7 @@ public class SlideFragment extends ParallaxFragment {
                             Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getContext().getPackageName()));
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
-                        } else if (Build.MANUFACTURER.equals("Xiaomi") && Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                        } else if ("Xiaomi".equals(Build.MANUFACTURER) && Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                             Toast.makeText(getContext(), R.string.grant_permission_xiaomi_draw, Toast.LENGTH_LONG).show();
                             Intent i = new Intent();
                             i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
@@ -188,6 +188,8 @@ public class SlideFragment extends ParallaxFragment {
                         }
                     }
                     break;
+                default:
+                    break;
             }
         }
     }
@@ -206,7 +208,7 @@ public class SlideFragment extends ParallaxFragment {
     }
 
     private boolean canDrawOverOtherApps() {
-        if (Build.MANUFACTURER.equals("Xiaomi") && Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+        if ("Xiaomi".equals(Build.MANUFACTURER) && Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
             return canDrawOverlaysUsingReflection();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             return Settings.canDrawOverlays(getContext());
