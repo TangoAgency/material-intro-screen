@@ -53,7 +53,7 @@ public class IntroActivity extends MaterialIntroActivity {
                         .backgroundColor(R.color.third_slide_background)
                         .buttonsColor(R.color.third_slide_buttons)
                         .possiblePermissions(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.READ_SMS})
-                        .neededPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
+                        .neededPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_SETTINGS, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.ACCESS_COARSE_LOCATION})
                         .image(R.drawable.img_equipment)
                         .title("We provide best tools")
                         .description("ever")
