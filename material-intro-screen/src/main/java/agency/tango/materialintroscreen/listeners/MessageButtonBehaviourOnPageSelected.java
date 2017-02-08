@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import agency.tango.materialintroscreen.MessageButtonBehaviour;
 import agency.tango.materialintroscreen.R;
-import agency.tango.materialintroscreen.SlideFragment;
+import agency.tango.materialintroscreen.SlideFragmentBase;
 import agency.tango.materialintroscreen.adapter.SlidesAdapter;
 
 import static agency.tango.materialintroscreen.SlideFragment.isNotNullOrEmpty;
@@ -27,7 +27,7 @@ public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListen
 
     @Override
     public void pageSelected(int position) {
-        final SlideFragment slideFragment = adapter.getItem(position);
+        final SlideFragmentBase slideFragment = adapter.getItem(position);
 
         if (slideFragment.hasAnyPermissionsToGrant()) {
             showMessageButton(slideFragment);
@@ -56,7 +56,7 @@ public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListen
                 messageButtonBehaviours.get(position).getMessageButtonText());
     }
 
-    private void showMessageButton(final SlideFragment fragment) {
+    private void showMessageButton(final SlideFragmentBase fragment) {
         if (messageButton.getVisibility() != View.VISIBLE) {
             messageButton.setVisibility(View.VISIBLE);
             if (fragment.getActivity() != null) {

@@ -93,12 +93,14 @@ getBackButtonTranslationWrapper()
 - ```getSkipButtonTranslationWrapper()``` 
 
 ## Custom slides
-#### Of course you are able to implement completely custom slides. You only need to extend SlideFragment and override following functions:
+#### Of course you are able to implement completely custom slides. You only need to extend SlideFragmentBase and override all needed functions.
  - ```backgroundColor()```
  - ```buttonsColor()```
  - ```canMoveFurther()``` (only if you want to stop user from being able to move further before he will do some action)
  - ```cantMoveFurtherErrorMessage()``` (as above)
- 
+ - ```neededPermissions()```
+ - ```possiblePermissions()```
+
 #### If you want to use parallax in a fragment please use one of the below views:
   - [```ParallaxFrameLayout```][ParallaxFrame]
   - [```ParallaxLinearLayout```][ParallaxLinear]

@@ -1,21 +1,15 @@
 package agency.tango.materialintroscreen;
 
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class SlideFragment extends SlideFragmentBase {
 
@@ -26,7 +20,6 @@ public class SlideFragment extends SlideFragmentBase {
     public static final String NEEDED_PERMISSIONS = "needed_permission";
     public static final String POSSIBLE_PERMISSIONS = "possible_permission";
     public static final String IMAGE = "image";
-    private static final int PERMISSIONS_REQUEST_CODE = 15621;
 
     @ColorRes
     private int backgroundColor;
@@ -77,6 +70,16 @@ public class SlideFragment extends SlideFragmentBase {
     }
 
     @Override
+    public String[] possiblePermissions() {
+        return possiblePermissions;
+    }
+
+    @Override
+    public String[] neededPermissions() {
+        return neededPermissions;
+    }
+
+    @Override
     public boolean canMoveFurther() {
         return true;
     }
@@ -84,48 +87,6 @@ public class SlideFragment extends SlideFragmentBase {
     @Override
     public String cantMoveFurtherErrorMessage() {
         return getString(R.string.mis_impassable_slide);
-    }
-
-    public boolean hasAnyPermissionsToGrant() {
-        boolean hasPermissionToGrant = hasPermissionsToGrant(neededPermissions);
-        if (!hasPermissionToGrant) {
-            hasPermissionToGrant = hasPermissionsToGrant(possiblePermissions);
-        }
-        return hasPermissionToGrant;
-    }
-
-    public boolean hasNeededPermissionsToGrant() {
-        return hasPermissionsToGrant(neededPermissions);
-    }
-
-    @SuppressWarnings({"PMD.CollapsibleIfStatements"})
-    public void askForPermissions() {
-        ArrayList<String> notGrantedPermissions = new ArrayList<>();
-
-        if (neededPermissions != null) {
-            for (String permission : neededPermissions) {
-                if (isNotNullOrEmpty(permission)) {
-                    if (ContextCompat.checkSelfPermission(getContext(), permission)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        notGrantedPermissions.add(permission);
-                    }
-                }
-            }
-        }
-        if (possiblePermissions != null) {
-            for (String permission : possiblePermissions) {
-                if (isNotNullOrEmpty(permission)) {
-                    if (ContextCompat.checkSelfPermission(getContext(), permission)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        notGrantedPermissions.add(permission);
-                    }
-                }
-            }
-        }
-
-        String[] permissionsToGrant = removeEmptyAndNullStrings(notGrantedPermissions);
-        ActivityCompat
-                .requestPermissions(getActivity(), permissionsToGrant, PERMISSIONS_REQUEST_CODE);
     }
 
     private void initializeView() {
@@ -149,31 +110,5 @@ public class SlideFragment extends SlideFragmentBase {
             imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), image));
             imageView.setVisibility(View.VISIBLE);
         }
-    }
-
-    @SuppressWarnings({"PMD.CollapsibleIfStatements"})
-    private boolean hasPermissionsToGrant(String[] permissions) {
-        if (permissions != null) {
-            for (String permission : permissions) {
-                if (isNotNullOrEmpty(permission)) {
-                    if (ContextCompat.checkSelfPermission(getContext(), permission)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    @SuppressWarnings("SuspiciousMethodCalls")
-    private String[] removeEmptyAndNullStrings(final ArrayList<String> permissions) {
-        List<String> list = new ArrayList<>(permissions);
-        list.removeAll(Collections.singleton(null));
-        return list.toArray(new String[list.size()]);
-    }
-
-    public static boolean isNotNullOrEmpty(String string) {
-        return string != null && !string.isEmpty();
     }
 }

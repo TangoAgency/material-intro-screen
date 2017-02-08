@@ -121,7 +121,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        SlideFragment fragment = adapter.getItem(viewPager.getCurrentItem());
+        SlideFragmentBase fragment = adapter.getItem(viewPager.getCurrentItem());
         boolean hasPermissionToGrant = fragment.hasNeededPermissionsToGrant();
         if (!hasPermissionToGrant) {
             viewPager.setSwipingRightAllowed(true);
@@ -171,12 +171,12 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     /**
-     * Add SlideFragment to IntroScreen
+     * Add SlideFragmentBase to IntroScreen
      *
      * @param slideFragment Fragment to add
      */
-    public void addSlide(SlideFragment slideFragment) {
-        adapter.addItem(slideFragment);
+    public void addSlide(SlideFragmentBase slideFragmentBase) {
+        adapter.addItem(slideFragmentBase);
     }
 
     /**
@@ -185,8 +185,8 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
      * @param slideFragment          Fragment to add
      * @param messageButtonBehaviour Add behaviour for message button
      */
-    public void addSlide(SlideFragment slideFragment, MessageButtonBehaviour messageButtonBehaviour) {
-        adapter.addItem(slideFragment);
+    public void addSlide(SlideFragmentBase slideFragmentBase, MessageButtonBehaviour messageButtonBehaviour) {
+        adapter.addItem(slideFragmentBase);
         messageButtonBehaviours.put(adapter.getLastItemPosition(), messageButtonBehaviour);
     }
 
@@ -359,7 +359,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     @SuppressWarnings("PointlessBooleanExpression")
-    private void nextButtonBehaviour(final int position, final SlideFragment fragment) {
+    private void nextButtonBehaviour(final int position, final SlideFragmentBase fragment) {
         boolean hasPermissionToGrant = fragment.hasNeededPermissionsToGrant();
         if (hasPermissionToGrant) {
             nextButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.mis_ic_next));
@@ -395,9 +395,9 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         }
     }
 
-    private void errorOccurred(SlideFragment slideFragment) {
+    private void errorOccurred(SlideFragmentBase slideFragmentBase) {
         nextButtonTranslationWrapper.error();
-        showError(slideFragment.cantMoveFurtherErrorMessage());
+        showError(slideFragmentBase.cantMoveFurtherErrorMessage());
     }
 
     private void showError(String error) {
@@ -473,7 +473,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     private class FinishScreenClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            SlideFragment slideFragment = adapter.getItem(adapter.getLastItemPosition());
+            SlideFragmentBase slideFragment = adapter.getItem(adapter.getLastItemPosition());
             if (!slideFragment.canMoveFurther()) {
                 errorOccurred(slideFragment);
             } else {
