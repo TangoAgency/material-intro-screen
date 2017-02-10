@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 
-import agency.tango.materialintroscreen.SlideFragmentBase;
+import agency.tango.materialintroscreen.fragments.SlideFragmentBase;
 
 public class CustomSlide extends SlideFragmentBase {
 

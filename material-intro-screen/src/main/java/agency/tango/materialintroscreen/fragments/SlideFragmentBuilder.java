@@ -1,16 +1,16 @@
-package agency.tango.materialintroscreen;
+package agency.tango.materialintroscreen.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 
-import static agency.tango.materialintroscreen.SlideFragment.BACKGROUND_COLOR;
-import static agency.tango.materialintroscreen.SlideFragment.BUTTONS_COLOR;
-import static agency.tango.materialintroscreen.SlideFragment.DESCRIPTION;
-import static agency.tango.materialintroscreen.SlideFragment.IMAGE;
-import static agency.tango.materialintroscreen.SlideFragment.NEEDED_PERMISSIONS;
-import static agency.tango.materialintroscreen.SlideFragment.POSSIBLE_PERMISSIONS;
-import static agency.tango.materialintroscreen.SlideFragment.TITLE;
+import static agency.tango.materialintroscreen.fragments.SlideFragment.BACKGROUND_COLOR;
+import static agency.tango.materialintroscreen.fragments.SlideFragment.BUTTONS_COLOR;
+import static agency.tango.materialintroscreen.fragments.SlideFragment.DESCRIPTION;
+import static agency.tango.materialintroscreen.fragments.SlideFragment.IMAGE;
+import static agency.tango.materialintroscreen.fragments.SlideFragment.NEEDED_PERMISSIONS;
+import static agency.tango.materialintroscreen.fragments.SlideFragment.POSSIBLE_PERMISSIONS;
+import static agency.tango.materialintroscreen.fragments.SlideFragment.TITLE;
 
 @SuppressWarnings("unused")
 public class SlideFragmentBuilder {

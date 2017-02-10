@@ -30,6 +30,8 @@ import agency.tango.materialintroscreen.animations.wrappers.NextButtonTranslatio
 import agency.tango.materialintroscreen.animations.wrappers.PageIndicatorTranslationWrapper;
 import agency.tango.materialintroscreen.animations.wrappers.SkipButtonTranslationWrapper;
 import agency.tango.materialintroscreen.animations.wrappers.ViewPagerTranslationWrapper;
+import agency.tango.materialintroscreen.behaviours.MessageButtonBehaviour;
+import agency.tango.materialintroscreen.fragments.SlideFragmentBase;
 import agency.tango.materialintroscreen.listeners.IFinishListener;
 import agency.tango.materialintroscreen.listeners.IPageScrolledListener;
 import agency.tango.materialintroscreen.listeners.IPageSelectedListener;
@@ -43,6 +45,7 @@ import agency.tango.materialintroscreen.widgets.SwipeableViewPager;
 
 @SuppressWarnings("unused")
 public abstract class MaterialIntroActivity extends AppCompatActivity {
+
     private SwipeableViewPager viewPager;
     private InkPageIndicator pageIndicator;
     private SlidesAdapter adapter;
@@ -76,7 +79,8 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window window = getWindow();
-            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
 
         setContentView(R.layout.mis_activity_material_intro);
@@ -100,7 +104,8 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         nextButtonTranslationWrapper = new NextButtonTranslationWrapper(nextButton);
         initOnPageChangeListeners();
 
-        permissionNotGrantedClickListener = new PermissionNotGrantedClickListener(this, nextButtonTranslationWrapper);
+        permissionNotGrantedClickListener = new PermissionNotGrantedClickListener(this,
+                nextButtonTranslationWrapper);
         finishScreenClickListener = new FinishScreenClickListener();
 
         setBackButtonVisible();
@@ -120,7 +125,8 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
         SlideFragmentBase fragment = adapter.getItem(viewPager.getCurrentItem());
         boolean hasPermissionToGrant = fragment.hasNeededPermissionsToGrant();
         if (!hasPermissionToGrant) {
@@ -173,7 +179,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     /**
      * Add SlideFragmentBase to IntroScreen
      *
-     * @param slideFragment Fragment to add
+     * @param slideFragmentBase Fragment to add
      */
     public void addSlide(SlideFragmentBase slideFragmentBase) {
         adapter.addItem(slideFragmentBase);
@@ -182,10 +188,11 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     /**
      * Add SlideFragment to IntroScreen
      *
-     * @param slideFragment          Fragment to add
+     * @param slideFragmentBase      Fragment to add
      * @param messageButtonBehaviour Add behaviour for message button
      */
-    public void addSlide(SlideFragmentBase slideFragmentBase, MessageButtonBehaviour messageButtonBehaviour) {
+    public void addSlide(SlideFragmentBase slideFragmentBase,
+            MessageButtonBehaviour messageButtonBehaviour) {
         adapter.addItem(slideFragmentBase);
         messageButtonBehaviours.put(adapter.getLastItemPosition(), messageButtonBehaviour);
     }
@@ -200,7 +207,8 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int position = viewPager.getCurrentItem(); position < adapter.getCount(); position++) {
+                for (int position = viewPager.getCurrentItem(); position < adapter.getCount();
+                        position++) {
                     if (!adapter.getItem(position).canMoveFurther()) {
                         viewPager.setCurrentItem(position, true);
                         showError(adapter.getItem(position).cantMoveFurtherErrorMessage());
@@ -307,7 +315,8 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     private void initOnPageChangeListeners() {
-        messageButtonBehaviourOnPageSelected = new MessageButtonBehaviourOnPageSelected(messageButton, adapter, messageButtonBehaviours);
+        messageButtonBehaviourOnPageSelected = new MessageButtonBehaviourOnPageSelected(
+                messageButton, adapter, messageButtonBehaviours);
 
         backButtonTranslationWrapper = new BackButtonTranslationWrapper(backButton);
         pageIndicatorTranslationWrapper = new PageIndicatorTranslationWrapper(pageIndicator);
@@ -334,7 +343,8 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
                         viewPager.post(new Runnable() {
                             @Override
                             public void run() {
-                                if (adapter.getItem(position).hasNeededPermissionsToGrant() || !adapter.getItem(position).canMoveFurther()) {
+                                if (adapter.getItem(position).hasNeededPermissionsToGrant()
+                                        || !adapter.getItem(position).canMoveFurther()) {
                                     viewPager.setCurrentItem(position, true);
                                     pageIndicator.clearJoiningFractions();
                                 }
@@ -401,21 +411,24 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     private void showError(String error) {
-        Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_SHORT).setCallback(new Snackbar.Callback() {
-            @Override
-            public void onDismissed(Snackbar snackbar, int event) {
-                navigationView.setTranslationY(0f);
-                super.onDismissed(snackbar, event);
-            }
-        }).show();
+        Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_SHORT)
+                .setCallback(new Snackbar.Callback() {
+                    @Override
+                    public void onDismissed(Snackbar snackbar, int event) {
+                        navigationView.setTranslationY(0f);
+                        super.onDismissed(snackbar, event);
+                    }
+                }).show();
     }
 
     private int getBackgroundEvaluatedColor(int position, float positionOffset) {
-        return (int) argbEvaluator.evaluate(positionOffset, getBackgroundColor(position), getBackgroundColor(position + 1));
+        return (int) argbEvaluator.evaluate(positionOffset, getBackgroundColor(position),
+                getBackgroundColor(position + 1));
     }
 
     private int getButtonsEvaluatedColor(int position, float positionOffset) {
-        return (int) argbEvaluator.evaluate(positionOffset, getButtonsColor(position), getButtonsColor(position + 1));
+        return (int) argbEvaluator
+                .evaluate(positionOffset, getButtonsColor(position), getButtonsColor(position + 1));
     }
 
     @ColorInt
@@ -432,6 +445,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     private class ColorTransitionScrollListener implements IPageScrolledListener {
+
         @Override
         public void pageScrolled(int position, float offset) {
             if (position < adapter.getCount() - 1) {
@@ -471,6 +485,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     private class FinishScreenClickListener implements View.OnClickListener {
+
         @Override
         public void onClick(View v) {
             SlideFragmentBase slideFragment = adapter.getItem(adapter.getLastItemPosition());

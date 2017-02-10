@@ -1,5 +1,4 @@
-package agency.tango.materialintroscreen;
-
+package agency.tango.materialintroscreen.fragments;
 
 import android.content.pm.PackageManager;
 import android.support.annotation.ColorRes;

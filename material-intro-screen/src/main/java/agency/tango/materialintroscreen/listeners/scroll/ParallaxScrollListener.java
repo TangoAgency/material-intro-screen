@@ -3,8 +3,8 @@ package agency.tango.materialintroscreen.listeners.scroll;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-import agency.tango.materialintroscreen.SlideFragmentBase;
 import agency.tango.materialintroscreen.adapter.SlidesAdapter;
+import agency.tango.materialintroscreen.fragments.SlideFragmentBase;
 import agency.tango.materialintroscreen.listeners.IPageScrolledListener;
 import agency.tango.materialintroscreen.parallax.Parallaxable;
 

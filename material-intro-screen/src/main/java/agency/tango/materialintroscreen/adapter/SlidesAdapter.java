@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import agency.tango.materialintroscreen.SlideFragmentBase;
+import agency.tango.materialintroscreen.fragments.SlideFragmentBase;
 
 public class SlidesAdapter extends FragmentStatePagerAdapter {
 

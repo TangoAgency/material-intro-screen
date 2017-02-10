@@ -1,4 +1,4 @@
-package agency.tango.materialintroscreen;
+package agency.tango.materialintroscreen.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import agency.tango.materialintroscreen.R;
 
 public class SlideFragment extends SlideFragmentBase {
 
