@@ -14,6 +14,7 @@ import agency.tango.materialintroscreen.R;
 import agency.tango.materialintroscreen.listeners.IFinishListener;
 
 public class OverScrollViewPager extends RelativeLayout {
+
     private SwipeableViewPager swipeableViewPager = null;
     private boolean mIsBeingDragged = false;
     private float mMotionBeginX = 0;
@@ -95,7 +96,8 @@ public class OverScrollViewPager extends RelativeLayout {
             scrollTo((int) -currentX, 0);
 
             positionOffset = calculateOffset();
-            swipeableViewPager.onPageScrolled(swipeableViewPager.getAdapter().getLastItemPosition(), positionOffset, 0);
+            swipeableViewPager.onPageScrolled(swipeableViewPager.getAdapter().getLastItemPosition(),
+                    positionOffset, 0);
 
             if (shouldFinish()) {
                 finishListener.onFinish();
@@ -120,14 +122,16 @@ public class OverScrollViewPager extends RelativeLayout {
     }
 
     private void finishOverScrollViewWithAnimation(float currentX) {
-        post(new SmoothScrollRunnable((int) currentX, -getWidth(), 300, new AccelerateInterpolator()));
+        post(new SmoothScrollRunnable((int) currentX, -getWidth(), 300,
+                new AccelerateInterpolator()));
     }
 
     private boolean canOverScrollAtEnd() {
         SwipeableViewPager viewPager = getOverScrollView();
         PagerAdapter adapter = viewPager.getAdapter();
         if (null != adapter && adapter.getCount() > 0) {
-            if (viewPager.alphaExitTransitionEnabled() && viewPager.getCurrentItem() == adapter.getCount() - 1) {
+            if (viewPager.alphaExitTransitionEnabled()
+                    && viewPager.getCurrentItem() == adapter.getCount() - 1) {
                 return true;
             }
             return false;
@@ -143,6 +147,7 @@ public class OverScrollViewPager extends RelativeLayout {
     }
 
     final class SmoothScrollRunnable implements Runnable {
+
         private final Interpolator interpolator;
         private final int scrollToPosition;
         private final int scrollFromPosition;
@@ -151,7 +156,8 @@ public class OverScrollViewPager extends RelativeLayout {
         private long startTime = -1;
         private int currentPosition = -1;
 
-        SmoothScrollRunnable(int fromPosition, int toPosition, long duration, Interpolator scrollAnimationInterpolator) {
+        SmoothScrollRunnable(int fromPosition, int toPosition, long duration,
+                Interpolator scrollAnimationInterpolator) {
             scrollFromPosition = fromPosition;
             scrollToPosition = toPosition;
             interpolator = scrollAnimationInterpolator;

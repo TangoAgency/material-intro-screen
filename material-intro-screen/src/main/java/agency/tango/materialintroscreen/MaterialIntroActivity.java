@@ -324,6 +324,13 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
             }
         });
 
+        viewPager.registerSlideErrorHandler(new ISlideErrorHandler() {
+            @Override
+            public void handleError() {
+                errorOccurred(adapter.getItem(viewPager.getCurrentItem()));
+            }
+        });
+
         viewPager.addOnPageChangeListener(new ViewBehavioursOnPageChangeListener(adapter)
                 .registerViewTranslationWrapper(nextButtonTranslationWrapper)
                 .registerViewTranslationWrapper(backButtonTranslationWrapper)
