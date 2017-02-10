@@ -1,6 +1,7 @@
 package agency.tango.materialintroscreen.fragments;
 
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.support.annotation.ColorRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -30,6 +31,10 @@ public abstract class SlideFragmentBase extends ParallaxFragment {
     public abstract String[] neededPermissions();
 
     public boolean hasAnyPermissionsToGrant() {
+        if (!isAndroidVersionSupportingPermissions()) {
+            return false;
+        }
+
         boolean hasPermissionToGrant = hasPermissionsToGrant(neededPermissions());
         if (!hasPermissionToGrant) {
             hasPermissionToGrant = hasPermissionsToGrant(possiblePermissions());
@@ -73,6 +78,10 @@ public abstract class SlideFragmentBase extends ParallaxFragment {
 
     @SuppressWarnings({"PMD.CollapsibleIfStatements"})
     private boolean hasPermissionsToGrant(String[] permissions) {
+        if (!isAndroidVersionSupportingPermissions()) {
+            return false;
+        }
+
         if (permissions != null) {
             for (String permission : permissions) {
                 if (isNotNullOrEmpty(permission)) {
@@ -91,6 +100,10 @@ public abstract class SlideFragmentBase extends ParallaxFragment {
         List<String> list = new ArrayList<>(permissions);
         list.removeAll(Collections.singleton(null));
         return list.toArray(new String[list.size()]);
+    }
+
+    private boolean isAndroidVersionSupportingPermissions() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
     public static boolean isNotNullOrEmpty(String string) {
