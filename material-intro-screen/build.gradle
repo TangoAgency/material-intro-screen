@@ -5,7 +5,7 @@ apply from: "$rootDir/versions.gradle"
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
-        resourcePrefix 'mis_'
+    resourcePrefix 'mis_'
 
     defaultConfig {
         minSdkVersion 15
@@ -54,6 +54,7 @@ android {
         })
         compile "com.android.support:appcompat-v7:${project.androidSupport}"
         compile "com.android.support:design:${project.androidSupport}"
+        compile "com.android.support:percent:${project.androidSupport}"
     }
 
     publish {
