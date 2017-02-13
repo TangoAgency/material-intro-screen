@@ -17,13 +17,15 @@
         android:layout_height="match_parent" />
 
     <LinearLayout
-        android:id="@+id/navigation_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="vertical"
-        android:paddingTop="32dp"
-        app:layout_behavior="agency.tango.materialintroscreen.MoveUpBehaviour">
+            android:id="@+id/navigation_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            android:paddingTop="32dp"
+            android:layoutDirection="ltr"
+            app:layout_behavior="agency.tango.materialintroscreen.MoveUpBehaviour"
+            tools:targetApi="jelly_bean_mr1">
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/button_message"
@@ -38,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:layoutDirection="inherit"
             android:orientation="horizontal">
 
             <ImageButton
