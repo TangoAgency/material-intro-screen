@@ -7,7 +7,7 @@ android {
     buildToolsVersion "25.0.0"
 
     defaultConfig {
-        minSdkVersion 15
+        minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -59,7 +59,7 @@ android {
         userOrg = 'tangoagency'
         groupId = 'agency.tango.android'
         artifactId = 'material-intro-screen'
-        publishVersion = '0.0.5'
+        publishVersion = '0.0.6'
         desc = ''
         website = 'https://github.com/TangoAgency/material-intro-screen'
     }
