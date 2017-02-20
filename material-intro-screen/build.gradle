@@ -55,6 +55,7 @@ android {
         })
         compile "com.android.support:appcompat-v7:${project.androidSupport}"
         compile "com.android.support:design:${project.androidSupport}"
+        compile "com.android.support:percent:${project.androidSupport}"
     }
 
     publish {
