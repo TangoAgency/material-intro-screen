@@ -24,7 +24,7 @@
             android:orientation="vertical"
             android:paddingTop="32dp"
             android:layoutDirection="ltr"
-            app:layout_behavior="agency.tango.materialintroscreen.MoveUpBehaviour"
+            app:layout_behavior="agency.tango.materialintroscreen.behaviours.MoveUpBehaviour"
             tools:targetApi="jelly_bean_mr1">
 
         <android.support.v7.widget.AppCompatButton
