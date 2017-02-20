@@ -1,11 +1,12 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
+apply from: '../jacoco-android.gradle'
 
 apply from: "$rootDir/versions.gradle"
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
-    resourcePrefix 'mis_'
+    buildToolsVersion "25.0.2"
+        resourcePrefix 'mis_'
 
     defaultConfig {
         minSdkVersion 15

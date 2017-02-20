@@ -1,4 +1,4 @@
-package agency.tango.materialintroscreen.listeners.clickListeners;
+package agency.tango.materialintroscreen.listeners.click;
 
 import android.view.View;
 

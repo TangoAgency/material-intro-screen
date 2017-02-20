@@ -8,20 +8,23 @@ import android.view.View;
 import android.widget.Toast;
 
 import agency.tango.materialintroscreen.MaterialIntroActivity;
-import agency.tango.materialintroscreen.MessageButtonBehaviour;
-import agency.tango.materialintroscreen.SlideFragmentBuilder;
+import agency.tango.materialintroscreen.behaviours.MessageButtonBehaviour;
 import agency.tango.materialintroscreen.animations.IViewTranslation;
+import agency.tango.materialintroscreen.fragments.SlideFragmentBuilder;
 
 public class IntroActivity extends MaterialIntroActivity {
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         enableLastSlideAlphaExitTransition(true);
+        setSkipButtonVisible();
 
         getBackButtonTranslationWrapper()
                 .setEnterTranslation(new IViewTranslation() {
                     @Override
-                    public void translate(View view, @FloatRange(from = 0, to = 1.0) float percentage) {
+                    public void translate(View view,
+                            @FloatRange(from = 0, to = 1.0) float percentage) {
                         view.setAlpha(percentage);
                     }
                 });
@@ -52,8 +55,11 @@ public class IntroActivity extends MaterialIntroActivity {
         addSlide(new SlideFragmentBuilder()
                         .backgroundColor(R.color.third_slide_background)
                         .buttonsColor(R.color.third_slide_buttons)
-                        .possiblePermissions(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.READ_SMS})
-                        .neededPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
+                        .possiblePermissions(
+                                new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.READ_SMS})
+                        .neededPermissions(new String[]{Manifest.permission.CAMERA,
+                                Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION})
                         .image(R.drawable.img_equipment)
                         .title("We provide best tools")
                         .description("ever")
