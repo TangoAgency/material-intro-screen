@@ -9,7 +9,9 @@ import android.view.MotionEvent;
 
 import agency.tango.materialintroscreen.adapter.SlidesAdapter;
 
+@SuppressWarnings("PMD.SingularField")
 public class SwipeableViewPager extends CustomViewPager {
+
     private float startPos = 0;
     private int currentIt;
     private boolean swipingAllowed;
@@ -79,8 +81,7 @@ public class SwipeableViewPager extends CustomViewPager {
         return false;
     }
 
-    public void moveToNextPage()
-    {
+    public void moveToNextPage() {
         setCurrentItem(getCurrentItem() + 1, true);
     }
 

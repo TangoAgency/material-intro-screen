@@ -1,4 +1,4 @@
-package agency.tango.materialintroscreen;
+package agency.tango.materialintroscreen.behaviours;
 
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 
 @SuppressWarnings("unused")
 public class MoveUpBehaviour extends CoordinatorLayout.Behavior<LinearLayout> {
+
     public MoveUpBehaviour(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -19,7 +20,8 @@ public class MoveUpBehaviour extends CoordinatorLayout.Behavior<LinearLayout> {
     }
 
     @Override
-    public boolean onDependentViewChanged(CoordinatorLayout parent, LinearLayout child, View dependency) {
+    public boolean onDependentViewChanged(CoordinatorLayout parent, LinearLayout child,
+            View dependency) {
         float translationY = Math.min(0, dependency.getTranslationY() - dependency.getHeight());
         child.setTranslationY(translationY);
         return true;
