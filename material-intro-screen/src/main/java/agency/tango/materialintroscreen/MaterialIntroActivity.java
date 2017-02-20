@@ -30,21 +30,22 @@ import agency.tango.materialintroscreen.animations.wrappers.NextButtonTranslatio
 import agency.tango.materialintroscreen.animations.wrappers.PageIndicatorTranslationWrapper;
 import agency.tango.materialintroscreen.animations.wrappers.SkipButtonTranslationWrapper;
 import agency.tango.materialintroscreen.animations.wrappers.ViewPagerTranslationWrapper;
+import agency.tango.materialintroscreen.behaviours.MessageButtonBehaviour;
+import agency.tango.materialintroscreen.fragments.SlideFragmentBase;
 import agency.tango.materialintroscreen.listeners.IFinishListener;
 import agency.tango.materialintroscreen.listeners.IPageScrolledListener;
 import agency.tango.materialintroscreen.listeners.IPageSelectedListener;
 import agency.tango.materialintroscreen.listeners.MessageButtonBehaviourOnPageSelected;
 import agency.tango.materialintroscreen.listeners.ViewBehavioursOnPageChangeListener;
-import agency.tango.materialintroscreen.listeners.clickListeners.PermissionNotGrantedClickListener;
-import agency.tango.materialintroscreen.listeners.scrollListeners.ParallaxScrollListener;
+import agency.tango.materialintroscreen.listeners.click.PermissionNotGrantedClickListener;
+import agency.tango.materialintroscreen.listeners.scroll.ParallaxScrollListener;
 import agency.tango.materialintroscreen.widgets.InkPageIndicator;
 import agency.tango.materialintroscreen.widgets.OverScrollViewPager;
 import agency.tango.materialintroscreen.widgets.SwipeableViewPager;
 
-import static android.view.View.GONE;
-
 @SuppressWarnings("unused")
 public abstract class MaterialIntroActivity extends AppCompatActivity {
+
     private SwipeableViewPager viewPager;
     private InkPageIndicator pageIndicator;
     private SlidesAdapter adapter;
@@ -78,7 +79,8 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window window = getWindow();
-            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
 
         setContentView(R.layout.mis_activity_material_intro);
@@ -102,7 +104,8 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         nextButtonTranslationWrapper = new NextButtonTranslationWrapper(nextButton);
         initOnPageChangeListeners();
 
-        permissionNotGrantedClickListener = new PermissionNotGrantedClickListener(this, nextButtonTranslationWrapper);
+        permissionNotGrantedClickListener = new PermissionNotGrantedClickListener(this,
+                nextButtonTranslationWrapper);
         finishScreenClickListener = new FinishScreenClickListener();
 
         setBackButtonVisible();
@@ -122,8 +125,9 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        SlideFragment fragment = adapter.getItem(viewPager.getCurrentItem());
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
+        SlideFragmentBase fragment = adapter.getItem(viewPager.getCurrentItem());
         boolean hasPermissionToGrant = fragment.hasNeededPermissionsToGrant();
         if (!hasPermissionToGrant) {
             viewPager.setSwipingRightAllowed(true);
@@ -173,22 +177,23 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     /**
-     * Add SlideFragment to IntroScreen
+     * Add SlideFragmentBase to IntroScreen
      *
-     * @param slideFragment Fragment to add
+     * @param slideFragmentBase Fragment to add
      */
-    public void addSlide(SlideFragment slideFragment) {
-        adapter.addItem(slideFragment);
+    public void addSlide(SlideFragmentBase slideFragmentBase) {
+        adapter.addItem(slideFragmentBase);
     }
 
     /**
      * Add SlideFragment to IntroScreen
      *
-     * @param slideFragment          Fragment to add
+     * @param slideFragmentBase      Fragment to add
      * @param messageButtonBehaviour Add behaviour for message button
      */
-    public void addSlide(SlideFragment slideFragment, MessageButtonBehaviour messageButtonBehaviour) {
-        adapter.addItem(slideFragment);
+    public void addSlide(SlideFragmentBase slideFragmentBase,
+            MessageButtonBehaviour messageButtonBehaviour) {
+        adapter.addItem(slideFragmentBase);
         messageButtonBehaviours.put(adapter.getLastItemPosition(), messageButtonBehaviour);
     }
 
@@ -196,13 +201,14 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
      * Set skip button instead of back button
      */
     public void setSkipButtonVisible() {
-        backButton.setVisibility(GONE);
+        backButton.setVisibility(View.GONE);
 
         skipButton.setVisibility(View.VISIBLE);
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int position = viewPager.getCurrentItem(); position < adapter.getCount(); position++) {
+                for (int position = viewPager.getCurrentItem(); position < adapter.getCount();
+                        position++) {
                     if (!adapter.getItem(position).canMoveFurther()) {
                         viewPager.setCurrentItem(position, true);
                         showError(adapter.getItem(position).cantMoveFurtherErrorMessage());
@@ -218,7 +224,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
      * Set back button visible
      */
     public void setBackButtonVisible() {
-        skipButton.setVisibility(GONE);
+        skipButton.setVisibility(View.GONE);
 
         backButton.setVisibility(View.VISIBLE);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -303,14 +309,14 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     /**
      * Override in order to perform some action after passing last slide
      */
-    public void onLastSlidePassed()
-    {
+    public void onLastSlidePassed() {
         // This method is intentionally empty, because we didn't want to make this method
         // abstract as it would force user to implement this, even if he wouldn't like to.
     }
 
     private void initOnPageChangeListeners() {
-        messageButtonBehaviourOnPageSelected = new MessageButtonBehaviourOnPageSelected(messageButton, adapter, messageButtonBehaviours);
+        messageButtonBehaviourOnPageSelected = new MessageButtonBehaviourOnPageSelected(
+                messageButton, adapter, messageButtonBehaviours);
 
         backButtonTranslationWrapper = new BackButtonTranslationWrapper(backButton);
         pageIndicatorTranslationWrapper = new PageIndicatorTranslationWrapper(pageIndicator);
@@ -344,7 +350,8 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
                         viewPager.post(new Runnable() {
                             @Override
                             public void run() {
-                                if (adapter.getItem(position).hasNeededPermissionsToGrant() || !adapter.getItem(position).canMoveFurther()) {
+                                if (adapter.getItem(position).hasNeededPermissionsToGrant()
+                                        || !adapter.getItem(position).canMoveFurther()) {
                                     viewPager.setCurrentItem(position, true);
                                     pageIndicator.clearJoiningFractions();
                                 }
@@ -369,7 +376,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     @SuppressWarnings("PointlessBooleanExpression")
-    private void nextButtonBehaviour(final int position, final SlideFragment fragment) {
+    private void nextButtonBehaviour(final int position, final SlideFragmentBase fragment) {
         boolean hasPermissionToGrant = fragment.hasNeededPermissionsToGrant();
         if (hasPermissionToGrant) {
             nextButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.mis_ic_next));
@@ -382,10 +389,10 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
             nextButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (fragment.canMoveFurther() == false) {
-                        errorOccurred(fragment);
-                    } else {
+                    if (fragment.canMoveFurther()) {
                         viewPager.moveToNextPage();
+                    } else {
+                        errorOccurred(fragment);
                     }
                 }
             });
@@ -405,27 +412,30 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         }
     }
 
-    private void errorOccurred(SlideFragment slideFragment) {
+    private void errorOccurred(SlideFragmentBase slideFragmentBase) {
         nextButtonTranslationWrapper.error();
-        showError(slideFragment.cantMoveFurtherErrorMessage());
+        showError(slideFragmentBase.cantMoveFurtherErrorMessage());
     }
 
     private void showError(String error) {
-        Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_SHORT).setCallback(new Snackbar.Callback() {
-            @Override
-            public void onDismissed(Snackbar snackbar, int event) {
-                navigationView.setTranslationY(0f);
-                super.onDismissed(snackbar, event);
-            }
-        }).show();
+        Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_SHORT)
+                .setCallback(new Snackbar.Callback() {
+                    @Override
+                    public void onDismissed(Snackbar snackbar, int event) {
+                        navigationView.setTranslationY(0f);
+                        super.onDismissed(snackbar, event);
+                    }
+                }).show();
     }
 
     private int getBackgroundEvaluatedColor(int position, float positionOffset) {
-        return (int) argbEvaluator.evaluate(positionOffset, getBackgroundColor(position), getBackgroundColor(position + 1));
+        return (int) argbEvaluator.evaluate(positionOffset, getBackgroundColor(position),
+                getBackgroundColor(position + 1));
     }
 
     private int getButtonsEvaluatedColor(int position, float positionOffset) {
-        return (int) argbEvaluator.evaluate(positionOffset, getButtonsColor(position), getButtonsColor(position + 1));
+        return (int) argbEvaluator
+                .evaluate(positionOffset, getButtonsColor(position), getButtonsColor(position + 1));
     }
 
     @ColorInt
@@ -442,6 +452,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     private class ColorTransitionScrollListener implements IPageScrolledListener {
+
         @Override
         public void pageScrolled(int position, float offset) {
             if (position < adapter.getCount() - 1) {
@@ -481,9 +492,10 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     private class FinishScreenClickListener implements View.OnClickListener {
+
         @Override
         public void onClick(View v) {
-            SlideFragment slideFragment = adapter.getItem(adapter.getLastItemPosition());
+            SlideFragmentBase slideFragment = adapter.getItem(adapter.getLastItemPosition());
             if (!slideFragment.canMoveFurther()) {
                 errorOccurred(slideFragment);
             } else {

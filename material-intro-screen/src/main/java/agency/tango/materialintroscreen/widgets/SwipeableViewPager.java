@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import agency.tango.materialintroscreen.ISlideErrorHandler;
 import agency.tango.materialintroscreen.adapter.SlidesAdapter;
 
+@SuppressWarnings("PMD.SingularField")
 public class SwipeableViewPager extends CustomViewPager {
 
     private float startPos = 0;
