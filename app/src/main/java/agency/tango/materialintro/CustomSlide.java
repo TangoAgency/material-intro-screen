@@ -31,14 +31,4 @@ public class CustomSlide extends SlideFragmentBase {
     public String cantMoveFurtherErrorMessage() {
         return getString(R.string.error_message);
     }
-
-    @Override
-    public String[] possiblePermissions() {
-        return null;
-    }
-
-    @Override
-    public String[] neededPermissions() {
-        return null;
-    }
 }
