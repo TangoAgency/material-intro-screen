@@ -1,0 +1,15 @@
+apply plugin: 'jacoco-android'
+
+jacoco {
+    toolVersion = "0.7.7.201606060606"
+}
+
+android {
+    testOptions {
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
+    }
+}

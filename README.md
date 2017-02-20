@@ -93,7 +93,7 @@ getBackButtonTranslationWrapper()
 - ```getSkipButtonTranslationWrapper()``` 
 
 ## Custom slides
-#### Of course you are able to implement completely custom slides. You only need to extend SlideFragmentBase and override all needed functions.
+#### Of course you are able to implement completely custom slides. You only need to extend SlideFragmentBase and override all needed by you functions.
  - ```backgroundColor()```
  - ```buttonsColor()```
  - ```canMoveFurther()``` (only if you want to stop user from being able to move further before he will do some action)

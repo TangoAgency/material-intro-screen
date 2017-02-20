@@ -23,16 +23,6 @@ public class CustomSlide extends SlideFragmentBase {
     }
 
     @Override
-    public int backgroundColor() {
-        return R.color.custom_slide_background;
-    }
-
-    @Override
-    public int buttonsColor() {
-        return R.color.custom_slide_buttons;
-    }
-
-    @Override
     public boolean canMoveFurther() {
         return checkBox.isChecked();
     }

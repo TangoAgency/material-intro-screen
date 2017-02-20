@@ -10,25 +10,38 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import agency.tango.materialintroscreen.R;
 import agency.tango.materialintroscreen.parallax.ParallaxFragment;
 
-public abstract class SlideFragmentBase extends ParallaxFragment {
+public class SlideFragmentBase extends ParallaxFragment {
 
     private static final int PERMISSIONS_REQUEST_CODE = 15621;
 
     @ColorRes
-    public abstract int backgroundColor();
+    public int backgroundColor() {
+        return R.color.mis_default_background_color;
+    }
 
     @ColorRes
-    public abstract int buttonsColor();
+    public int buttonsColor() {
+        return R.color.mis_default_buttons_color;
+    }
 
-    public abstract boolean canMoveFurther();
+    public boolean canMoveFurther() {
+        return true;
+    }
 
-    public abstract String cantMoveFurtherErrorMessage();
+    public String cantMoveFurtherErrorMessage() {
+        return getString(R.string.mis_impassable_slide);
+    }
 
-    public abstract String[] possiblePermissions();
+    public String[] possiblePermissions() {
+        return new String[0];
+    }
 
-    public abstract String[] neededPermissions();
+    public String[] neededPermissions() {
+        return new String[0];
+    }
 
     public boolean hasAnyPermissionsToGrant() {
         if (!isAndroidVersionSupportingPermissions()) {
