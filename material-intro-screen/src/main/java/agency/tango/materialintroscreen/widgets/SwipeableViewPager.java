@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 
+import agency.tango.materialintroscreen.ISlideErrorHandler;
 import agency.tango.materialintroscreen.adapter.SlidesAdapter;
 
 @SuppressWarnings("PMD.SingularField")
@@ -16,6 +17,7 @@ public class SwipeableViewPager extends CustomViewPager {
     private int currentIt;
     private boolean swipingAllowed;
     private boolean alphaExitTransitionEnabled = false;
+    private ISlideErrorHandler errorHandler;
 
     public SwipeableViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -55,13 +57,15 @@ public class SwipeableViewPager extends CustomViewPager {
                 resolveSwipingRightAllowed();
                 return super.onTouchEvent(event);
             case (MotionEvent.ACTION_MOVE):
-                if (!swipingAllowed && startPos - event.getX() > 16) {
+                if (isSwipingNotAllowed(event)) {
+                    errorHandler.handleError();
                     return true;
                 }
                 return super.onTouchEvent(event);
             case (MotionEvent.ACTION_UP):
-                if (!swipingAllowed && startPos - event.getX() > 16) {
+                if (isSwipingNotAllowed(event)) {
                     smoothScrollTo(getWidth() * currentIt, 0);
+                    errorHandler.handleError();
                     return true;
                 }
                 startPos = 0;
@@ -79,6 +83,10 @@ public class SwipeableViewPager extends CustomViewPager {
     @Override
     public boolean executeKeyEvent(KeyEvent event) {
         return false;
+    }
+
+    public void registerSlideErrorHandler(ISlideErrorHandler handler) {
+        errorHandler = handler;
     }
 
     public void moveToNextPage() {
@@ -103,6 +111,10 @@ public class SwipeableViewPager extends CustomViewPager {
 
     public boolean alphaExitTransitionEnabled() {
         return alphaExitTransitionEnabled && swipingAllowed;
+    }
+
+    private boolean isSwipingNotAllowed(MotionEvent event) {
+        return !swipingAllowed && startPos - event.getX() > 16;
     }
 
     private void resolveSwipingRightAllowed() {
