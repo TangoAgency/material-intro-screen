@@ -33,7 +33,9 @@
         android:id="@+id/txt_title_slide"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:autoLink="web"
         android:gravity="center"
+        android:linksClickable="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         app:layout_parallaxFactor="0.5"
         tools:text="Lorem ipsum" />
@@ -43,7 +45,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:autoLink="web"
         android:gravity="center"
+        android:linksClickable="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         app:layout_parallaxFactor="0.2"
         tools:text="Lorem ipsum dolor sit amet, consectetur, adipisci velit, …" />
