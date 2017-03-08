@@ -103,8 +103,24 @@ public class SlideFragment extends ParallaxFragment {
         return hasPermissionsToGrant(neededPermissions);
     }
 
+    public void onNext() {
+
+    }
+
+    public void onBack() {
+
+    }
+
+    public boolean asyncTaskDone() {
+        return true;
+    }
+
     public boolean canMoveFurther() {
         return true;
+    }
+
+    public void moveToNextPage() {
+        ((MaterialIntroActivity)getActivity()).moveToNextPage();
     }
 
     public String cantMoveFurtherErrorMessage() {
