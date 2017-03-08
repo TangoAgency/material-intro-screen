@@ -139,6 +139,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        int position = viewPager.getCurrentItem();
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_CENTER:
                 if (messageButtonBehaviours.get(viewPager.getCurrentItem()) != null) {
@@ -146,12 +147,12 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
                 }
                 break;
             case KeyEvent.KEYCODE_DPAD_RIGHT:
-                int position = viewPager.getCurrentItem();
-                if (adapter.isLastSlide(position) && adapter.getItem(position).canMoveFurther()) {
+                adapter.getItem(position).onNext();
+                if (adapter.isLastSlide(position) && adapter.getItem(position).canMoveFurther() && adapter.getItem(position).asyncTaskDone()) {
                     performFinish();
                 } else if (adapter.shouldLockSlide(position)) {
                     errorOccurred(adapter.getItem(position));
-                } else {
+                } else if (adapter.getItem(position).asyncTaskDone()) {
                     viewPager.moveToNextPage();
                 }
                 break;
@@ -202,7 +203,8 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 for (int position = viewPager.getCurrentItem(); position < adapter.getCount(); position++) {
-                    if (!adapter.getItem(position).canMoveFurther()) {
+                    adapter.getItem(position).onBack();
+                    if (!adapter.getItem(position).canMoveFurther() || !adapter.getItem(position).asyncTaskDone()) {
                         viewPager.setCurrentItem(position, true);
                         showError(adapter.getItem(position).cantMoveFurtherErrorMessage());
                         return;
@@ -311,6 +313,10 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     public void onFinish() {
     }
 
+    public void moveFurther() {
+        performFinish();
+    }
+
     private void initOnPageChangeListeners() {
         messageButtonBehaviourOnPageSelected = new MessageButtonBehaviourOnPageSelected(messageButton, adapter, messageButtonBehaviours);
 
@@ -339,7 +345,8 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
                         viewPager.post(new Runnable() {
                             @Override
                             public void run() {
-                                if (adapter.getItem(position).hasNeededPermissionsToGrant() || !adapter.getItem(position).canMoveFurther()) {
+                                SlideFragment fragment = adapter.getItem(position);
+                                if (fragment.hasNeededPermissionsToGrant() || !fragment.canMoveFurther() || !fragment.asyncTaskDone() ) {
                                     viewPager.setCurrentItem(position, true);
                                     pageIndicator.clearJoiningFractions();
                                 }
@@ -377,14 +384,19 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
             nextButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (fragment.canMoveFurther() == false) {
+                    fragment.onNext();
+                    if (!fragment.canMoveFurther()) {
                         errorOccurred(fragment);
-                    } else {
+                    } else if (fragment.asyncTaskDone()) {
                         viewPager.moveToNextPage();
                     }
                 }
             });
         }
+    }
+
+    public void moveToNextPage() {
+        viewPager.moveToNextPage();
     }
 
     private void performFinish() {
@@ -393,6 +405,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     private void moveBack() {
+        adapter.getItem(viewPager.getCurrentItem()).onBack();
         if (viewPager.getCurrentItem() == 0) {
             finish();
         } else {
@@ -465,9 +478,10 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             SlideFragment slideFragment = adapter.getItem(adapter.getLastItemPosition());
+            slideFragment.onNext();
             if (!slideFragment.canMoveFurther()) {
                 errorOccurred(slideFragment);
-            } else {
+            } else if (slideFragment.asyncTaskDone()) {
                 performFinish();
             }
         }
