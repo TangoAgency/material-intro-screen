@@ -15,12 +15,12 @@ import static agency.tango.materialintroscreen.fragments.SlideFragmentBase.isNot
 
 public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListener {
 
-    private Button messageButton;
-    private SlidesAdapter adapter;
-    private SparseArray<MessageButtonBehaviour> messageButtonBehaviours;
+    private final Button messageButton;
+    private final SlidesAdapter adapter;
+    private final SparseArray<MessageButtonBehaviour> messageButtonBehaviours;
 
     public MessageButtonBehaviourOnPageSelected(Button messageButton, SlidesAdapter adapter,
-            SparseArray<MessageButtonBehaviour> messageButtonBehaviours) {
+                                                SparseArray<MessageButtonBehaviour> messageButtonBehaviours) {
         this.messageButton = messageButton;
         this.adapter = adapter;
         this.messageButtonBehaviours = messageButtonBehaviours;
@@ -32,8 +32,8 @@ public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListen
 
         if (slideFragment.hasAnyPermissionsToGrant()) {
             showMessageButton(slideFragment);
-            messageButton
-                    .setText(slideFragment.getActivity().getString(R.string.mis_grant_permissions));
+            messageButton.setText(
+                    slideFragment.getString(adapter.getItem(position).grantPermissionStringRes()));
             messageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
