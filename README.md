@@ -84,6 +84,14 @@ getBackButtonTranslationWrapper()
                     }
                 });
 ```
+### Slides Finish Handler in your IntroActivity:
+```java
+    @Override
+    public void onFinish() {
+        super.onFinish();
+    }
+```
+
 #### Available [translation wrappers][TranslationWrapper]:
 - ```getNextButtonTranslationWrapper()```
 - ```getBackButtonTranslationWrapper()```
