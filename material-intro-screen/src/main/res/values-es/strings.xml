@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">material-intro-screen</string>
+    <string name="grant_permissions">Conceder permisos</string>
+    <string name="please_grant_permissions">Por favor, conceda los permisos necesarios</string>
+    <string name="impassable_slide">No se puede saltar esta diapositiva.</string>
+</resources>
