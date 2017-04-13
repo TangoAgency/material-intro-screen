@@ -1,10 +1,13 @@
 package agency.tango.materialintroscreen.fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.TextViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +21,18 @@ public class SlideFragment extends SlideFragmentBase {
     public static final String BACKGROUND_COLOR = "background_color";
     public static final String BUTTONS_COLOR = "buttons_color";
     public static final String TITLE = "title";
+    public static final String TITLE_STYLE = "title_style";
     public static final String DESCRIPTION = "description";
+    public static final String DESCRIPTION_STYLE = "description_style";
     public static final String NEEDED_PERMISSIONS = "needed_permission";
     public static final String POSSIBLE_PERMISSIONS = "possible_permission";
     public static final String IMAGE = "image";
+
+    @StyleRes
+    private int titleStyle;
+
+    @StyleRes
+    private int descriptionStyle;
 
     @ColorRes
     private int backgroundColor;
@@ -97,7 +108,9 @@ public class SlideFragment extends SlideFragmentBase {
         buttonsColor = bundle.getInt(BUTTONS_COLOR);
         image = bundle.getInt(IMAGE, 0);
         title = bundle.getString(TITLE);
+        titleStyle = bundle.getInt(TITLE_STYLE,0);
         description = bundle.getString(DESCRIPTION);
+        descriptionStyle = bundle.getInt(DESCRIPTION_STYLE,0);
         neededPermissions = bundle.getStringArray(NEEDED_PERMISSIONS);
         possiblePermissions = bundle.getStringArray(POSSIBLE_PERMISSIONS);
 
@@ -106,7 +119,16 @@ public class SlideFragment extends SlideFragmentBase {
 
     private void updateViewWithValues() {
         titleTextView.setText(title);
+
+        if(titleStyle != 0){
+            TextViewCompat.setTextAppearance(titleTextView,titleStyle);
+        }
+
         descriptionTextView.setText(description);
+
+        if(descriptionStyle != 0){
+            TextViewCompat.setTextAppearance(descriptionTextView,descriptionStyle);
+        }
 
         if (image != 0) {
             imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), image));
