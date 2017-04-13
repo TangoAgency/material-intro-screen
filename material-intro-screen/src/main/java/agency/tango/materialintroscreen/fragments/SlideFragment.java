@@ -1,6 +1,5 @@
 package agency.tango.materialintroscreen.fragments;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
