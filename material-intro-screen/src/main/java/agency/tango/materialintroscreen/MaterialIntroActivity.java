@@ -40,6 +40,7 @@ import agency.tango.materialintroscreen.widgets.OverScrollViewPager;
 import agency.tango.materialintroscreen.widgets.SwipeableViewPager;
 
 import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 public abstract class MaterialIntroActivity extends AppCompatActivity {
     private SwipeableViewPager viewPager;
@@ -233,10 +234,10 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
      */
     public void setBackButtonVisible(boolean visible) {
         if (visible) {
-            backButton.setVisibility(View.VISIBLE);
-            skipButton.setVisibility(View.GONE);
+            backButton.setVisibility(VISIBLE);
+            skipButton.setVisibility(GONE);
         } else {
-            backButton.setVisibility(View.GONE);
+            backButton.setVisibility(GONE);
         }
     }
 
@@ -246,10 +247,10 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     @SuppressWarnings("unused")
     public void setSkipButtonVisible(boolean visible) {
         if (visible) {
-            skipButton.setVisibility(View.VISIBLE);
-            backButton.setVisibility(View.GONE);
+            skipButton.setVisibility(VISIBLE);
+            backButton.setVisibility(GONE);
         } else {
-            skipButton.setVisibility(View.GONE);
+            skipButton.setVisibility(GONE);
         }
     }
 
@@ -417,9 +418,9 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     @SuppressWarnings("unused")
     public void setNextButtonVisible(boolean visible) {
         if (visible) {
-            nextButton.setVisibility(View.VISIBLE);
+            nextButton.setVisibility(VISIBLE);
         } else {
-            nextButton.setVisibility(View.GONE);
+            nextButton.setVisibility(GONE);
         }
     }
 
