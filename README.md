@@ -68,8 +68,9 @@ public class IntroActivity extends MaterialIntroActivity
 
 ### Step 5: 
 #### Customize Intro Activity:
-  - ```setSkipButtonVisible()``` &#8702; show skip button instead of back button on the left bottom of screen
-  - ```hideBackButton()``` &#8702; hides any button on the left bottom of screen
+  - ```setBackButtonVisible(true)``` &#8702; show/hide back button
+  - ```setSkipButtonVisible(true)``` &#8702; show/hide skip button
+  - ```setNextButtonVisible(true)``` &#8702; show/hide next button
   - ```enableLastSlideAlphaExitTransition()``` &#8702; set if the last slide should disapear with alpha hiding effect
 
 #### Customizing view animations: 
@@ -84,6 +85,36 @@ getBackButtonTranslationWrapper()
                     }
                 });
 ```
+
+#### Customizing buttons onClickListeners:
+
+You can change back, next and skip buttons ```onClickListener```s by overriding its methods or sending it a new ```View.OnClickListener``` (second one is recommended).
+<br><br>Doing this with back and skip buttons is quite simple:  
+```java
+setOnBackButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // your action
+            }
+        });
+```
+
+But next button it's a bit different, because it has three possible actions, so you must specify one of them:  
+```java
+// types
+final static public int PERMISSION_NOT_GRANTED_CLICK_LISTENER = 0;
+final static public int FINISH_SCREEN_CLICK_LISTENER = 1;
+final static public int ORDINARY_SCREEN_CLICK_LISTENER = 2;
+    
+
+setOnNextButtonClickListener(ORDINARY_SCREEN_CLICK_LISTENER, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // your action
+            }
+        });
+```
+
 #### Available [translation wrappers][TranslationWrapper]:
 - ```getNextButtonTranslationWrapper()```
 - ```getBackButtonTranslationWrapper()```
