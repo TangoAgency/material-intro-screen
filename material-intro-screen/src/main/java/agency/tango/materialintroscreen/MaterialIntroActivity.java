@@ -107,7 +107,8 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         finishScreenClickListener = new FinishScreenClickListener();
         ordinaryScreenClickListener = new OrdinaryScreenClickListener();
 
-        setBackButtonVisible();
+        initSimpleButtonsOnClickListeners();
+        setBackButtonVisible(true);
 
         viewPager.post(new Runnable() {
             @Override
@@ -196,14 +197,14 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         messageButtonBehaviours.put(adapter.getLastItemPosition(), messageButtonBehaviour);
     }
 
-    /**
-     * Set skip button instead of back button
-     */
-    @SuppressWarnings("unused")
-    public void setSkipButtonVisible() {
-        backButton.setVisibility(GONE);
+    private void initSimpleButtonsOnClickListeners() {
+        setOnBackButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(viewPager.getPreviousItem(), true);
+            }
+        });
 
-        skipButton.setVisibility(View.VISIBLE);
         setOnSkipButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -219,36 +220,37 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
         });
     }
 
+    public void setOnBackButtonClickListener(View.OnClickListener onClickListener) {
+        backButton.setOnClickListener(onClickListener);
+    }
+
     public void setOnSkipButtonClickListener(View.OnClickListener onClickListener) {
         skipButton.setOnClickListener(onClickListener);
     }
 
     /**
-     * Set back button visible
+     * Set back button visibility
      */
-    public void setBackButtonVisible() {
-        skipButton.setVisibility(GONE);
-
-        backButton.setVisibility(View.VISIBLE);
-        setOnBackButtonClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewPager.setCurrentItem(viewPager.getPreviousItem(), true);
-            }
-        });
-    }
-
-    public void setOnBackButtonClickListener(View.OnClickListener onClickListener) {
-        backButton.setOnClickListener(onClickListener);
+    public void setBackButtonVisible(boolean visible) {
+        if (visible) {
+            backButton.setVisibility(View.VISIBLE);
+            skipButton.setVisibility(View.GONE);
+        } else {
+            backButton.setVisibility(View.GONE);
+        }
     }
 
     /**
-     * Hides any back button
+     * Set skip button visibility
      */
     @SuppressWarnings("unused")
-    public void hideBackButton() {
-        backButton.setVisibility(View.INVISIBLE);
-        skipButton.setVisibility(View.GONE);
+    public void setSkipButtonVisible(boolean visible) {
+        if (visible) {
+            skipButton.setVisibility(View.VISIBLE);
+            backButton.setVisibility(View.GONE);
+        } else {
+            skipButton.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -403,9 +405,22 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
             case ORDINARY_SCREEN_CLICK_LISTENER:
                 ordinaryScreenClickListener = onClickListener;
                 break;
+            default: break;
         }
 
         nextButton.setOnClickListener(onClickListener);
+    }
+
+    /**
+     * Set next button visibility
+     */
+    @SuppressWarnings("unused")
+    public void setNextButtonVisible(boolean visible) {
+        if (visible) {
+            nextButton.setVisibility(View.VISIBLE);
+        } else {
+            nextButton.setVisibility(View.GONE);
+        }
     }
 
     private void performFinish() {
