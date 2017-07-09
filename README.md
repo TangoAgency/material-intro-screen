@@ -68,8 +68,9 @@ public class IntroActivity extends MaterialIntroActivity
 
 ### Step 5: 
 #### Customize Intro Activity:
-  - ```setSkipButtonVisible()``` &#8702; show skip button instead of back button on the left bottom of screen
-  - ```hideBackButton()``` &#8702; hides any button on the left bottom of screen
+  - ```setBackButtonVisible(true)``` &#8702; show/hide back button
+  - ```setSkipButtonVisible(true)``` &#8702; show/hide skip button
+  - ```setNextButtonVisible(true)``` &#8702; show/hide next button
   - ```enableLastSlideAlphaExitTransition()``` &#8702; set if the last slide should disapear with alpha hiding effect
 
 #### Customizing view animations: 
