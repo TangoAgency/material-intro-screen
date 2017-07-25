@@ -287,6 +287,16 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     /**
+     * Get index of current slide
+     *
+     * @return index of current slide
+     */
+    @SuppressWarnings("unused")
+    public int getCurrentSlideIndex() {
+        return viewPager.getCurrentItem();
+    }
+
+    /**
      * Set if last screen should be able to exit with alpha transition
      *
      * @param enableAlphaExitTransition should enable alpha exit transition
