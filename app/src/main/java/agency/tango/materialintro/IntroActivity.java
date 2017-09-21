@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.FloatRange;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import agency.tango.materialintroscreen.MaterialIntroActivity;
 import agency.tango.materialintroscreen.behaviours.MessageButtonBehaviour;
 import agency.tango.materialintroscreen.animations.IViewTranslation;
 import agency.tango.materialintroscreen.fragments.SlideFragmentBuilder;
+import agency.tango.materialintroscreen.listeners.click.MessageButtonClickListener;
 
 public class IntroActivity extends MaterialIntroActivity {
 
@@ -24,7 +26,7 @@ public class IntroActivity extends MaterialIntroActivity {
                 .setEnterTranslation(new IViewTranslation() {
                     @Override
                     public void translate(View view,
-                            @FloatRange(from = 0, to = 1.0) float percentage) {
+                                          @FloatRange(from = 0, to = 1.0) float percentage) {
                         view.setAlpha(percentage);
                     }
                 });
@@ -36,9 +38,10 @@ public class IntroActivity extends MaterialIntroActivity {
                         .title("Organize your time with us")
                         .description("Would you try?")
                         .build(),
-                new MessageButtonBehaviour(new View.OnClickListener() {
+                new MessageButtonBehaviour(new MessageButtonClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(Button messageButton) {
+                        messageButton.setText("Click me once again!");
                         showMessage("We provide solutions to make you love your work");
                     }
                 }, "Work with love"));
@@ -66,9 +69,9 @@ public class IntroActivity extends MaterialIntroActivity {
                         .title("We provide best tools")
                         .description("ever")
                         .build(),
-                new MessageButtonBehaviour(new View.OnClickListener() {
+                new MessageButtonBehaviour(new MessageButtonClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(Button messageButton) {
                         showMessage("Try us!");
                     }
                 }, "Tools"));

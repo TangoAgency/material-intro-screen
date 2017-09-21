@@ -26,7 +26,7 @@ public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListen
     }
 
     @Override
-    public void pageSelected(int position) {
+    public void pageSelected(final int position) {
         final SlideFragmentBase slideFragment = adapter.getItem(position);
 
         if (slideFragment.hasAnyPermissionsToGrant()) {
@@ -43,7 +43,12 @@ public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListen
             showMessageButton(slideFragment);
             messageButton.setText(messageButtonBehaviours.get(position).getMessageButtonText());
             messageButton
-                    .setOnClickListener(messageButtonBehaviours.get(position).getClickListener());
+                    .setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            messageButtonBehaviours.get(position).getClickListener().onClick(messageButton);
+                        }
+                    });
         } else if (messageButton.getVisibility() != View.INVISIBLE) {
             messageButton.startAnimation(
                     AnimationUtils.loadAnimation(slideFragment.getContext(), R.anim.mis_fade_out));

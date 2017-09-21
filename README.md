@@ -9,7 +9,7 @@ Material intro screen is inspired by [Material Intro] and developed with love fr
   - [Easily add new slides][Intro Activity]
   - [Custom slides][Custom Slide]
   - [Parallax slides][Parallax Slide]
-  - Easy extensible api
+  - Easy and extensible api
   - Android TV support!
   - Material design at it's best!!!
 
@@ -55,12 +55,13 @@ public class IntroActivity extends MaterialIntroActivity
                 .title("title 3")
                 .description("Description 3")
                 .build(),
-                new MessageButtonBehaviour(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showMessage("We provide solutions to make you love your work");
-                    }
-                }, "Work with love"));
+              new MessageButtonBehaviour(new MessageButtonClickListener() {
+                  @Override
+                  public void onClick(Button messageButton) {
+                      messageButton.setText("Click me once again!");
+                      showMessage("We provide solutions to make you love your work");
+                  }
+              }, "Work with love"));
 }
 ```
 #### Explanation of SlideFragment usage:
