@@ -68,13 +68,13 @@ public class IntroActivity extends MaterialIntroActivity {
                         .grantPermissionError(R.string.txt_grant_permission_error)
                         .title("We provide best tools")
                         .description("ever")
-                        .build());
+                        .build(),
                 new MessageButtonBehaviour(new MessageButtonClickListener() {
                     @Override
                     public void onClick(Button messageButton) {
                         showMessage("Try us!");
                     }
-                }, "Tools");
+                }, "Tools"));
 
         addSlide(new SlideFragmentBuilder()
                 .backgroundColor(R.color.fourth_slide_background)
