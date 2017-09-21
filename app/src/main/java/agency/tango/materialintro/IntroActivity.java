@@ -61,6 +61,8 @@ public class IntroActivity extends MaterialIntroActivity {
                                 Manifest.permission.ACCESS_FINE_LOCATION,
                                 Manifest.permission.ACCESS_COARSE_LOCATION})
                         .image(R.drawable.img_equipment)
+                        .grantPermissionMessage(R.string.txt_pls_grant_permission)
+                        .grantPermissionError(R.string.txt_grant_permission_error)
                         .title("We provide best tools")
                         .description("ever")
                         .build(),

@@ -2,6 +2,7 @@ package agency.tango.materialintroscreen.fragments;
 
 import android.content.pm.PackageManager;
 import android.support.annotation.ColorRes;
+import android.support.annotation.StringRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
@@ -40,6 +41,16 @@ public class SlideFragmentBase extends ParallaxFragment {
 
     public String[] neededPermissions() {
         return new String[0];
+    }
+
+    @StringRes
+    public int grantPermissionStringRes() {
+        return R.string.mis_grant_permissions;
+    }
+
+    @StringRes
+    public int grantPermissionErrorStringRes() {
+        return R.string.mis_please_grant_permissions;
     }
 
     public boolean hasAnyPermissionsToGrant() {

@@ -3,10 +3,13 @@ package agency.tango.materialintroscreen.fragments;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 
 import static agency.tango.materialintroscreen.fragments.SlideFragment.BACKGROUND_COLOR;
 import static agency.tango.materialintroscreen.fragments.SlideFragment.BUTTONS_COLOR;
 import static agency.tango.materialintroscreen.fragments.SlideFragment.DESCRIPTION;
+import static agency.tango.materialintroscreen.fragments.SlideFragment.GRANT_PERMISSION_ERROR;
+import static agency.tango.materialintroscreen.fragments.SlideFragment.GRANT_PERMISSION_MESSAGE;
 import static agency.tango.materialintroscreen.fragments.SlideFragment.IMAGE;
 import static agency.tango.materialintroscreen.fragments.SlideFragment.NEEDED_PERMISSIONS;
 import static agency.tango.materialintroscreen.fragments.SlideFragment.POSSIBLE_PERMISSIONS;
@@ -23,6 +26,12 @@ public class SlideFragmentBuilder {
 
     @DrawableRes
     private int image;
+
+    @StringRes
+    private int grantPermissionMessage;
+
+    @StringRes
+    private int grantPermissionError;
 
     private String title;
     private String description;
@@ -64,6 +73,17 @@ public class SlideFragmentBuilder {
         return this;
     }
 
+    public SlideFragmentBuilder grantPermissionMessage(@StringRes int grantPermissionMessage) {
+        this.grantPermissionMessage = grantPermissionMessage;
+        return this;
+    }
+
+    public SlideFragmentBuilder grantPermissionError(int grantPermissionError) {
+        this.grantPermissionError = grantPermissionError;
+        return this;
+    }
+
+
     public SlideFragment build() {
         String missing = "";
         if (backgroundColor == 0) {
@@ -85,6 +105,8 @@ public class SlideFragmentBuilder {
         bundle.putString(DESCRIPTION, description);
         bundle.putStringArray(NEEDED_PERMISSIONS, neededPermissions);
         bundle.putStringArray(POSSIBLE_PERMISSIONS, possiblePermissions);
+        bundle.putInt(GRANT_PERMISSION_MESSAGE, grantPermissionMessage);
+        bundle.putInt(GRANT_PERMISSION_ERROR, grantPermissionError);
 
         return SlideFragment.createInstance(bundle);
     }
