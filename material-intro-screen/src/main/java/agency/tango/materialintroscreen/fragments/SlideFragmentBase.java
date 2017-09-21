@@ -1,10 +1,12 @@
 package agency.tango.materialintroscreen.fragments;
 
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.support.annotation.ColorRes;
 import android.support.annotation.StringRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,6 +56,10 @@ public class SlideFragmentBase extends ParallaxFragment {
     }
 
     public boolean hasAnyPermissionsToGrant() {
+        if (!isAndroidVersionSupportingPermissions()) {
+            return false;
+        }
+
         boolean hasPermissionToGrant = hasPermissionsToGrant(neededPermissions());
         if (!hasPermissionToGrant) {
             hasPermissionToGrant = hasPermissionsToGrant(possiblePermissions());
@@ -71,7 +77,7 @@ public class SlideFragmentBase extends ParallaxFragment {
 
         if (neededPermissions() != null) {
             for (String permission : neededPermissions()) {
-                if (isNotNullOrEmpty(permission)) {
+                if (!TextUtils.isEmpty(permission)) {
                     if (ContextCompat.checkSelfPermission(getContext(), permission)
                             != PackageManager.PERMISSION_GRANTED) {
                         notGrantedPermissions.add(permission);
@@ -81,7 +87,7 @@ public class SlideFragmentBase extends ParallaxFragment {
         }
         if (possiblePermissions() != null) {
             for (String permission : possiblePermissions()) {
-                if (isNotNullOrEmpty(permission)) {
+                if (!TextUtils.isEmpty(permission)) {
                     if (ContextCompat.checkSelfPermission(getContext(), permission)
                             != PackageManager.PERMISSION_GRANTED) {
                         notGrantedPermissions.add(permission);
@@ -97,9 +103,13 @@ public class SlideFragmentBase extends ParallaxFragment {
 
     @SuppressWarnings({"PMD.CollapsibleIfStatements"})
     private boolean hasPermissionsToGrant(String[] permissions) {
+        if (!isAndroidVersionSupportingPermissions()) {
+            return false;
+        }
+
         if (permissions != null) {
             for (String permission : permissions) {
-                if (isNotNullOrEmpty(permission)) {
+                if (!TextUtils.isEmpty(permission)) {
                     if (ContextCompat.checkSelfPermission(getContext(), permission)
                             != PackageManager.PERMISSION_GRANTED) {
                         return true;
@@ -117,7 +127,7 @@ public class SlideFragmentBase extends ParallaxFragment {
         return list.toArray(new String[list.size()]);
     }
 
-    public static boolean isNotNullOrEmpty(String string) {
-        return string != null && !string.isEmpty();
+    private boolean isAndroidVersionSupportingPermissions() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 }

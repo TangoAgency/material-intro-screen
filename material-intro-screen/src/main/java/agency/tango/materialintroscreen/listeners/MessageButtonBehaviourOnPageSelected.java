@@ -1,16 +1,15 @@
 package agency.tango.materialintroscreen.listeners;
 
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
-import agency.tango.materialintroscreen.behaviours.MessageButtonBehaviour;
 import agency.tango.materialintroscreen.R;
 import agency.tango.materialintroscreen.adapter.SlidesAdapter;
+import agency.tango.materialintroscreen.behaviours.MessageButtonBehaviour;
 import agency.tango.materialintroscreen.fragments.SlideFragmentBase;
-
-import static agency.tango.materialintroscreen.fragments.SlideFragmentBase.isNotNullOrEmpty;
 
 
 public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListener {
@@ -53,7 +52,7 @@ public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListen
     }
 
     private boolean checkIfMessageButtonHasBehaviour(int position) {
-        return messageButtonBehaviours.get(position) != null && isNotNullOrEmpty(
+        return messageButtonBehaviours.get(position) != null && !TextUtils.isEmpty(
                 messageButtonBehaviours.get(position).getMessageButtonText());
     }
 
