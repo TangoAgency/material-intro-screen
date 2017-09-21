@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,8 @@ public class SlideFragment extends SlideFragmentBase {
     public static final String NEEDED_PERMISSIONS = "needed_permission";
     public static final String POSSIBLE_PERMISSIONS = "possible_permission";
     public static final String IMAGE = "image";
+    public static final String GRANT_PERMISSION_MESSAGE = "grant_permission_message";
+    public static final String GRANT_PERMISSION_ERROR = "grant_permission_error";
 
     @ColorRes
     private int backgroundColor;
@@ -31,6 +34,12 @@ public class SlideFragment extends SlideFragmentBase {
 
     @DrawableRes
     private int image;
+
+    @StringRes
+    private int grantPermissionStringRes;
+
+    @StringRes
+    private int grantPermissionErrorStringRes;
 
     private String title;
     private String description;
@@ -50,7 +59,7 @@ public class SlideFragment extends SlideFragmentBase {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.mis_fragment_slide, container, false);
         titleTextView = (TextView) view.findViewById(R.id.txt_title_slide);
         descriptionTextView = (TextView) view.findViewById(R.id.txt_description_slide);
@@ -91,6 +100,16 @@ public class SlideFragment extends SlideFragmentBase {
         return getString(R.string.mis_impassable_slide);
     }
 
+    @Override
+    public int grantPermissionStringRes() {
+        return grantPermissionStringRes;
+    }
+
+    @Override
+    public int grantPermissionErrorStringRes() {
+        return grantPermissionErrorStringRes;
+    }
+
     private void initializeView() {
         Bundle bundle = getArguments();
         backgroundColor = bundle.getInt(BACKGROUND_COLOR);
@@ -100,6 +119,8 @@ public class SlideFragment extends SlideFragmentBase {
         description = bundle.getString(DESCRIPTION);
         neededPermissions = bundle.getStringArray(NEEDED_PERMISSIONS);
         possiblePermissions = bundle.getStringArray(POSSIBLE_PERMISSIONS);
+        grantPermissionStringRes = bundle.getInt(GRANT_PERMISSION_MESSAGE);
+        grantPermissionErrorStringRes = bundle.getInt(GRANT_PERMISSION_ERROR);
 
         updateViewWithValues();
     }
@@ -111,6 +132,14 @@ public class SlideFragment extends SlideFragmentBase {
         if (image != 0) {
             imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), image));
             imageView.setVisibility(View.VISIBLE);
+        }
+
+        if (grantPermissionStringRes == 0) {
+            grantPermissionStringRes = R.string.mis_grant_permissions;
+        }
+
+        if (grantPermissionErrorStringRes == 0) {
+            grantPermissionErrorStringRes = R.string.mis_please_grant_permissions;
         }
     }
 }

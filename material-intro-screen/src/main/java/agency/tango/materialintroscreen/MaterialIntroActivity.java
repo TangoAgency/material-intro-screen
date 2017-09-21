@@ -173,7 +173,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     public void showPermissionsNotGrantedError() {
-        showError(getString(R.string.mis_please_grant_permissions));
+        showError(getString(adapter.getItem(viewPager.getCurrentItem()).grantPermissionErrorStringRes()));
     }
 
     /**
