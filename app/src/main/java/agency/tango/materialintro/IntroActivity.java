@@ -56,23 +56,25 @@ public class IntroActivity extends MaterialIntroActivity {
         addSlide(new CustomSlide());
 
         addSlide(new SlideFragmentBuilder()
-                .backgroundColor(R.color.third_slide_background)
-                .buttonsColor(R.color.third_slide_buttons)
-                .possiblePermissions(
-                        new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.READ_SMS})
-                .neededPermissions(new String[]{Manifest.permission.CAMERA,
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION})
-                .image(R.drawable.img_equipment)
-                .title("We provide best tools")
-                .description("ever")
-                .build());
-        new MessageButtonBehaviour(new MessageButtonClickListener() {
-            @Override
-            public void onClick(Button messageButton) {
-                showMessage("Try us!");
-            }
-        }, "Tools");
+                        .backgroundColor(R.color.third_slide_background)
+                        .buttonsColor(R.color.third_slide_buttons)
+                        .possiblePermissions(
+                                new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.READ_SMS})
+                        .neededPermissions(new String[]{Manifest.permission.CAMERA,
+                                Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION})
+                        .image(R.drawable.img_equipment)
+                        .grantPermissionMessage(R.string.txt_pls_grant_permission)
+                        .grantPermissionError(R.string.txt_grant_permission_error)
+                        .title("We provide best tools")
+                        .description("ever")
+                        .build());
+                new MessageButtonBehaviour(new MessageButtonClickListener() {
+                    @Override
+                    public void onClick(Button messageButton) {
+                        showMessage("Try us!");
+                    }
+                }, "Tools");
 
         addSlide(new SlideFragmentBuilder()
                 .backgroundColor(R.color.fourth_slide_background)

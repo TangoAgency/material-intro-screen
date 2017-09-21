@@ -45,21 +45,23 @@ public class IntroActivity extends MaterialIntroActivity
         super.onCreate(savedInstanceState);
         
         addSlide(new SlideFragmentBuilder()
-                    .backgroundColor(R.color.colorPrimary)
-                    .buttonsColor(R.color.colorAccent)
-                    .possiblePermissions(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.READ_SMS})
-                    .neededPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
-                    .image(agency.tango.materialintroscreen.R.drawable.ic_next)
-                    .title("title 3")
-                    .description("Description 3")
-                    .build(),
-                 new MessageButtonBehaviour(new MessageButtonClickListener() {
-                     @Override
-                     public void onClick(Button messageButton) {
-                         messageButton.setText("Click me once again!");
-                         showMessage("We provide solutions to make you love your work");
-                     }
-                 }, "Work with love"));
+                .backgroundColor(R.color.colorPrimary)
+                .buttonsColor(R.color.colorAccent)
+                .possiblePermissions(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.READ_SMS})
+                .neededPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
+                .image(agency.tango.materialintroscreen.R.drawable.ic_next)
+                .grantPermissionMessage(R.string.txt_pls_grant_permission)
+                .grantPermissionError(R.string.txt_grant_permission_error)
+                .title("title 3")
+                .description("Description 3")
+                .build(),
+              new MessageButtonBehaviour(new MessageButtonClickListener() {
+                  @Override
+                  public void onClick(Button messageButton) {
+                      messageButton.setText("Click me once again!");
+                      showMessage("We provide solutions to make you love your work");
+                  }
+              }, "Work with love"));
 }
 ```
 #### Explanation of SlideFragment usage:
@@ -101,7 +103,9 @@ getBackButtonTranslationWrapper()
  - ```cantMoveFurtherErrorMessage()``` (as above)
  - ```neededPermissions()```
  - ```possiblePermissions()```
-
+ - ```grantPermissionStringRes()```
+ - ```grantPermissionErrorStringRes()```
+   
 #### If you want to use parallax in a fragment please use one of the below views:
   - [```ParallaxFrameLayout```][ParallaxFrame]
   - [```ParallaxLinearLayout```][ParallaxLinear]

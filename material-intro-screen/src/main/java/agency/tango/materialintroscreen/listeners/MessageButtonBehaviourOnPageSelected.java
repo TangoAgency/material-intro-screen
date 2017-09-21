@@ -1,26 +1,25 @@
 package agency.tango.materialintroscreen.listeners;
 
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
-import agency.tango.materialintroscreen.behaviours.MessageButtonBehaviour;
 import agency.tango.materialintroscreen.R;
 import agency.tango.materialintroscreen.adapter.SlidesAdapter;
+import agency.tango.materialintroscreen.behaviours.MessageButtonBehaviour;
 import agency.tango.materialintroscreen.fragments.SlideFragmentBase;
-
-import static agency.tango.materialintroscreen.fragments.SlideFragmentBase.isNotNullOrEmpty;
 
 
 public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListener {
 
-    private Button messageButton;
-    private SlidesAdapter adapter;
-    private SparseArray<MessageButtonBehaviour> messageButtonBehaviours;
+    private final Button messageButton;
+    private final SlidesAdapter adapter;
+    private final SparseArray<MessageButtonBehaviour> messageButtonBehaviours;
 
     public MessageButtonBehaviourOnPageSelected(Button messageButton, SlidesAdapter adapter,
-            SparseArray<MessageButtonBehaviour> messageButtonBehaviours) {
+                                                SparseArray<MessageButtonBehaviour> messageButtonBehaviours) {
         this.messageButton = messageButton;
         this.adapter = adapter;
         this.messageButtonBehaviours = messageButtonBehaviours;
@@ -32,8 +31,8 @@ public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListen
 
         if (slideFragment.hasAnyPermissionsToGrant()) {
             showMessageButton(slideFragment);
-            messageButton
-                    .setText(slideFragment.getActivity().getString(R.string.mis_grant_permissions));
+            messageButton.setText(
+                    slideFragment.getString(adapter.getItem(position).grantPermissionStringRes()));
             messageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -58,7 +57,7 @@ public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListen
     }
 
     private boolean checkIfMessageButtonHasBehaviour(int position) {
-        return messageButtonBehaviours.get(position) != null && isNotNullOrEmpty(
+        return messageButtonBehaviours.get(position) != null && !TextUtils.isEmpty(
                 messageButtonBehaviours.get(position).getMessageButtonText());
     }
 

@@ -39,7 +39,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            app:mis_layout_parallaxFactor="0.5"
             tools:text="Lorem ipsum" />
 
         <TextView
@@ -48,7 +47,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            app:mis_layout_parallaxFactor="0.2"
             tools:text="Lorem ipsum dolor sit amet, consectetur, adipisci velit, …" />
 
     </LinearLayout>
