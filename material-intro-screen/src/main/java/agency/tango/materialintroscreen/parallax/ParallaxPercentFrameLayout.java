@@ -1,32 +1,33 @@
 package agency.tango.materialintroscreen.parallax;
 
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.FloatRange;
+import android.support.percent.PercentFrameLayout;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import agency.tango.materialintroscreen.R;
 
-public class ParallaxFrameLayout extends FrameLayout implements Parallaxable {
+public class ParallaxPercentFrameLayout extends PercentFrameLayout implements Parallaxable {
 
-    public ParallaxFrameLayout(Context context) {
+    public ParallaxPercentFrameLayout(Context context) {
         super(context);
     }
 
-    public ParallaxFrameLayout(Context context, AttributeSet attrs) {
+    public ParallaxPercentFrameLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public ParallaxFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ParallaxPercentFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     @Override
-    protected boolean checkLayoutParams(ViewGroup.LayoutParams layoutParams) {
-        return layoutParams instanceof LayoutParams;
+    protected boolean checkLayoutParams(ViewGroup.LayoutParams p) {
+        return p instanceof LayoutParams;
     }
 
     @Override
@@ -48,14 +49,14 @@ public class ParallaxFrameLayout extends FrameLayout implements Parallaxable {
     public void setOffset(@FloatRange(from = -1.0, to = 1.0) float offset) {
         for (int i = getChildCount() - 1; i >= 0; i--) {
             View child = getChildAt(i);
-            ParallaxFrameLayout.LayoutParams layoutParams = (LayoutParams) child.getLayoutParams();
-            if (layoutParams.parallaxFactor == 0)
+            LayoutParams p = (LayoutParams) child.getLayoutParams();
+            if (p.parallaxFactor == 0)
                 continue;
-            child.setTranslationX(getWidth() * -offset * layoutParams.parallaxFactor);
+            child.setTranslationX(getWidth() * -offset * p.parallaxFactor);
         }
     }
 
-    public static class LayoutParams extends FrameLayout.LayoutParams {
+    public static class LayoutParams extends PercentFrameLayout.LayoutParams {
         float parallaxFactor = 0f;
 
         LayoutParams(Context context, AttributeSet attributeSet) {

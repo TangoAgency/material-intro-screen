@@ -1,14 +1,15 @@
 apply plugin: 'com.android.application'
+apply from: '../jacoco-android.gradle'
 
 apply from: "$rootDir/versions.gradle"
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    compileSdkVersion project.compileSdkVersion
+    buildToolsVersion project.buildToolsVersion
     defaultConfig {
         applicationId "agency.tango.materialintro"
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdkVersion project.minSdkVersion
+        targetSdkVersion project.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

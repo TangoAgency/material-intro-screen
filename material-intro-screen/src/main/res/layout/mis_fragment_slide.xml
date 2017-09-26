@@ -26,7 +26,7 @@
         android:layout_weight="1"
         android:adjustViewBounds="true"
         android:gravity="center"
-        app:layout_parallaxFactor="0.6"
+        app:mis_layout_parallaxFactor="0.6"
         tools:src="@android:drawable/sym_action_call" />
 
     <TextView
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        app:layout_parallaxFactor="0.5"
+        app:mis_layout_parallaxFactor="0.5"
         tools:text="Lorem ipsum" />
 
     <TextView
@@ -45,7 +45,7 @@
         android:layout_marginBottom="8dp"
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        app:layout_parallaxFactor="0.2"
+        app:mis_layout_parallaxFactor="0.2"
         tools:text="Lorem ipsum dolor sit amet, consectetur, adipisci velit, …" />
 
 </agency.tango.materialintroscreen.parallax.ParallaxLinearLayout>

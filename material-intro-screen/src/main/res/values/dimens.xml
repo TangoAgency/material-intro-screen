@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="y_offset">72dp</dimen>
+    <dimen name="mis_y_offset">72dp</dimen>
 </resources>
