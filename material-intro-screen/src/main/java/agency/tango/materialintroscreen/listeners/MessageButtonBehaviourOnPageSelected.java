@@ -1,5 +1,6 @@
 package agency.tango.materialintroscreen.listeners;
 
+import android.content.Context;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -13,11 +14,13 @@ import agency.tango.materialintroscreen.adapter.SlidesAdapter;
 import static agency.tango.materialintroscreen.SlideFragment.isNotNullOrEmpty;
 
 public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListener {
+    private Context context;
     private Button messageButton;
     private SlidesAdapter adapter;
     private SparseArray<MessageButtonBehaviour> messageButtonBehaviours;
 
-    public MessageButtonBehaviourOnPageSelected(Button messageButton, SlidesAdapter adapter, SparseArray<MessageButtonBehaviour> messageButtonBehaviours) {
+    public MessageButtonBehaviourOnPageSelected(Context context, Button messageButton, SlidesAdapter adapter, SparseArray<MessageButtonBehaviour> messageButtonBehaviours) {
+        this.context = context;
         this.messageButton = messageButton;
         this.adapter = adapter;
         this.messageButtonBehaviours = messageButtonBehaviours;
@@ -29,7 +32,7 @@ public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListen
 
         if (slideFragment.hasAnyPermissionsToGrant()) {
             showMessageButton(slideFragment);
-            messageButton.setText(slideFragment.getActivity().getString(R.string.grant_permissions));
+            messageButton.setText(context.getString(R.string.grant_permissions));
             messageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -41,7 +44,7 @@ public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListen
             messageButton.setText(messageButtonBehaviours.get(position).getMessageButtonText());
             messageButton.setOnClickListener(messageButtonBehaviours.get(position).getClickListener());
         } else if (messageButton.getVisibility() != View.INVISIBLE) {
-            messageButton.startAnimation(AnimationUtils.loadAnimation(slideFragment.getContext(), R.anim.fade_out));
+            messageButton.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_out));
             messageButton.setVisibility(View.INVISIBLE);
         }
     }
@@ -53,10 +56,7 @@ public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListen
     private void showMessageButton(final SlideFragment fragment) {
         if (messageButton.getVisibility() != View.VISIBLE) {
             messageButton.setVisibility(View.VISIBLE);
-            if (fragment.getActivity() != null) {
-                messageButton.startAnimation(AnimationUtils.loadAnimation(fragment.getActivity(), R.anim.fade_in));
-
-            }
+            messageButton.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in));
         }
     }
 }

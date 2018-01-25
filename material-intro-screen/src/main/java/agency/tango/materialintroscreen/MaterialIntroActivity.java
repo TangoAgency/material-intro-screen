@@ -312,7 +312,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     private void initOnPageChangeListeners() {
-        messageButtonBehaviourOnPageSelected = new MessageButtonBehaviourOnPageSelected(messageButton, adapter, messageButtonBehaviours);
+        messageButtonBehaviourOnPageSelected = new MessageButtonBehaviourOnPageSelected(this, messageButton, adapter, messageButtonBehaviours);
 
         backButtonTranslationWrapper = new BackButtonTranslationWrapper(backButton);
         pageIndicatorTranslationWrapper = new PageIndicatorTranslationWrapper(pageIndicator);
