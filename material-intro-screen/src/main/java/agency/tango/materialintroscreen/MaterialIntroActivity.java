@@ -12,7 +12,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.View;
@@ -417,13 +416,11 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     private Integer getBackgroundColor(int position, float positionOffset) {
-        int nextPosition = (position == adapter.getCount() - 1) ? position : position + 1;
-        return (Integer) argbEvaluator.evaluate(positionOffset, color(adapter.getItem(position).backgroundColor()), color(adapter.getItem(nextPosition).backgroundColor()));
+        return (Integer) argbEvaluator.evaluate(positionOffset, color(adapter.getItem(position).backgroundColor()), color(adapter.getItem(position + 1).backgroundColor()));
     }
 
     private Integer getButtonsColor(int position, float positionOffset) {
-        int nextPosition = (position == adapter.getCount() - 1) ? position : position + 1;
-        return (Integer) argbEvaluator.evaluate(positionOffset, color(adapter.getItem(position).buttonsColor()), color(adapter.getItem(nextPosition).buttonsColor()));
+        return (Integer) argbEvaluator.evaluate(positionOffset, color(adapter.getItem(position).buttonsColor()), color(adapter.getItem(position + 1).buttonsColor()));
     }
 
     private int color(@ColorRes int color) {
@@ -433,7 +430,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     private class ColorTransitionScrollListener implements IPageScrolledListener {
         @Override
         public void pageScrolled(int position, float offset) {
-            if (position <= adapter.getCount() - 1) {
+            if (position < adapter.getCount() - 1) {
                 setViewsColor(position, offset);
             } else if (adapter.getCount() == 1) {
                 viewPager.setBackgroundColor(adapter.getItem(position).backgroundColor());
@@ -445,7 +442,6 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
 
         private void setViewsColor(int position, float offset) {
             int backgroundColor = getBackgroundColor(position, offset);
-            Log.d("mytag", "Color in MIA = " + backgroundColor);
             viewPager.setBackgroundColor(backgroundColor);
             messageButton.setTextColor(backgroundColor);
 
