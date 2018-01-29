@@ -416,11 +416,13 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     private Integer getBackgroundColor(int position, float positionOffset) {
-        return (Integer) argbEvaluator.evaluate(positionOffset, color(adapter.getItem(position).backgroundColor()), color(adapter.getItem(position + 1).backgroundColor()));
+        int nextPosition = (position == adapter.getCount() - 1) ? position : position + 1;
+        return (Integer) argbEvaluator.evaluate(positionOffset, color(adapter.getItem(position).backgroundColor()), color(adapter.getItem(nextPosition).backgroundColor()));
     }
 
     private Integer getButtonsColor(int position, float positionOffset) {
-        return (Integer) argbEvaluator.evaluate(positionOffset, color(adapter.getItem(position).buttonsColor()), color(adapter.getItem(position + 1).buttonsColor()));
+        int nextPosition = (position == adapter.getCount() - 1) ? position : position + 1;
+        return (Integer) argbEvaluator.evaluate(positionOffset, color(adapter.getItem(position).buttonsColor()), color(adapter.getItem(nextPosition).buttonsColor()));
     }
 
     private int color(@ColorRes int color) {
@@ -430,7 +432,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     private class ColorTransitionScrollListener implements IPageScrolledListener {
         @Override
         public void pageScrolled(int position, float offset) {
-            if (position < adapter.getCount() - 1) {
+            if (position <= adapter.getCount() - 1) {
                 setViewsColor(position, offset);
             } else if (adapter.getCount() == 1) {
                 viewPager.setBackgroundColor(adapter.getItem(position).backgroundColor());
