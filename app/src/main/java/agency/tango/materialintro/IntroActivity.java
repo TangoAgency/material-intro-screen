@@ -31,7 +31,9 @@ public class IntroActivity extends MaterialIntroActivity {
                         .buttonsColor(R.color.first_slide_buttons)
                         .image(R.drawable.img_office)
                         .title("Organize your time with us")
+                        .titleColor(R.color.colorAccent)
                         .description("Would you try?")
+                        .descriptionColor(R.color.colorPrimaryDark)
                         .build(),
                 new MessageButtonBehaviour(new View.OnClickListener() {
                     @Override
