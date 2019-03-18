@@ -4,16 +4,16 @@ import android.animation.ArgbEvaluator;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.CallSuper;
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.View;
@@ -77,23 +77,21 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window window = getWindow();
-            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
+        Window window = getWindow();
+        window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
         setContentView(R.layout.mis_activity_material_intro);
 
-        overScrollLayout = (OverScrollViewPager) findViewById(R.id.view_pager_slides);
+        overScrollLayout = findViewById(R.id.view_pager_slides);
         viewPager = overScrollLayout.getOverScrollView();
-        pageIndicator = (InkPageIndicator) findViewById(R.id.indicator);
-        backButton = (ImageButton) findViewById(R.id.button_back);
-        nextButton = (ImageButton) findViewById(R.id.button_next);
-        skipButton = (ImageButton) findViewById(R.id.button_skip);
-        messageButton = (Button) findViewById(R.id.button_message);
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout_slide);
-        navigationView = (LinearLayout) findViewById(R.id.navigation_view);
+        pageIndicator = findViewById(R.id.indicator);
+        backButton = findViewById(R.id.button_back);
+        nextButton = findViewById(R.id.button_next);
+        skipButton = findViewById(R.id.button_skip);
+        messageButton = findViewById(R.id.button_message);
+        coordinatorLayout = findViewById(R.id.coordinator_layout_slide);
+        navigationView = findViewById(R.id.navigation_view);
 
         adapter = new SlidesAdapter(getSupportFragmentManager());
 
@@ -419,7 +417,7 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
 
     private void showError(String error) {
         Snackbar.make(coordinatorLayout, error, Snackbar.LENGTH_SHORT)
-                .setCallback(new Snackbar.Callback() {
+                .addCallback(new Snackbar.Callback() {
                     @Override
                     public void onDismissed(Snackbar snackbar, int event) {
                         navigationView.setTranslationY(0f);

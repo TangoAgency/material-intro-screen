@@ -1,10 +1,9 @@
 package agency.tango.materialintroscreen.parallax;
 
-
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.FloatRange;
-import android.support.percent.PercentRelativeLayout;
+import androidx.annotation.FloatRange;
+import androidx.percentlayout.widget.PercentRelativeLayout;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;

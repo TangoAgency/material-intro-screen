@@ -1,8 +1,8 @@
 package agency.tango.materialintroscreen.widgets;
 
 import android.content.Context;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewCompat;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.core.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
@@ -14,8 +14,7 @@ import agency.tango.materialintroscreen.R;
 import agency.tango.materialintroscreen.listeners.IFinishListener;
 
 public class OverScrollViewPager extends RelativeLayout {
-
-    private SwipeableViewPager swipeableViewPager = null;
+    private SwipeableViewPager swipeableViewPager;
     private boolean mIsBeingDragged = false;
     private float mMotionBeginX = 0;
     private float positionOffset = 0;
@@ -149,7 +148,6 @@ public class OverScrollViewPager extends RelativeLayout {
     }
 
     final class SmoothScrollRunnable implements Runnable {
-
         private final Interpolator interpolator;
         private final int scrollToPosition;
         private final int scrollFromPosition;

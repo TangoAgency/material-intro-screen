@@ -2,7 +2,9 @@ package agency.tango.materialintroscreen.parallax;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.FloatRange;
+
+import androidx.annotation.FloatRange;
+
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +62,8 @@ public class ParallaxFrameLayout extends FrameLayout implements Parallaxable {
 
         LayoutParams(Context context, AttributeSet attributeSet) {
             super(context, attributeSet);
-            TypedArray typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.mis_ParallaxLayout_Layout);
+            TypedArray typedArray = context.obtainStyledAttributes(attributeSet,
+                    R.styleable.mis_ParallaxLayout_Layout);
             parallaxFactor = typedArray.getFloat(R.styleable.mis_ParallaxLayout_Layout_mis_layout_parallaxFactor, parallaxFactor);
             typedArray.recycle();
         }

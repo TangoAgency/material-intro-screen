@@ -2,10 +2,10 @@ package agency.tango.materialintroscreen.fragments;
 
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.support.annotation.ColorRes;
-import android.support.annotation.StringRes;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.ColorRes;
+import androidx.annotation.StringRes;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 
 import java.util.ArrayList;

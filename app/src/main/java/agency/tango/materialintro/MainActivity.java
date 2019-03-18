@@ -2,8 +2,8 @@ package agency.tango.materialintro;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        button = (AppCompatButton) findViewById(R.id.btn_launch_activity);
+        button = findViewById(R.id.btn_launch_activity);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

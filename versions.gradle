@@ -2,5 +2,5 @@ ext.minSdkVersion = 21
 ext.targetSdkVersion = 28
 ext.compileSdkVersion = 28
 ext.buildToolsVersion = '28.0.3'
-ext.androidSupport = "26.1.0"
+ext.androidSupport = '1.0.0-beta01'
 

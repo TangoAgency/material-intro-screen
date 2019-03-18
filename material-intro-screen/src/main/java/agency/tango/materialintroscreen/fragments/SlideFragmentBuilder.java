@@ -1,9 +1,9 @@
 package agency.tango.materialintroscreen.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.StringRes;
 
 import static agency.tango.materialintroscreen.fragments.SlideFragment.BACKGROUND_COLOR;
 import static agency.tango.materialintroscreen.fragments.SlideFragment.BUTTONS_COLOR;

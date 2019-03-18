@@ -11,7 +11,6 @@ import agency.tango.materialintroscreen.adapter.SlidesAdapter;
 import agency.tango.materialintroscreen.behaviours.MessageButtonBehaviour;
 import agency.tango.materialintroscreen.fragments.SlideFragmentBase;
 
-
 public class MessageButtonBehaviourOnPageSelected implements IPageSelectedListener {
 
     private final Button messageButton;
