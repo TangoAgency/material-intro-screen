@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 
 @SuppressWarnings("unused")
 public class MoveUpBehaviour extends CoordinatorLayout.Behavior<LinearLayout> {
-
     public MoveUpBehaviour(Context context, AttributeSet attrs) {
         super(context, attrs);
     }

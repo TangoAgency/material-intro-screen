@@ -78,7 +78,7 @@ public class SlideFragmentBase extends ParallaxFragment {
         if (neededPermissions() != null) {
             for (String permission : neededPermissions()) {
                 if (!TextUtils.isEmpty(permission)) {
-                    if (ContextCompat.checkSelfPermission(getContext(), permission)
+                    if (ContextCompat.checkSelfPermission(requireContext(), permission)
                             != PackageManager.PERMISSION_GRANTED) {
                         notGrantedPermissions.add(permission);
                     }
@@ -88,7 +88,7 @@ public class SlideFragmentBase extends ParallaxFragment {
         if (possiblePermissions() != null) {
             for (String permission : possiblePermissions()) {
                 if (!TextUtils.isEmpty(permission)) {
-                    if (ContextCompat.checkSelfPermission(getContext(), permission)
+                    if (ContextCompat.checkSelfPermission(requireContext(), permission)
                             != PackageManager.PERMISSION_GRANTED) {
                         notGrantedPermissions.add(permission);
                     }
@@ -98,7 +98,7 @@ public class SlideFragmentBase extends ParallaxFragment {
 
         String[] permissionsToGrant = removeEmptyAndNullStrings(notGrantedPermissions);
         ActivityCompat
-                .requestPermissions(getActivity(), permissionsToGrant, PERMISSIONS_REQUEST_CODE);
+                .requestPermissions(requireActivity(), permissionsToGrant, PERMISSIONS_REQUEST_CODE);
     }
 
     @SuppressWarnings({"PMD.CollapsibleIfStatements"})
@@ -110,7 +110,7 @@ public class SlideFragmentBase extends ParallaxFragment {
         if (permissions != null) {
             for (String permission : permissions) {
                 if (!TextUtils.isEmpty(permission)) {
-                    if (ContextCompat.checkSelfPermission(getContext(), permission)
+                    if (ContextCompat.checkSelfPermission(requireContext(), permission)
                             != PackageManager.PERMISSION_GRANTED) {
                         return true;
                     }
@@ -120,7 +120,7 @@ public class SlideFragmentBase extends ParallaxFragment {
         return false;
     }
 
-    @SuppressWarnings("SuspiciousMethodCalls")
+    @SuppressWarnings("ToArrayCallWithZeroLengthArrayArgument")
     private String[] removeEmptyAndNullStrings(final ArrayList<String> permissions) {
         List<String> list = new ArrayList<>(permissions);
         list.removeAll(Collections.singleton(null));

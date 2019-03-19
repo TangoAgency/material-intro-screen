@@ -20,7 +20,7 @@ public class ParallaxFragment extends Fragment implements Parallaxable {
         parallaxLayout = findParallaxLayout(view);
     }
 
-    public Parallaxable findParallaxLayout(View root) {
+    private Parallaxable findParallaxLayout(View root) {
         Queue<View> queue = new LinkedList<>();
         queue.add(root);
 

@@ -17,7 +17,6 @@ import static agency.tango.materialintroscreen.fragments.SlideFragment.TITLE;
 
 @SuppressWarnings("unused")
 public class SlideFragmentBuilder {
-
     @ColorRes
     private int backgroundColor;
 
@@ -78,7 +77,7 @@ public class SlideFragmentBuilder {
         return this;
     }
 
-    public SlideFragmentBuilder grantPermissionError(int grantPermissionError) {
+    public SlideFragmentBuilder grantPermissionError(@StringRes int grantPermissionError) {
         this.grantPermissionError = grantPermissionError;
         return this;
     }

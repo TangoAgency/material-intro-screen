@@ -3,6 +3,7 @@ package agency.tango.materialintroscreen.fragments;
 import android.os.Bundle;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
@@ -15,16 +16,15 @@ import android.widget.TextView;
 import agency.tango.materialintroscreen.R;
 
 public class SlideFragment extends SlideFragmentBase {
-
-    public static final String BACKGROUND_COLOR = "background_color";
-    public static final String BUTTONS_COLOR = "buttons_color";
-    public static final String TITLE = "title";
-    public static final String DESCRIPTION = "description";
-    public static final String NEEDED_PERMISSIONS = "needed_permission";
-    public static final String POSSIBLE_PERMISSIONS = "possible_permission";
-    public static final String IMAGE = "image";
-    public static final String GRANT_PERMISSION_MESSAGE = "grant_permission_message";
-    public static final String GRANT_PERMISSION_ERROR = "grant_permission_error";
+    static final String BACKGROUND_COLOR = "background_color";
+    static final String BUTTONS_COLOR = "buttons_color";
+    static final String TITLE = "title";
+    static final String DESCRIPTION = "description";
+    static final String NEEDED_PERMISSIONS = "needed_permission";
+    static final String POSSIBLE_PERMISSIONS = "possible_permission";
+    static final String IMAGE = "image";
+    static final String GRANT_PERMISSION_MESSAGE = "grant_permission_message";
+    static final String GRANT_PERMISSION_ERROR = "grant_permission_error";
 
     @ColorRes
     private int backgroundColor;
@@ -50,7 +50,7 @@ public class SlideFragment extends SlideFragmentBase {
     private TextView descriptionTextView;
     private ImageView imageView;
 
-    public static SlideFragment createInstance(Bundle bundle) {
+    static SlideFragment createInstance(Bundle bundle) {
         SlideFragment slideFragment = new SlideFragment();
         slideFragment.setArguments(bundle);
         return slideFragment;
@@ -58,12 +58,12 @@ public class SlideFragment extends SlideFragmentBase {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.mis_fragment_slide, container, false);
-        titleTextView = (TextView) view.findViewById(R.id.txt_title_slide);
-        descriptionTextView = (TextView) view.findViewById(R.id.txt_description_slide);
-        imageView = (ImageView) view.findViewById(R.id.image_slide);
+        titleTextView = view.findViewById(R.id.txt_title_slide);
+        descriptionTextView = view.findViewById(R.id.txt_description_slide);
+        imageView = view.findViewById(R.id.image_slide);
         initializeView();
         return view;
     }
@@ -130,7 +130,7 @@ public class SlideFragment extends SlideFragmentBase {
         descriptionTextView.setText(description);
 
         if (image != 0) {
-            imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), image));
+            imageView.setImageDrawable(ContextCompat.getDrawable(requireActivity(), image));
             imageView.setVisibility(View.VISIBLE);
         }
 

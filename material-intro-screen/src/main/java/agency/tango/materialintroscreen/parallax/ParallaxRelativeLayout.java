@@ -1,5 +1,6 @@
 package agency.tango.materialintroscreen.parallax;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import androidx.annotation.FloatRange;
@@ -11,7 +12,6 @@ import android.widget.RelativeLayout;
 import agency.tango.materialintroscreen.R;
 
 public class ParallaxRelativeLayout extends RelativeLayout implements Parallaxable {
-
     public ParallaxRelativeLayout(Context context) {
         super(context);
     }
@@ -58,6 +58,7 @@ public class ParallaxRelativeLayout extends RelativeLayout implements Parallaxab
     public static class LayoutParams extends RelativeLayout.LayoutParams {
         float parallaxFactor = 0f;
 
+        @SuppressLint("CustomViewStyleable")
         LayoutParams(Context context, AttributeSet attributeSet) {
             super(context, attributeSet);
             TypedArray typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.mis_ParallaxLayout_Layout);

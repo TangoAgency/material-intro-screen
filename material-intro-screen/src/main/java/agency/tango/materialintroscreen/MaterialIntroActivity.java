@@ -45,7 +45,6 @@ import agency.tango.materialintroscreen.widgets.SwipeableViewPager;
 
 @SuppressWarnings("unused")
 public abstract class MaterialIntroActivity extends AppCompatActivity {
-
     private SwipeableViewPager viewPager;
     private InkPageIndicator pageIndicator;
     private SlidesAdapter adapter;
@@ -450,7 +449,6 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     private class ColorTransitionScrollListener implements IPageScrolledListener {
-
         @Override
         public void pageScrolled(int position, float offset) {
             if (position < adapter.getCount() - 1) {
@@ -490,7 +488,6 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
     }
 
     private class FinishScreenClickListener implements View.OnClickListener {
-
         @Override
         public void onClick(View v) {
             SlideFragmentBase slideFragment = adapter.getItem(adapter.getLastItemPosition());

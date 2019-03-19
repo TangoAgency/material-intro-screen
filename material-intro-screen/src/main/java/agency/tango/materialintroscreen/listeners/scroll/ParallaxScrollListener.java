@@ -16,7 +16,7 @@ public class ParallaxScrollListener implements IPageScrolledListener {
         this.adapter = adapter;
     }
 
-    @SuppressWarnings("ConstantConditions")
+    @SuppressWarnings({"ConstantConditions", "PointlessNullCheck"})
     @Override
     public void pageScrolled(int position, float offset) {
         if (position != adapter.getCount()) {

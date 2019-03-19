@@ -130,7 +130,7 @@ public class InkPageIndicator extends View
         dotDiameter = typedArray
                 .getDimensionPixelSize(R.styleable.mis_InkPageIndicator_mis_dotDiameter,
                         DEFAULT_DOT_SIZE * density);
-        dotRadius = dotDiameter / 2;
+        dotRadius = dotDiameter / 2f;
         halfDotRadius = dotRadius / 2;
         gap = typedArray.getDimensionPixelSize(R.styleable.mis_InkPageIndicator_mis_dotGap,
                 DEFAULT_GAP * density);
@@ -231,7 +231,7 @@ public class InkPageIndicator extends View
         int right = width - getPaddingRight();
 
         int requiredWidth = getRequiredWidth();
-        float startLeft = left + ((right - left - requiredWidth) / 2) + dotRadius;
+        float startLeft = left + ((right - left - requiredWidth) / 2f) + dotRadius;
 
         dotCenterX = new float[pageCount];
         for (int i = 0; i < pageCount; i++) {
@@ -480,7 +480,7 @@ public class InkPageIndicator extends View
             unselectedDotPath.arcTo(rectF, 90, 180, true);
 
             // bezier to the middle top of the join
-            endX1 = centerX + dotRadius + (gap / 2);
+            endX1 = centerX + dotRadius + (gap / 2f);
             endY1 = dotCenterY - (adjustedFraction * dotRadius);
             controlX1 = endX1 - (adjustedFraction * dotRadius);
             controlY1 = dotTopY;
@@ -725,7 +725,7 @@ public class InkPageIndicator extends View
     /**
      * A {@link ValueAnimator} that starts once a given predicate returns true.
      */
-    public abstract class PendingStartAnimator extends ValueAnimator {
+    abstract class PendingStartAnimator extends ValueAnimator {
 
         boolean hasStarted;
         StartPredicate predicate;
@@ -867,7 +867,7 @@ public class InkPageIndicator extends View
     /**
      * A predicate used to start an animation when a test passes
      */
-    public abstract class StartPredicate {
+    abstract class StartPredicate {
 
         float thresholdValue;
 
