@@ -163,7 +163,7 @@ public class CustomViewPager extends ViewGroup {
     private Parcelable mRestoredAdapterState = null;
     private ClassLoader mRestoredClassLoader = null;
 
-    private Scroller mScroller;
+    protected Scroller mScroller;
     private boolean mIsScrollStarted;
 
     private PagerObserver mObserver;

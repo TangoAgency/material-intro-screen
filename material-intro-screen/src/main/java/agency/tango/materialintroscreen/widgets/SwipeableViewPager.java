@@ -13,7 +13,6 @@ import androidx.viewpager.widget.CustomViewPager;
 @SuppressWarnings("PMD.SingularField")
 public class SwipeableViewPager extends CustomViewPager {
     private float startPos = 0;
-    private int currentIt;
     private boolean swipingAllowed;
     private boolean alphaExitTransitionEnabled = false;
     private ISlideErrorHandler errorHandler;
@@ -48,7 +47,6 @@ public class SwipeableViewPager extends CustomViewPager {
         switch (event.getActionMasked()) {
             case (MotionEvent.ACTION_DOWN):
                 startPos = event.getX();
-                currentIt = getCurrentItem();
                 resolveSwipingRightAllowed();
                 return super.onTouchEvent(event);
             case (MotionEvent.ACTION_MOVE):
@@ -59,7 +57,7 @@ public class SwipeableViewPager extends CustomViewPager {
                 return super.onTouchEvent(event);
             case (MotionEvent.ACTION_UP):
                 if (isSwipingNotAllowed(event)) {
-                    smoothScrollTo(getWidth() * currentIt, 0);
+                    scrollTo(this.mScroller.getCurrX(),0);
                     errorHandler.handleError();
                     return true;
                 }
