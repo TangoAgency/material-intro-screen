@@ -16,7 +16,6 @@ import agency.tango.materialintroscreen.R;
 import agency.tango.materialintroscreen.parallax.ParallaxFragment;
 
 public class SlideFragmentBase extends ParallaxFragment {
-
     private static final int PERMISSIONS_REQUEST_CODE = 15621;
 
     @ColorRes
@@ -31,12 +30,12 @@ public class SlideFragmentBase extends ParallaxFragment {
 
     @ColorRes
     public int messageButtonTextColor() {
-        return R.color.mis_default_buttons_color;
+        return R.color.mis_default_message_button_text_color;
     }
 
     @ColorRes
     public int messageButtonColor() {
-        return R.color.mis_default_buttons_color;
+        return R.color.mis_default_message_button_color;
     }
 
     public boolean canMoveFurther() {

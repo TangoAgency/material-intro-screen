@@ -2,17 +2,17 @@ package agency.tango.materialintro;
 
 import android.Manifest;
 import android.os.Bundle;
-import androidx.annotation.FloatRange;
-import androidx.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import agency.tango.materialintroscreen.MaterialIntroActivity;
-import agency.tango.materialintroscreen.behaviours.MessageButtonBehaviour;
 import agency.tango.materialintroscreen.animations.IViewTranslation;
+import agency.tango.materialintroscreen.behaviours.MessageButtonBehaviour;
 import agency.tango.materialintroscreen.fragments.SlideFragmentBuilder;
 import agency.tango.materialintroscreen.listeners.click.MessageButtonClickListener;
+import androidx.annotation.FloatRange;
+import androidx.annotation.Nullable;
 
 public class IntroActivity extends MaterialIntroActivity {
 
@@ -37,6 +37,8 @@ public class IntroActivity extends MaterialIntroActivity {
                         .image(R.drawable.img_office)
                         .title("Organize your time with us")
                         .description("Would you try?")
+                        .messageButtonColor(R.color.first_slide_buttons)
+                        .messageButtonTextColor(R.color.white)
                         .build(),
                 new MessageButtonBehaviour(new MessageButtonClickListener() {
                     @Override
@@ -51,7 +53,14 @@ public class IntroActivity extends MaterialIntroActivity {
                 .buttonsColor(R.color.second_slide_buttons)
                 .title("Want more?")
                 .description("Go on")
-                .build());
+                .messageButtonColor(R.color.second_slide_buttons)
+                .messageButtonTextColor(R.color.white)
+                .build(),
+                new MessageButtonBehaviour(new MessageButtonClickListener() {
+                    @Override
+                    public void onClick(Button messageButton) {
+                    }
+                }, "Let's go!"));
 
         addSlide(new CustomSlide());
 

@@ -3,6 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#880E4F</color>
+    <color name="white">#ffffff</color>
 
     <color name="first_slide_background">#E91E63</color>
     <color name="first_slide_buttons">#880E4F</color>
