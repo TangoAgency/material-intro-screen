@@ -29,6 +29,16 @@ public class SlideFragmentBase extends ParallaxFragment {
         return R.color.mis_default_buttons_color;
     }
 
+    @ColorRes
+    public int messageButtonTextColor() {
+        return R.color.mis_default_buttons_color;
+    }
+
+    @ColorRes
+    public int messageButtonColor() {
+        return R.color.mis_default_buttons_color;
+    }
+
     public boolean canMoveFurther() {
         return true;
     }
