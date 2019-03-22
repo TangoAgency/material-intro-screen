@@ -31,4 +31,9 @@ public class CustomSlide extends SlideFragmentBase {
     public String cantMoveFurtherErrorMessage() {
         return getString(R.string.error_message);
     }
+
+    @Override
+    public int messageButtonColor() {
+        return R.color.custom_slide_background;
+    }
 }

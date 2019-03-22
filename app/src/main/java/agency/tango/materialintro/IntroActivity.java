@@ -75,6 +75,8 @@ public class IntroActivity extends MaterialIntroActivity {
                         .image(R.drawable.img_equipment)
                         .grantPermissionMessage(R.string.txt_pls_grant_permission)
                         .grantPermissionError(R.string.txt_grant_permission_error)
+                        .messageButtonColor(R.color.third_slide_buttons)
+                        .messageButtonTextColor(R.color.white)
                         .title("We provide best tools")
                         .description("ever")
                         .build(),
