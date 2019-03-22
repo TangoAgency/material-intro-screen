@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:paddingBottom="164dp">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="32dp"
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/lorem_ipsum" />
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <CheckBox
         android:id="@+id/checkBox"

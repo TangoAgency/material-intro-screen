@@ -16,17 +16,17 @@ import android.widget.TextView;
 import agency.tango.materialintroscreen.R;
 
 public class SlideFragment extends SlideFragmentBase {
-    static final String BACKGROUND_COLOR = "background_color";
-    static final String BUTTONS_COLOR = "buttons_color";
-    static final String TITLE = "title";
-    static final String DESCRIPTION = "description";
-    static final String NEEDED_PERMISSIONS = "needed_permission";
-    static final String POSSIBLE_PERMISSIONS = "possible_permission";
-    static final String IMAGE = "image";
-    static final String GRANT_PERMISSION_MESSAGE = "grant_permission_message";
-    static final String GRANT_PERMISSION_ERROR = "grant_permission_error";
-    static final String MESSAGE_BACKGROUND_COLOR = "message_background_color";
-    static final String MESSAGE_TEXT_COLOR = "message_text_background_color";
+    public static final String BACKGROUND_COLOR = "background_color";
+    public static final String BUTTONS_COLOR = "buttons_color";
+    public static final String TITLE = "title";
+    public static final String DESCRIPTION = "description";
+    public static final String NEEDED_PERMISSIONS = "needed_permission";
+    public static final String POSSIBLE_PERMISSIONS = "possible_permission";
+    public static final String IMAGE = "image";
+    public static final String GRANT_PERMISSION_MESSAGE = "grant_permission_message";
+    public static final String GRANT_PERMISSION_ERROR = "grant_permission_error";
+    public static final String MESSAGE_BACKGROUND_COLOR = "message_background_color";
+    public static final String MESSAGE_TEXT_COLOR = "message_text_background_color";
 
     @ColorRes
     private int backgroundColor;
@@ -58,7 +58,7 @@ public class SlideFragment extends SlideFragmentBase {
     private TextView descriptionTextView;
     private ImageView imageView;
 
-    static SlideFragment createInstance(Bundle bundle) {
+    public static SlideFragment createInstance(Bundle bundle) {
         SlideFragment slideFragment = new SlideFragment();
         slideFragment.setArguments(bundle);
         return slideFragment;

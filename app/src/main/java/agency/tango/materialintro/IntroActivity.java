@@ -59,6 +59,7 @@ public class IntroActivity extends MaterialIntroActivity {
                 new MessageButtonBehaviour(new MessageButtonClickListener() {
                     @Override
                     public void onClick(Button messageButton) {
+                        //That button should do nothing at click
                     }
                 }, "Let's go!"));
 
