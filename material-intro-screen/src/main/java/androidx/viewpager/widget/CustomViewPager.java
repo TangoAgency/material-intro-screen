@@ -72,9 +72,9 @@ import java.util.List;
  * through pages of data.  You supply an implementation of a
  * {@link PagerAdapter} to generate the pages that the view shows.
  *
- * <p>ViewPager is most often used in conjunction with {@link android.app.Fragment},
+ * <p>CustomViewPager is most often used in conjunction with {@link android.app.Fragment},
  * which is a convenient way to supply and manage the lifecycle of each page.
- * There are standard adapters implemented for using fragments with the ViewPager,
+ * There are standard adapters implemented for using fragments with the CustomViewPager,
  * which cover the most common use cases.  These are
  * {@link androidx.fragment.app.FragmentPagerAdapter} and
  * {@link androidx.fragment.app.FragmentStatePagerAdapter}; each of these
@@ -86,7 +86,7 @@ import java.util.List;
  * its {@code android:layout_gravity} attribute. For example:
  *
  * <pre>
- * &lt;androidx.viewpager.widget.ViewPager
+ * &lt;androidx.viewpager.widget.CustomViewPager
  *     android:layout_width=&quot;match_parent&quot;
  *     android:layout_height=&quot;match_parent&quot;&gt;
  *
@@ -95,18 +95,18 @@ import java.util.List;
  *         android:layout_height=&quot;wrap_content&quot;
  *         android:layout_gravity=&quot;top&quot; /&gt;
  *
- * &lt;/androidx.viewpager.widget.ViewPager&gt;
+ * &lt;/androidx.viewpager.widget.CustomViewPager&gt;
  * </pre>
  *
- * <p>For more information about how to use ViewPager, read <a
+ * <p>For more information about how to use CustomViewPager, read <a
  * href="{@docRoot}training/implementing-navigation/lateral.html">Creating Swipe Views with
  * Tabs</a>.</p>
  *
- * <p>You can find examples of using ViewPager in the API 4+ Support Demos and API 13+ Support Demos
+ * <p>You can find examples of using CustomViewPager in the API 4+ Support Demos and API 13+ Support Demos
  * sample code.
  */
 public class CustomViewPager extends ViewGroup {
-    private static final String TAG = "ViewPager";
+    private static final String TAG = "CustomViewPager";
     private static final boolean DEBUG = false;
 
     private static final boolean USE_CACHE = false;
@@ -306,9 +306,9 @@ public class CustomViewPager extends ViewGroup {
          * or when it is fully stopped/idle.
          *
          * @param state The new scroll state.
-         * @see ViewPager#SCROLL_STATE_IDLE
-         * @see ViewPager#SCROLL_STATE_DRAGGING
-         * @see ViewPager#SCROLL_STATE_SETTLING
+         * @see CustomViewPager#SCROLL_STATE_IDLE
+         * @see CustomViewPager#SCROLL_STATE_DRAGGING
+         * @see CustomViewPager#SCROLL_STATE_SETTLING
          */
         void onPageScrollStateChanged(int state);
     }
@@ -341,7 +341,7 @@ public class CustomViewPager extends ViewGroup {
      * to the page views using animation properties.
      *
      * <p>As property animation is only supported as of Android 3.0 and forward,
-     * setting a PageTransformer on a ViewPager on earlier platform versions will
+     * setting a PageTransformer on a CustomViewPager on earlier platform versions will
      * be ignored.</p>
      */
     public interface PageTransformer {
@@ -363,7 +363,7 @@ public class CustomViewPager extends ViewGroup {
         /**
          * Called when the adapter for the given view pager has changed.
          *
-         * @param viewPager  ViewPager where the adapter change has happened
+         * @param viewPager  CustomViewPager where the adapter change has happened
          * @param oldAdapter the previously set adapter
          * @param newAdapter the newly set adapter
          */
@@ -431,15 +431,15 @@ public class CustomViewPager extends ViewGroup {
                     @Override
                     public WindowInsetsCompat onApplyWindowInsets(final View v,
                                                                   final WindowInsetsCompat originalInsets) {
-                        // First let the ViewPager itself try and consume them...
+                        // First let the CustomViewPager itself try and consume them...
                         final WindowInsetsCompat applied =
                                 ViewCompat.onApplyWindowInsets(v, originalInsets);
                         if (applied.isConsumed()) {
-                            // If the ViewPager consumed all insets, return now
+                            // If the CustomViewPager consumed all insets, return now
                             return applied;
                         }
 
-                        // Now we'll manually dispatch the insets to our children. Since ViewPager
+                        // Now we'll manually dispatch the insets to our children. Since CustomViewPager
                         // children are always full-height, we do not want to use the standard
                         // ViewGroup dispatchApplyWindowInsets since if child 0 consumes them,
                         // the rest of the children will not receive any insets. To workaround this
@@ -573,7 +573,7 @@ public class CustomViewPager extends ViewGroup {
     }
 
     /**
-     * Add a listener that will be invoked whenever the adapter for this ViewPager changes.
+     * Add a listener that will be invoked whenever the adapter for this CustomViewPager changes.
      *
      * @param listener listener to add
      */
@@ -601,7 +601,7 @@ public class CustomViewPager extends ViewGroup {
     }
 
     /**
-     * Set the currently selected page. If the ViewPager has already been through its first
+     * Set the currently selected page. If the CustomViewPager has already been through its first
      * layout with its current adapter there will be a smooth animated transition between
      * the current item and the specified item.
      *
@@ -777,7 +777,7 @@ public class CustomViewPager extends ViewGroup {
      * @param reverseDrawingOrder true if the supplied PageTransformer requires page views
      *                            to be drawn from last to first instead of first to last.
      * @param transformer PageTransformer that will modify each page's animation properties
-     * @param pageLayerType View layer type that should be used for ViewPager pages. It should be
+     * @param pageLayerType View layer type that should be used for CustomViewPager pages. It should be
      *                      either {@link View#LAYER_TYPE_HARDWARE},
      *                      {@link View#LAYER_TYPE_SOFTWARE}, or
      *                      {@link View#LAYER_TYPE_NONE}.
@@ -1381,8 +1381,8 @@ public class CustomViewPager extends ViewGroup {
     }
 
     /**
-     * This is the persistent state that is saved by ViewPager.  Only needed
-     * if you are creating a sublass of ViewPager that must save its own
+     * This is the persistent state that is saved by CustomViewPager.  Only needed
+     * if you are creating a sublass of CustomViewPager that must save its own
      * state, in which case it should implement a subclass of this which
      * contains that state.
      */
@@ -2510,13 +2510,13 @@ public class CustomViewPager extends ViewGroup {
     /**
      * Start a fake drag of the pager.
      *
-     * <p>A fake drag can be useful if you want to synchronize the motion of the ViewPager
-     * with the touch scrolling of another view, while still letting the ViewPager
+     * <p>A fake drag can be useful if you want to synchronize the motion of the CustomViewPager
+     * with the touch scrolling of another view, while still letting the CustomViewPager
      * control the snapping motion and fling behavior. (e.g. parallax-scrolling tabs.)
      * Call {@link #fakeDragBy(float)} to simulate the actual drag motion. Call
      * {@link #endFakeDrag()} to complete the fake drag and fling as necessary.
      *
-     * <p>During a fake drag the ViewPager will ignore all touch events. If a real drag
+     * <p>During a fake drag the CustomViewPager will ignore all touch events. If a real drag
      * is already in progress, this method will return false.
      *
      * @return true if the fake drag began successfully, false if it could not be started.
@@ -2681,10 +2681,10 @@ public class CustomViewPager extends ViewGroup {
     }
 
     /**
-     * Check if this ViewPager can be scrolled horizontally in a certain direction.
+     * Check if this CustomViewPager can be scrolled horizontally in a certain direction.
      *
      * @param direction Negative to check scrolling left, positive to check scrolling right.
-     * @return Whether this ViewPager can be scrolled in the specified direction. It will always
+     * @return Whether this CustomViewPager can be scrolled in the specified direction. It will always
      *         return false if the specified direction is 0.
      */
     @Override
@@ -2945,7 +2945,7 @@ public class CustomViewPager extends ViewGroup {
     @Override
     public void addTouchables(ArrayList<View> views) {
         // Note that we don't call super.addTouchables(), which means that
-        // we don't call View.addTouchables().  This is okay because a ViewPager
+        // we don't call View.addTouchables().  This is okay because a CustomViewPager
         // is itself not touchable.
         for (int i = 0; i < getChildCount(); i++) {
             final View child = getChildAt(i);
@@ -2993,7 +2993,7 @@ public class CustomViewPager extends ViewGroup {
 
     @Override
     public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
-        // Dispatch scroll events from this ViewPager.
+        // Dispatch scroll events from this CustomViewPager.
         if (event.getEventType() == AccessibilityEventCompat.TYPE_VIEW_SCROLLED) {
             return super.dispatchPopulateAccessibilityEvent(event);
         }
@@ -3039,7 +3039,7 @@ public class CustomViewPager extends ViewGroup {
         @Override
         public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
             super.onInitializeAccessibilityEvent(host, event);
-            event.setClassName(ViewPager.class.getName());
+            event.setClassName(CustomViewPager.class.getName());
             event.setScrollable(canScroll());
             if (event.getEventType() == AccessibilityEvent.TYPE_VIEW_SCROLLED && mAdapter != null) {
                 event.setItemCount(mAdapter.getCount());
@@ -3051,7 +3051,7 @@ public class CustomViewPager extends ViewGroup {
         @Override
         public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfoCompat info) {
             super.onInitializeAccessibilityNodeInfo(host, info);
-            info.setClassName(ViewPager.class.getName());
+            info.setClassName(CustomViewPager.class.getName());
             info.setScrollable(canScroll());
             if (canScrollHorizontally(1)) {
                 info.addAction(AccessibilityNodeInfoCompat.ACTION_SCROLL_FORWARD);
@@ -3104,7 +3104,7 @@ public class CustomViewPager extends ViewGroup {
 
     /**
      * Layout parameters that should be supplied for views added to a
-     * ViewPager.
+     * CustomViewPager.
      */
     public static class LayoutParams extends ViewGroup.LayoutParams {
         /**
@@ -3115,7 +3115,7 @@ public class CustomViewPager extends ViewGroup {
 
         /**
          * Gravity setting for use on decor views only:
-         * Where to position the view page within the overall ViewPager
+         * Where to position the view page within the overall CustomViewPager
          * container; constants are defined in {@link android.view.Gravity}.
          */
         public int gravity;
@@ -3137,7 +3137,7 @@ public class CustomViewPager extends ViewGroup {
         int position;
 
         /**
-         * Current child index within the ViewPager that this view occupies
+         * Current child index within the CustomViewPager that this view occupies
          */
         int childIndex;
 

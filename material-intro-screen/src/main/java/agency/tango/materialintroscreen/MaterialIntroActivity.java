@@ -494,11 +494,11 @@ public abstract class MaterialIntroActivity extends AppCompatActivity {
             }
             pageIndicator.setPageIndicatorColor(buttonsColor);
 
-            tintMessageButton(position, offset, buttonsColor);
+            tintMessageButton(position, offset);
             tintButtons(ColorStateList.valueOf(buttonsColor));
         }
 
-        private void tintMessageButton(int position, float offset, int buttonsColor) {
+        private void tintMessageButton(int position, float offset) {
             ColorStateList messageButtonBackgroundColor =
                     ColorStateList.valueOf(getMessageButtonEvaluatedColor(position, offset));
             ViewCompat.setBackgroundTintList(messageButton, messageButtonBackgroundColor);
