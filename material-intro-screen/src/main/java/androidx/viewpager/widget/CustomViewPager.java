@@ -124,6 +124,8 @@ public class CustomViewPager extends ViewGroup {
             android.R.attr.layout_gravity
     };
 
+    private static final ViewPositionComparator sPositionComparator = new ViewPositionComparator();
+
     /**
      * Used to track what the expected number of items in the adapter should be.
      * If the app changes this when we don't expect it, we'll throw a big obnoxious exception.
@@ -153,25 +155,41 @@ public class CustomViewPager extends ViewGroup {
         }
     };
 
-    protected Scroller mScroller;
 
     private final ArrayList<ItemInfo> mItems = new ArrayList<ItemInfo>();
     private final ItemInfo mTempItem = new ItemInfo();
-
+    private final Runnable mEndScrollRunnable = new Runnable() {
+        @Override
+        public void run() {
+            setScrollState(SCROLL_STATE_IDLE);
+            populate();
+        }
+    };
     private final Rect mTempRect = new Rect();
 
+    protected Scroller mScroller;
+
+    private EdgeEffect mLeftEdge;
+    private EdgeEffect mRightEdge;
     private PagerAdapter mAdapter;
-    private int mCurItem;   // Index of currently displayed page.
-    private int mRestoredCurItem = -1;
     private Parcelable mRestoredAdapterState = null;
     private ClassLoader mRestoredClassLoader = null;
+    private PagerObserver mObserver;
+    private Drawable mMarginDrawable;
+    private List<OnPageChangeListener> mOnPageChangeListeners;
+    private OnPageChangeListener mOnPageChangeListener;
+    private OnPageChangeListener mInternalPageChangeListener;
+    private List<OnAdapterChangeListener> mAdapterChangeListeners;
+    private PageTransformer mPageTransformer;
+    private VelocityTracker mVelocityTracker;
+    private ArrayList<View> mDrawingOrderedChildren;
+    private int mCurItem;   // Index of currently displayed page.
+    private int mRestoredCurItem = -1;
 
     private boolean mIsScrollStarted;
 
-    private PagerObserver mObserver;
 
     private int mPageMargin;
-    private Drawable mMarginDrawable;
     private int mTopPageBounds;
     private int mBottomPageBounds;
 
@@ -214,7 +232,6 @@ public class CustomViewPager extends ViewGroup {
     /**
      * Determines speed during touch scrolling
      */
-    private VelocityTracker mVelocityTracker;
     private int mMinimumVelocity;
     private int mMaximumVelocity;
     private int mFlingDistance;
@@ -228,26 +245,16 @@ public class CustomViewPager extends ViewGroup {
     private boolean mFakeDragging;
     private long mFakeDragBeginTime;
 
-    private EdgeEffect mLeftEdge;
-    private EdgeEffect mRightEdge;
-
     private boolean mFirstLayout = true;
     private boolean mCalledSuper;
     private int mDecorChildCount;
 
-    private List<OnPageChangeListener> mOnPageChangeListeners;
-    private OnPageChangeListener mOnPageChangeListener;
-    private OnPageChangeListener mInternalPageChangeListener;
-    private List<OnAdapterChangeListener> mAdapterChangeListeners;
-    private PageTransformer mPageTransformer;
-    private int mPageTransformerLayerType;
+     private int mPageTransformerLayerType;
 
     private static final int DRAW_ORDER_DEFAULT = 0;
     private static final int DRAW_ORDER_FORWARD = 1;
     private static final int DRAW_ORDER_REVERSE = 2;
     private int mDrawingOrder;
-    private ArrayList<View> mDrawingOrderedChildren;
-    private static final ViewPositionComparator sPositionComparator = new ViewPositionComparator();
 
     /**
      * Indicates that the pager is in an idle, settled state. The current page
@@ -265,13 +272,7 @@ public class CustomViewPager extends ViewGroup {
      */
     public static final int SCROLL_STATE_SETTLING = 2;
 
-    private final Runnable mEndScrollRunnable = new Runnable() {
-        @Override
-        public void run() {
-            setScrollState(SCROLL_STATE_IDLE);
-            populate();
-        }
-    };
+
 
     private int mScrollState = SCROLL_STATE_IDLE;
 
