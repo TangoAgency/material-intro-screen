@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 
 import agency.tango.materialintroscreen.ISlideErrorHandler;
 import agency.tango.materialintroscreen.adapter.SlidesAdapter;
+
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.CustomViewPager;
 
@@ -57,7 +58,8 @@ public class SwipeableViewPager extends CustomViewPager {
                 return super.onTouchEvent(event);
             case (MotionEvent.ACTION_UP):
                 if (isSwipingNotAllowed(event)) {
-                    scrollTo(this.mScroller.getCurrX(),0);
+                    scrollTo(this.mScroller.getCurrX(), 0);
+                    onPageScrolled(getCurrentItem(), 0, 0);
                     errorHandler.handleError();
                     return true;
                 }
