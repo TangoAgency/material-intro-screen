@@ -105,7 +105,7 @@ import java.util.List;
  * <p>You can find examples of using CustomViewPager in the API 4+ Support Demos and API 13+ Support Demos
  * sample code.
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "PMD"})
 public class CustomViewPager extends ViewGroup {
     /**
      * Indicates that the pager is in an idle, settled state. The current page
