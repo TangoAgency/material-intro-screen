@@ -107,6 +107,22 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public class CustomViewPager extends ViewGroup {
+    /**
+     * Indicates that the pager is in an idle, settled state. The current page
+     * is fully in view and no animation is in progress.
+     */
+    public static final int SCROLL_STATE_IDLE = 0;
+
+    /**
+     * Indicates that the pager is currently being dragged by the user.
+     */
+    public static final int SCROLL_STATE_DRAGGING = 1;
+
+    /**
+     * Indicates that the pager is in the process of settling to a final position.
+     */
+    public static final int SCROLL_STATE_SETTLING = 2;
+
     private static final String TAG = "CustomViewPager";
     private static final boolean DEBUG = false;
 
@@ -125,7 +141,11 @@ public class CustomViewPager extends ViewGroup {
     };
 
     private static final ViewPositionComparator sPositionComparator = new ViewPositionComparator();
-
+    /**
+     * Sentinel value for no current active pointer.
+     * Used by {@link #mActivePointerId}.
+     */
+    private static final int INVALID_POINTER = -1;
     /**
      * Used to track what the expected number of items in the adapter should be.
      * If the app changes this when we don't expect it, we'll throw a big obnoxious exception.
@@ -154,7 +174,14 @@ public class CustomViewPager extends ViewGroup {
             return t * t * t * t * t + 1.0f;
         }
     };
+    private static final int DRAW_ORDER_DEFAULT = 0;
+    private static final int DRAW_ORDER_FORWARD = 1;
+    private static final int DRAW_ORDER_REVERSE = 2;
 
+    // If the pager is at least this close to its final position, complete the scroll
+    // on touch down and let the user interact with the content inside instead of
+    // "catching" the flinging pager.
+    private static final int CLOSE_ENOUGH = 2; // dp
 
     private final ArrayList<ItemInfo> mItems = new ArrayList<ItemInfo>();
     private final ItemInfo mTempItem = new ItemInfo();
@@ -168,7 +195,6 @@ public class CustomViewPager extends ViewGroup {
     private final Rect mTempRect = new Rect();
 
     protected Scroller mScroller;
-
     private EdgeEffect mLeftEdge;
     private EdgeEffect mRightEdge;
     private PagerAdapter mAdapter;
@@ -187,7 +213,6 @@ public class CustomViewPager extends ViewGroup {
     private int mRestoredCurItem = -1;
 
     private boolean mIsScrollStarted;
-
 
     private int mPageMargin;
     private int mTopPageBounds;
@@ -223,11 +248,6 @@ public class CustomViewPager extends ViewGroup {
      * drags/flings if multiple pointers are used.
      */
     private int mActivePointerId = INVALID_POINTER;
-    /**
-     * Sentinel value for no current active pointer.
-     * Used by {@link #mActivePointerId}.
-     */
-    private static final int INVALID_POINTER = -1;
 
     /**
      * Determines speed during touch scrolling
@@ -237,11 +257,6 @@ public class CustomViewPager extends ViewGroup {
     private int mFlingDistance;
     private int mCloseEnough;
 
-    // If the pager is at least this close to its final position, complete the scroll
-    // on touch down and let the user interact with the content inside instead of
-    // "catching" the flinging pager.
-    private static final int CLOSE_ENOUGH = 2; // dp
-
     private boolean mFakeDragging;
     private long mFakeDragBeginTime;
 
@@ -249,30 +264,9 @@ public class CustomViewPager extends ViewGroup {
     private boolean mCalledSuper;
     private int mDecorChildCount;
 
-     private int mPageTransformerLayerType;
+    private int mPageTransformerLayerType;
 
-    private static final int DRAW_ORDER_DEFAULT = 0;
-    private static final int DRAW_ORDER_FORWARD = 1;
-    private static final int DRAW_ORDER_REVERSE = 2;
     private int mDrawingOrder;
-
-    /**
-     * Indicates that the pager is in an idle, settled state. The current page
-     * is fully in view and no animation is in progress.
-     */
-    public static final int SCROLL_STATE_IDLE = 0;
-
-    /**
-     * Indicates that the pager is currently being dragged by the user.
-     */
-    public static final int SCROLL_STATE_DRAGGING = 1;
-
-    /**
-     * Indicates that the pager is in the process of settling to a final position.
-     */
-    public static final int SCROLL_STATE_SETTLING = 2;
-
-
 
     private int mScrollState = SCROLL_STATE_IDLE;
 
