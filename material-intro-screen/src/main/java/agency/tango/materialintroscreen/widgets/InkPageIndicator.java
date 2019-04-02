@@ -131,7 +131,7 @@ public class InkPageIndicator extends View
                 .getDimensionPixelSize(R.styleable.mis_InkPageIndicator_mis_dotDiameter,
                         DEFAULT_DOT_SIZE * density);
         dotRadius = dotDiameter / 2f;
-        halfDotRadius = dotRadius / 2;
+        halfDotRadius = dotRadius / 2f;
         gap = typedArray.getDimensionPixelSize(R.styleable.mis_InkPageIndicator_mis_dotGap,
                 DEFAULT_GAP * density);
         animDuration = (long) typedArray

@@ -26,7 +26,7 @@ public class SlideFragment extends SlideFragmentBase {
     public static final String GRANT_PERMISSION_MESSAGE = "grant_permission_message";
     public static final String GRANT_PERMISSION_ERROR = "grant_permission_error";
     public static final String MESSAGE_BACKGROUND_COLOR = "message_background_color";
-    public static final String MESSAGE_TEXT_COLOR = "message_text_background_color";
+    public static final String MESSAGE_TEXT_COLOR = "message_text_color";
 
     @ColorRes
     private int backgroundColor;

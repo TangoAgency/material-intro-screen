@@ -2,10 +2,12 @@ package agency.tango.materialintroscreen.fragments;
 
 import android.content.pm.PackageManager;
 import android.os.Build;
+
 import androidx.annotation.ColorRes;
 import androidx.annotation.StringRes;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
 import android.text.TextUtils;
 
 import java.util.ArrayList;
@@ -86,21 +88,15 @@ public class SlideFragmentBase extends ParallaxFragment {
 
         if (neededPermissions() != null) {
             for (String permission : neededPermissions()) {
-                if (!TextUtils.isEmpty(permission)) {
-                    if (ContextCompat.checkSelfPermission(requireContext(), permission)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        notGrantedPermissions.add(permission);
-                    }
+                if (permissionNotGranted(permission)) {
+                    notGrantedPermissions.add(permission);
                 }
             }
         }
         if (possiblePermissions() != null) {
             for (String permission : possiblePermissions()) {
-                if (!TextUtils.isEmpty(permission)) {
-                    if (ContextCompat.checkSelfPermission(requireContext(), permission)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        notGrantedPermissions.add(permission);
-                    }
+                if (permissionNotGranted(permission)) {
+                    notGrantedPermissions.add(permission);
                 }
             }
         }
@@ -118,15 +114,18 @@ public class SlideFragmentBase extends ParallaxFragment {
 
         if (permissions != null) {
             for (String permission : permissions) {
-                if (!TextUtils.isEmpty(permission)) {
-                    if (ContextCompat.checkSelfPermission(requireContext(), permission)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        return true;
-                    }
+                if (permissionNotGranted(permission)) {
+                    return true;
                 }
             }
         }
         return false;
+    }
+
+    private boolean permissionNotGranted(String permission) {
+        return !TextUtils.isEmpty(permission) &&
+                ContextCompat.checkSelfPermission(requireContext(), permission)
+                        != PackageManager.PERMISSION_GRANTED;
     }
 
     @SuppressWarnings("ToArrayCallWithZeroLengthArrayArgument")
