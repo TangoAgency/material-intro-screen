@@ -30,9 +30,6 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.CustomViewPager;
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Interpolator;
@@ -40,6 +37,9 @@ import android.view.animation.Interpolator;
 import java.util.Arrays;
 
 import agency.tango.materialintroscreen.R;
+import androidx.core.view.ViewCompat;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
+import androidx.viewpager.widget.CustomViewPager;
 
 public class InkPageIndicator extends View
         implements CustomViewPager.OnPageChangeListener, View.OnAttachStateChangeListener {
@@ -130,8 +130,8 @@ public class InkPageIndicator extends View
         dotDiameter = typedArray
                 .getDimensionPixelSize(R.styleable.mis_InkPageIndicator_mis_dotDiameter,
                         DEFAULT_DOT_SIZE * density);
-        dotRadius = dotDiameter / 2;
-        halfDotRadius = dotRadius / 2;
+        dotRadius = dotDiameter / 2f;
+        halfDotRadius = dotRadius / 2f;
         gap = typedArray.getDimensionPixelSize(R.styleable.mis_InkPageIndicator_mis_dotGap,
                 DEFAULT_GAP * density);
         animDuration = (long) typedArray
@@ -231,7 +231,7 @@ public class InkPageIndicator extends View
         int right = width - getPaddingRight();
 
         int requiredWidth = getRequiredWidth();
-        float startLeft = left + ((right - left - requiredWidth) / 2) + dotRadius;
+        float startLeft = left + ((right - left - requiredWidth) / 2f) + dotRadius;
 
         dotCenterX = new float[pageCount];
         for (int i = 0; i < pageCount; i++) {
@@ -369,24 +369,24 @@ public class InkPageIndicator extends View
 
     /**
      * Unselected dots can be in 6 states:
-     *
+     * <p>
      * #1 At rest
      * #2 Joining neighbour, still separate
      * #3 Joining neighbour, combined curved
      * #4 Joining neighbour, combined straight
      * #5 Join retreating
      * #6 Dot re-showing / revealing
-     *
+     * <p>
      * It can also be in a combination of these states e.g. joining one neighbour while
      * retreating from another.  We therefore create a Path so that we can examine each
      * dot pair separately and later take the union for these cases.
-     *
+     * <p>
      * This function returns a path for the given dot **and any action to it's right** e.g. joining
      * or retreating from it's neighbour
      */
     @SuppressWarnings("PMD.ExcessiveMethodLength")
     private Path getUnselectedPath(int page, float centerX, float nextCenterX,
-            float joiningFraction, float dotRevealFraction) {
+                                   float joiningFraction, float dotRevealFraction) {
         unselectedDotPath.rewind();
 
         // case #1 – At rest
@@ -480,7 +480,7 @@ public class InkPageIndicator extends View
             unselectedDotPath.arcTo(rectF, 90, 180, true);
 
             // bezier to the middle top of the join
-            endX1 = centerX + dotRadius + (gap / 2);
+            endX1 = centerX + dotRadius + (gap / 2f);
             endY1 = dotCenterY - (adjustedFraction * dotRadius);
             controlX1 = endX1 - (adjustedFraction * dotRadius);
             controlY1 = dotTopY;
@@ -725,7 +725,7 @@ public class InkPageIndicator extends View
     /**
      * A {@link ValueAnimator} that starts once a given predicate returns true.
      */
-    public abstract class PendingStartAnimator extends ValueAnimator {
+    abstract class PendingStartAnimator extends ValueAnimator {
 
         boolean hasStarted;
         StartPredicate predicate;
@@ -867,7 +867,7 @@ public class InkPageIndicator extends View
     /**
      * A predicate used to start an animation when a test passes
      */
-    public abstract class StartPredicate {
+    abstract class StartPredicate {
 
         float thresholdValue;
 

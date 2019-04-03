@@ -1,8 +1,6 @@
 package agency.tango.materialintroscreen.widgets;
 
 import android.content.Context;
-import android.support.v4.view.CustomViewPager;
-import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -10,11 +8,12 @@ import android.view.MotionEvent;
 import agency.tango.materialintroscreen.ISlideErrorHandler;
 import agency.tango.materialintroscreen.adapter.SlidesAdapter;
 
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.CustomViewPager;
+
 @SuppressWarnings("PMD.SingularField")
 public class SwipeableViewPager extends CustomViewPager {
-
     private float startPos = 0;
-    private int currentIt;
     private boolean swipingAllowed;
     private boolean alphaExitTransitionEnabled = false;
     private ISlideErrorHandler errorHandler;
@@ -26,9 +25,7 @@ public class SwipeableViewPager extends CustomViewPager {
 
     @Override
     public boolean onInterceptTouchEvent(final MotionEvent event) {
-        int action = MotionEventCompat.getActionMasked(event);
-
-        switch (action) {
+        switch (event.getActionMasked()) {
             case (MotionEvent.ACTION_DOWN):
                 return super.onInterceptTouchEvent(event);
             case (MotionEvent.ACTION_MOVE):
@@ -48,12 +45,9 @@ public class SwipeableViewPager extends CustomViewPager {
 
     @Override
     public boolean onTouchEvent(final MotionEvent event) {
-        int action = MotionEventCompat.getActionMasked(event);
-
-        switch (action) {
+        switch (event.getActionMasked()) {
             case (MotionEvent.ACTION_DOWN):
                 startPos = event.getX();
-                currentIt = getCurrentItem();
                 resolveSwipingRightAllowed();
                 return super.onTouchEvent(event);
             case (MotionEvent.ACTION_MOVE):
@@ -64,7 +58,8 @@ public class SwipeableViewPager extends CustomViewPager {
                 return super.onTouchEvent(event);
             case (MotionEvent.ACTION_UP):
                 if (isSwipingNotAllowed(event)) {
-                    smoothScrollTo(getWidth() * currentIt, 0);
+                    scrollTo(this.mScroller.getCurrX(), 0);
+                    onPageScrolled(getCurrentItem(), 0, 0);
                     errorHandler.handleError();
                     return true;
                 }
@@ -81,7 +76,7 @@ public class SwipeableViewPager extends CustomViewPager {
     }
 
     @Override
-    public boolean executeKeyEvent(KeyEvent event) {
+    public boolean executeKeyEvent(@NonNull KeyEvent event) {
         return false;
     }
 
@@ -118,6 +113,11 @@ public class SwipeableViewPager extends CustomViewPager {
     }
 
     private void resolveSwipingRightAllowed() {
+        SlidesAdapter adapter = getAdapter();
+        if (adapter == null) {
+            return;
+        }
+
         if (getAdapter().shouldLockSlide(getCurrentItem())) {
             setSwipingRightAllowed(false);
         } else {

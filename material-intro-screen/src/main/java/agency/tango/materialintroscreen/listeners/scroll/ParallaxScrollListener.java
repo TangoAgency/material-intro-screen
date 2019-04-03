@@ -1,7 +1,7 @@
 package agency.tango.materialintroscreen.listeners.scroll;
 
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import agency.tango.materialintroscreen.adapter.SlidesAdapter;
 import agency.tango.materialintroscreen.fragments.SlideFragmentBase;
@@ -16,7 +16,7 @@ public class ParallaxScrollListener implements IPageScrolledListener {
         this.adapter = adapter;
     }
 
-    @SuppressWarnings("ConstantConditions")
+    @SuppressWarnings({"ConstantConditions", "PointlessNullCheck"})
     @Override
     public void pageScrolled(int position, float offset) {
         if (position != adapter.getCount()) {

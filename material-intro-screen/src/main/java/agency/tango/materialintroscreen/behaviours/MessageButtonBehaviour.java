@@ -4,7 +4,6 @@ import agency.tango.materialintroscreen.listeners.click.MessageButtonClickListen
 
 @SuppressWarnings("unused")
 public class MessageButtonBehaviour {
-
     private MessageButtonClickListener clickListener;
     private String messageButtonText;
 

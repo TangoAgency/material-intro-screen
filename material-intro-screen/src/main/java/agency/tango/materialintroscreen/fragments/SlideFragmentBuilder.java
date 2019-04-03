@@ -1,9 +1,11 @@
 package agency.tango.materialintroscreen.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
+
+import agency.tango.materialintroscreen.R;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.StringRes;
 
 import static agency.tango.materialintroscreen.fragments.SlideFragment.BACKGROUND_COLOR;
 import static agency.tango.materialintroscreen.fragments.SlideFragment.BUTTONS_COLOR;
@@ -11,13 +13,14 @@ import static agency.tango.materialintroscreen.fragments.SlideFragment.DESCRIPTI
 import static agency.tango.materialintroscreen.fragments.SlideFragment.GRANT_PERMISSION_ERROR;
 import static agency.tango.materialintroscreen.fragments.SlideFragment.GRANT_PERMISSION_MESSAGE;
 import static agency.tango.materialintroscreen.fragments.SlideFragment.IMAGE;
+import static agency.tango.materialintroscreen.fragments.SlideFragment.MESSAGE_BACKGROUND_COLOR;
+import static agency.tango.materialintroscreen.fragments.SlideFragment.MESSAGE_TEXT_COLOR;
 import static agency.tango.materialintroscreen.fragments.SlideFragment.NEEDED_PERMISSIONS;
 import static agency.tango.materialintroscreen.fragments.SlideFragment.POSSIBLE_PERMISSIONS;
 import static agency.tango.materialintroscreen.fragments.SlideFragment.TITLE;
 
 @SuppressWarnings("unused")
 public class SlideFragmentBuilder {
-
     @ColorRes
     private int backgroundColor;
 
@@ -28,10 +31,16 @@ public class SlideFragmentBuilder {
     private int image;
 
     @StringRes
-    private int grantPermissionMessage;
+    private int grantPermissionMessage = R.string.mis_grant_permissions;
 
     @StringRes
-    private int grantPermissionError;
+    private int grantPermissionError = R.string.mis_please_grant_permissions;
+
+    @ColorRes
+    private int messageButtonTextColor = R.color.mis_default_message_button_text_color;
+
+    @ColorRes
+    private int messageButtonColor = R.color.mis_default_message_button_color;
 
     private String title;
     private String description;
@@ -78,11 +87,20 @@ public class SlideFragmentBuilder {
         return this;
     }
 
-    public SlideFragmentBuilder grantPermissionError(int grantPermissionError) {
+    public SlideFragmentBuilder grantPermissionError(@StringRes int grantPermissionError) {
         this.grantPermissionError = grantPermissionError;
         return this;
     }
 
+    public SlideFragmentBuilder messageButtonTextColor(@ColorRes int messageButtonTextColor) {
+        this.messageButtonTextColor = messageButtonTextColor;
+        return this;
+    }
+
+    public SlideFragmentBuilder messageButtonColor(@ColorRes int messageButtonColor) {
+        this.messageButtonColor = messageButtonColor;
+        return this;
+    }
 
     public SlideFragment build() {
         String missing = "";
@@ -107,6 +125,8 @@ public class SlideFragmentBuilder {
         bundle.putStringArray(POSSIBLE_PERMISSIONS, possiblePermissions);
         bundle.putInt(GRANT_PERMISSION_MESSAGE, grantPermissionMessage);
         bundle.putInt(GRANT_PERMISSION_ERROR, grantPermissionError);
+        bundle.putInt(MESSAGE_BACKGROUND_COLOR, messageButtonColor);
+        bundle.putInt(MESSAGE_TEXT_COLOR, messageButtonTextColor);
 
         return SlideFragment.createInstance(bundle);
     }

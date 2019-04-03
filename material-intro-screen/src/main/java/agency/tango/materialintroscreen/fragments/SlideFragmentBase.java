@@ -2,10 +2,12 @@ package agency.tango.materialintroscreen.fragments;
 
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.support.annotation.ColorRes;
-import android.support.annotation.StringRes;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+
+import androidx.annotation.ColorRes;
+import androidx.annotation.StringRes;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import android.text.TextUtils;
 
 import java.util.ArrayList;
@@ -16,7 +18,6 @@ import agency.tango.materialintroscreen.R;
 import agency.tango.materialintroscreen.parallax.ParallaxFragment;
 
 public class SlideFragmentBase extends ParallaxFragment {
-
     private static final int PERMISSIONS_REQUEST_CODE = 15621;
 
     @ColorRes
@@ -27,6 +28,16 @@ public class SlideFragmentBase extends ParallaxFragment {
     @ColorRes
     public int buttonsColor() {
         return R.color.mis_default_buttons_color;
+    }
+
+    @ColorRes
+    public int messageButtonTextColor() {
+        return R.color.mis_default_message_button_text_color;
+    }
+
+    @ColorRes
+    public int messageButtonColor() {
+        return R.color.mis_default_message_button_color;
     }
 
     public boolean canMoveFurther() {
@@ -77,28 +88,22 @@ public class SlideFragmentBase extends ParallaxFragment {
 
         if (neededPermissions() != null) {
             for (String permission : neededPermissions()) {
-                if (!TextUtils.isEmpty(permission)) {
-                    if (ContextCompat.checkSelfPermission(getContext(), permission)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        notGrantedPermissions.add(permission);
-                    }
+                if (permissionNotGranted(permission)) {
+                    notGrantedPermissions.add(permission);
                 }
             }
         }
         if (possiblePermissions() != null) {
             for (String permission : possiblePermissions()) {
-                if (!TextUtils.isEmpty(permission)) {
-                    if (ContextCompat.checkSelfPermission(getContext(), permission)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        notGrantedPermissions.add(permission);
-                    }
+                if (permissionNotGranted(permission)) {
+                    notGrantedPermissions.add(permission);
                 }
             }
         }
 
         String[] permissionsToGrant = removeEmptyAndNullStrings(notGrantedPermissions);
         ActivityCompat
-                .requestPermissions(getActivity(), permissionsToGrant, PERMISSIONS_REQUEST_CODE);
+                .requestPermissions(requireActivity(), permissionsToGrant, PERMISSIONS_REQUEST_CODE);
     }
 
     @SuppressWarnings({"PMD.CollapsibleIfStatements"})
@@ -109,18 +114,21 @@ public class SlideFragmentBase extends ParallaxFragment {
 
         if (permissions != null) {
             for (String permission : permissions) {
-                if (!TextUtils.isEmpty(permission)) {
-                    if (ContextCompat.checkSelfPermission(getContext(), permission)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        return true;
-                    }
+                if (permissionNotGranted(permission)) {
+                    return true;
                 }
             }
         }
         return false;
     }
 
-    @SuppressWarnings("SuspiciousMethodCalls")
+    private boolean permissionNotGranted(String permission) {
+        return !TextUtils.isEmpty(permission) &&
+                ContextCompat.checkSelfPermission(requireContext(), permission)
+                        != PackageManager.PERMISSION_GRANTED;
+    }
+
+    @SuppressWarnings("ToArrayCallWithZeroLengthArrayArgument")
     private String[] removeEmptyAndNullStrings(final ArrayList<String> permissions) {
         List<String> list = new ArrayList<>(permissions);
         list.removeAll(Collections.singleton(null));

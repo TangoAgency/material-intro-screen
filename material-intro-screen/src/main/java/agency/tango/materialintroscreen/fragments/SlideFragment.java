@@ -1,11 +1,12 @@
 package agency.tango.materialintroscreen.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,6 @@ import android.widget.TextView;
 import agency.tango.materialintroscreen.R;
 
 public class SlideFragment extends SlideFragmentBase {
-
     public static final String BACKGROUND_COLOR = "background_color";
     public static final String BUTTONS_COLOR = "buttons_color";
     public static final String TITLE = "title";
@@ -25,6 +25,8 @@ public class SlideFragment extends SlideFragmentBase {
     public static final String IMAGE = "image";
     public static final String GRANT_PERMISSION_MESSAGE = "grant_permission_message";
     public static final String GRANT_PERMISSION_ERROR = "grant_permission_error";
+    public static final String MESSAGE_BACKGROUND_COLOR = "message_background_color";
+    public static final String MESSAGE_TEXT_COLOR = "message_text_color";
 
     @ColorRes
     private int backgroundColor;
@@ -40,6 +42,12 @@ public class SlideFragment extends SlideFragmentBase {
 
     @StringRes
     private int grantPermissionErrorStringRes;
+
+    @ColorRes
+    private int messageButtonTextColor;
+
+    @ColorRes
+    private int messageButtonColor;
 
     private String title;
     private String description;
@@ -58,12 +66,12 @@ public class SlideFragment extends SlideFragmentBase {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.mis_fragment_slide, container, false);
-        titleTextView = (TextView) view.findViewById(R.id.txt_title_slide);
-        descriptionTextView = (TextView) view.findViewById(R.id.txt_description_slide);
-        imageView = (ImageView) view.findViewById(R.id.image_slide);
+        titleTextView = view.findViewById(R.id.txt_title_slide);
+        descriptionTextView = view.findViewById(R.id.txt_description_slide);
+        imageView = view.findViewById(R.id.image_slide);
         initializeView();
         return view;
     }
@@ -110,6 +118,18 @@ public class SlideFragment extends SlideFragmentBase {
         return grantPermissionErrorStringRes;
     }
 
+    @Override
+    @ColorRes
+    public int messageButtonTextColor() {
+        return messageButtonTextColor;
+    }
+
+    @Override
+    @ColorRes
+    public int messageButtonColor() {
+        return messageButtonColor;
+    }
+
     private void initializeView() {
         Bundle bundle = getArguments();
         backgroundColor = bundle.getInt(BACKGROUND_COLOR);
@@ -121,6 +141,8 @@ public class SlideFragment extends SlideFragmentBase {
         possiblePermissions = bundle.getStringArray(POSSIBLE_PERMISSIONS);
         grantPermissionStringRes = bundle.getInt(GRANT_PERMISSION_MESSAGE);
         grantPermissionErrorStringRes = bundle.getInt(GRANT_PERMISSION_ERROR);
+        messageButtonColor = bundle.getInt(MESSAGE_BACKGROUND_COLOR);
+        messageButtonTextColor = bundle.getInt(MESSAGE_TEXT_COLOR);
 
         updateViewWithValues();
     }
@@ -130,16 +152,8 @@ public class SlideFragment extends SlideFragmentBase {
         descriptionTextView.setText(description);
 
         if (image != 0) {
-            imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), image));
+            imageView.setImageDrawable(ContextCompat.getDrawable(requireActivity(), image));
             imageView.setVisibility(View.VISIBLE);
-        }
-
-        if (grantPermissionStringRes == 0) {
-            grantPermissionStringRes = R.string.mis_grant_permissions;
-        }
-
-        if (grantPermissionErrorStringRes == 0) {
-            grantPermissionErrorStringRes = R.string.mis_please_grant_permissions;
         }
     }
 }

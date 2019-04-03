@@ -52,6 +52,8 @@ public class IntroActivity extends MaterialIntroActivity
                 .image(agency.tango.materialintroscreen.R.drawable.ic_next)
                 .grantPermissionMessage(R.string.txt_pls_grant_permission)
                 .grantPermissionError(R.string.txt_grant_permission_error)
+                .messageButtonColor(R.color.third_slide_buttons)
+                .messageButtonTextColor(R.color.white)
                 .title("title 3")
                 .description("Description 3")
                 .build(),
@@ -105,6 +107,8 @@ getBackButtonTranslationWrapper()
  - ```possiblePermissions()```
  - ```grantPermissionStringRes()```
  - ```grantPermissionErrorStringRes()```
+ - ```messageButtonColor()```
+ - ```messageButtonTextColor()```
    
 #### If you want to use parallax in a fragment please use one of the below views:
   - [```ParallaxFrameLayout```][ParallaxFrame]
