@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="transparent">@android:color/transparent</color>
-
+    <color name="mis_transparent">@android:color/transparent</color>
+    <color name="mis_default_background_color">#3F51B5</color>
+    <color name="mis_default_buttons_color">#1A237E</color>
+    <color name="mis_default_message_button_color">#ffffffff</color>
+    <color name="mis_default_message_button_text_color">#ff000000</color>
 </resources>

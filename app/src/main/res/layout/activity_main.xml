@@ -4,14 +4,14 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
 
-    <android.support.v7.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_launch_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
         android:layout_margin="16dp"
         android:text="@string/launch_intro_activity"
-        android:theme="@style/ColoredButton" />
+        android:theme="@style/MaterialButton" />
 
     <ImageView
         android:layout_width="wrap_content"

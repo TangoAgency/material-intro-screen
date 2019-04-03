@@ -1,8 +1,8 @@
 package agency.tango.materialintroscreen.widgets;
 
 import android.content.Context;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewCompat;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.core.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
@@ -14,7 +14,7 @@ import agency.tango.materialintroscreen.R;
 import agency.tango.materialintroscreen.listeners.IFinishListener;
 
 public class OverScrollViewPager extends RelativeLayout {
-    private SwipeableViewPager swipeableViewPager = null;
+    private SwipeableViewPager swipeableViewPager;
     private boolean mIsBeingDragged = false;
     private float mMotionBeginX = 0;
     private float positionOffset = 0;
@@ -41,6 +41,7 @@ public class OverScrollViewPager extends RelativeLayout {
         mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
     }
 
+    @SuppressWarnings({"PMD.CollapsibleIfStatements"})
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
         int action = event.getAction();
@@ -95,10 +96,11 @@ public class OverScrollViewPager extends RelativeLayout {
             scrollTo((int) -currentX, 0);
 
             positionOffset = calculateOffset();
-            swipeableViewPager.onPageScrolled(swipeableViewPager.getAdapter().getLastItemPosition(), positionOffset, 0);
+            swipeableViewPager.onPageScrolled(swipeableViewPager.getAdapter().getLastItemPosition(),
+                    positionOffset, 0);
 
             if (shouldFinish()) {
-                finishListener.doOnFinish();
+                finishListener.onFinish();
             }
         }
     }
@@ -120,14 +122,17 @@ public class OverScrollViewPager extends RelativeLayout {
     }
 
     private void finishOverScrollViewWithAnimation(float currentX) {
-        post(new SmoothScrollRunnable((int) currentX, -getWidth(), 300, new AccelerateInterpolator()));
+        post(new SmoothScrollRunnable((int) currentX, -getWidth(), 300,
+                new AccelerateInterpolator()));
     }
 
+    @SuppressWarnings({"PMD.SimplifyBooleanReturns", "RedundantIfStatement", "PMD.CollapsibleIfStatements"})
     private boolean canOverScrollAtEnd() {
         SwipeableViewPager viewPager = getOverScrollView();
         PagerAdapter adapter = viewPager.getAdapter();
         if (null != adapter && adapter.getCount() > 0) {
-            if (viewPager.alphaExitTransitionEnabled() && viewPager.getCurrentItem() == adapter.getCount() - 1) {
+            if (viewPager.alphaExitTransitionEnabled()
+                    && viewPager.getCurrentItem() == adapter.getCount() - 1) {
                 return true;
             }
             return false;
@@ -138,7 +143,7 @@ public class OverScrollViewPager extends RelativeLayout {
 
     private SwipeableViewPager createOverScrollView() {
         SwipeableViewPager swipeableViewPager = new SwipeableViewPager(getContext(), null);
-        swipeableViewPager.setId(R.id.swipeable_view_pager);
+        swipeableViewPager.setId(R.id.mis_swipeable_view_pager);
         return swipeableViewPager;
     }
 
@@ -151,7 +156,8 @@ public class OverScrollViewPager extends RelativeLayout {
         private long startTime = -1;
         private int currentPosition = -1;
 
-        SmoothScrollRunnable(int fromPosition, int toPosition, long duration, Interpolator scrollAnimationInterpolator) {
+        SmoothScrollRunnable(int fromPosition, int toPosition, long duration,
+                Interpolator scrollAnimationInterpolator) {
             scrollFromPosition = fromPosition;
             scrollToPosition = toPosition;
             interpolator = scrollAnimationInterpolator;

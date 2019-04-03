@@ -13,6 +13,6 @@ public class NextButtonTranslationWrapper extends ViewTranslationWrapper {
 
         setExitTranslation(new ExitDefaultTranslation())
                 .setDefaultTranslation(new DefaultPositionTranslation())
-                .setErrorAnimation(R.anim.shake_it);
+                .setErrorAnimation(R.anim.mis_shake_it);
     }
 }

@@ -1,21 +1,22 @@
-package agency.tango.materialintroscreen.listeners.scrollListeners;
+package agency.tango.materialintroscreen.listeners.scroll;
 
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
-import agency.tango.materialintroscreen.SlideFragment;
 import agency.tango.materialintroscreen.adapter.SlidesAdapter;
+import agency.tango.materialintroscreen.fragments.SlideFragmentBase;
 import agency.tango.materialintroscreen.listeners.IPageScrolledListener;
 import agency.tango.materialintroscreen.parallax.Parallaxable;
 
 public class ParallaxScrollListener implements IPageScrolledListener {
+
     private SlidesAdapter adapter;
 
     public ParallaxScrollListener(SlidesAdapter adapter) {
         this.adapter = adapter;
     }
 
-    @SuppressWarnings("ConstantConditions")
+    @SuppressWarnings({"ConstantConditions", "PointlessNullCheck"})
     @Override
     public void pageScrolled(int position, float offset) {
         if (position != adapter.getCount()) {
@@ -33,7 +34,7 @@ public class ParallaxScrollListener implements IPageScrolledListener {
     }
 
     @Nullable
-    private SlideFragment getNextFragment(int position) {
+    private SlideFragmentBase getNextFragment(int position) {
         if (position < adapter.getLastItemPosition()) {
             return adapter.getItem(position + 1);
         }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinator_layout_slide"
@@ -23,14 +23,14 @@
         android:layout_gravity="bottom"
         android:orientation="vertical"
         android:paddingTop="32dp"
-        app:layout_behavior="agency.tango.materialintroscreen.MoveUpBehaviour">
+        app:layout_behavior="agency.tango.materialintroscreen.behaviours.MoveUpBehaviour">
 
-        <android.support.v7.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
-            android:theme="@style/ColoredButton"
+            android:theme="@style/Widget.ColoredButton"
             android:visibility="invisible"
             tools:text="Message btn" />
 
@@ -46,9 +46,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:layout_marginLeft="16dp"
-                android:background="@drawable/button_background"
+                android:background="@drawable/mis_button_background"
                 android:padding="16dp"
-                android:src="@drawable/ic_previous"
+                android:src="@drawable/mis_ic_previous"
                 android:visibility="invisible" />
 
             <ImageButton
@@ -57,9 +57,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:layout_marginLeft="16dp"
-                android:background="@drawable/button_background"
+                android:background="@drawable/mis_button_background"
                 android:padding="16dp"
-                android:src="@drawable/ic_skip"
+                android:src="@drawable/mis_ic_skip"
                 android:visibility="gone" />
 
             <agency.tango.materialintroscreen.widgets.InkPageIndicator
@@ -69,11 +69,11 @@
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="16dp"
                 android:layout_weight="1"
-                app:animationDuration="320"
-                app:currentPageIndicatorColor="@android:color/white"
-                app:dotDiameter="8dp"
-                app:dotGap="8dp"
-                app:pageIndicatorColor="@android:color/holo_red_light" />
+                app:mis_animationDuration="320"
+                app:mis_currentPageIndicatorColor="@android:color/white"
+                app:mis_dotDiameter="8dp"
+                app:mis_dotGap="8dp"
+                app:mis_pageIndicatorColor="@android:color/holo_red_light" />
 
             <ImageButton
                 android:id="@+id/button_next"
@@ -81,11 +81,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:layout_marginRight="16dp"
-                android:background="@drawable/button_background"
+                android:background="@drawable/mis_button_background"
                 android:padding="16dp"
-                android:src="@drawable/ic_next" />
+                android:src="@drawable/mis_ic_next" />
         </LinearLayout>
     </LinearLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 

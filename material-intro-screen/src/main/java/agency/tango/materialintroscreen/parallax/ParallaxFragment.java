@@ -1,9 +1,10 @@
 package agency.tango.materialintroscreen.parallax;
 
 import android.os.Bundle;
-import android.support.annotation.FloatRange;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.FloatRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,11 +16,11 @@ public class ParallaxFragment extends Fragment implements Parallaxable {
     private Parallaxable parallaxLayout;
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         parallaxLayout = findParallaxLayout(view);
     }
 
-    public Parallaxable findParallaxLayout(View root) {
+    private Parallaxable findParallaxLayout(View root) {
         Queue<View> queue = new LinkedList<>();
         queue.add(root);
 

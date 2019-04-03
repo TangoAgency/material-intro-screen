@@ -22,4 +22,6 @@
     <!--Splash Screen-->
     <item name="splash_background" type="color">@color/colorPrimary</item>
 
+    <!--Base colors-->
+    <color name="white">#ffffff</color>
 </resources>

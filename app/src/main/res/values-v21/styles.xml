@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="ColoredButton" parent="Widget.AppCompat.Button.Colored">
+    <style name="MaterialButton" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@android:color/white</item>
         <item name="android:colorControlHighlight">@android:color/darker_gray</item>
         <item name="android:textColor">@android:color/black</item>

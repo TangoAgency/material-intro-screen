@@ -1,18 +1,20 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
+apply from: '../jacoco-android.gradle'
 
 apply from: "$rootDir/versions.gradle"
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    compileSdkVersion project.compileSdkVersion
+    buildToolsVersion project.buildToolsVersion
+    resourcePrefix 'mis_'
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdkVersion project.minSdkVersion
+        targetSdkVersion project.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -22,22 +24,24 @@ android {
 
         android.libraryVariants.all { variant ->
             project.task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
-                title = "Documentation for Android $project.android.defaultConfig.versionName v$project.android.defaultConfig.versionCode"
-                description = "Generates Javadoc for $variant.name."
-                group = 'Documentation'
+                doFirst {
+                    title = "Documentation for Android $project.android.defaultConfig.versionName v$project.android.defaultConfig.versionCode"
+                    description = "Generates Javadoc for $variant.name."
+                    group = 'Documentation'
 
-                destinationDir = new File("${project.getProjectDir()}/javaDoc/", variant.baseName)
-                source = variant.javaCompile.source
+                    destinationDir = new File("${project.getProjectDir()}/javaDoc/", variant.baseName)
+                    source = variant.javaCompile.source
 
-                ext.androidJar = "${project.android.sdkDirectory}/platforms/${project.android.compileSdkVersion}/android.jar"
-                classpath = project.files(variant.javaCompile.classpath.files) + project.files(ext.androidJar)
+                    ext.androidJar = "${project.android.sdkDirectory}/platforms/${project.android.compileSdkVersion}/android.jar"
+                    classpath = project.files(variant.javaCompile.classpath.files) + project.files(ext.androidJar)
 
-                options.memberLevel = JavadocMemberLevel.PROTECTED
-                options.links("http://docs.oracle.com/javase/7/docs/api/")
-                options.links("http://developer.android.com/reference/")
-                options.tags = ['sample']
-                exclude '**/BuildConfig.java'
-                exclude '**/R.java'
+                    options.memberLevel = JavadocMemberLevel.PROTECTED
+                    options.links("http://docs.oracle.com/javase/7/docs/api/")
+                    options.links("http://developer.android.com/reference/")
+                    options.tags = ['sample']
+                    exclude '**/BuildConfig.java'
+                    exclude '**/R.java'
+                }
             }
         }
     }
@@ -47,12 +51,10 @@ android {
     }
 
     dependencies {
-        compile fileTree(include: ['*.jar'], dir: 'libs')
-        androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-            exclude group: 'com.android.support', module: 'support-annotations'
-        })
-        compile "com.android.support:appcompat-v7:${project.androidSupport}"
-        compile "com.android.support:design:${project.androidSupport}"
+        implementation fileTree(include: ['*.jar'], dir: 'libs')
+        implementation "com.android.support:appcompat-v7:${project.androidSupport}"
+        implementation "com.android.support:design:${project.androidSupport}"
+        implementation "com.android.support:percent:${project.androidSupport}"
     }
 
     publish {

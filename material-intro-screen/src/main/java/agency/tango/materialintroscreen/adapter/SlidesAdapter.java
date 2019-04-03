@@ -1,28 +1,31 @@
 package agency.tango.materialintroscreen.adapter;
 
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import agency.tango.materialintroscreen.SlideFragment;
+import agency.tango.materialintroscreen.fragments.SlideFragmentBase;
 
 public class SlidesAdapter extends FragmentStatePagerAdapter {
-    private ArrayList<SlideFragment> fragments = new ArrayList<>();
+
+    private ArrayList<SlideFragmentBase> fragments = new ArrayList<>();
 
     public SlidesAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
     }
 
     @Override
-    public SlideFragment getItem(int position) {
+    public SlideFragmentBase getItem(int position) {
         return fragments.get(position);
     }
 
+    @NonNull
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        SlideFragment fragment = (SlideFragment) super.instantiateItem(container, position);
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+        SlideFragmentBase fragment = (SlideFragmentBase) super.instantiateItem(container, position);
         fragments.set(position, fragment);
         return fragment;
     }
@@ -32,7 +35,7 @@ public class SlidesAdapter extends FragmentStatePagerAdapter {
         return fragments.size();
     }
 
-    public void addItem(SlideFragment fragment) {
+    public void addItem(SlideFragmentBase fragment) {
         fragments.add(getCount(), fragment);
         notifyDataSetChanged();
     }
@@ -50,7 +53,7 @@ public class SlidesAdapter extends FragmentStatePagerAdapter {
     }
 
     public boolean shouldLockSlide(int position) {
-        SlideFragment fragment = getItem(position);
+        SlideFragmentBase fragment = getItem(position);
         return !fragment.canMoveFurther() || fragment.hasNeededPermissionsToGrant();
     }
 }

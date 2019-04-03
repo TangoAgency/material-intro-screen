@@ -4,24 +4,24 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import androidx.annotation.FloatRange;
+import androidx.percentlayout.widget.PercentRelativeLayout;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import agency.tango.materialintroscreen.R;
 
-public class ParallaxLinearLayout extends LinearLayout implements Parallaxable {
-    public ParallaxLinearLayout(Context context) {
+public class ParallaxPercentRelativeLayout extends PercentRelativeLayout implements Parallaxable {
+    public ParallaxPercentRelativeLayout(Context context) {
         super(context);
     }
 
-    public ParallaxLinearLayout(Context context, AttributeSet attrs) {
+    public ParallaxPercentRelativeLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public ParallaxLinearLayout(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+    public ParallaxPercentRelativeLayout(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class ParallaxLinearLayout extends LinearLayout implements Parallaxable {
     }
 
     @Override
-    protected LayoutParams generateLayoutParams(ViewGroup.LayoutParams p) {
+    protected PercentRelativeLayout.LayoutParams generateLayoutParams(ViewGroup.LayoutParams p) {
         return new LayoutParams(p);
     }
 
@@ -48,14 +48,14 @@ public class ParallaxLinearLayout extends LinearLayout implements Parallaxable {
     public void setOffset(@FloatRange(from = -1.0, to = 1.0) float offset) {
         for (int i = getChildCount() - 1; i >= 0; i--) {
             View child = getChildAt(i);
-            ParallaxLinearLayout.LayoutParams p = (LayoutParams) child.getLayoutParams();
+            LayoutParams p = (LayoutParams) child.getLayoutParams();
             if (p.parallaxFactor == 0)
                 continue;
             child.setTranslationX(getWidth() * -offset * p.parallaxFactor);
         }
     }
 
-    public static class LayoutParams extends LinearLayout.LayoutParams {
+    public static class LayoutParams extends PercentRelativeLayout.LayoutParams {
         float parallaxFactor = 0f;
 
         @SuppressLint("CustomViewStyleable")
@@ -68,11 +68,6 @@ public class ParallaxLinearLayout extends LinearLayout implements Parallaxable {
 
         LayoutParams(int width, int height) {
             super(width, height);
-        }
-
-        @SuppressWarnings("unused")
-        LayoutParams(int width, int height, int gravity) {
-            super(width, height, gravity);
         }
 
         LayoutParams(ViewGroup.LayoutParams source) {

@@ -4,23 +4,23 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import androidx.annotation.FloatRange;
+import androidx.percentlayout.widget.PercentFrameLayout;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import agency.tango.materialintroscreen.R;
 
-public class ParallaxLinearLayout extends LinearLayout implements Parallaxable {
-    public ParallaxLinearLayout(Context context) {
+public class ParallaxPercentFrameLayout extends PercentFrameLayout implements Parallaxable {
+    public ParallaxPercentFrameLayout(Context context) {
         super(context);
     }
 
-    public ParallaxLinearLayout(Context context, AttributeSet attrs) {
+    public ParallaxPercentFrameLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public ParallaxLinearLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ParallaxPercentFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -48,14 +48,14 @@ public class ParallaxLinearLayout extends LinearLayout implements Parallaxable {
     public void setOffset(@FloatRange(from = -1.0, to = 1.0) float offset) {
         for (int i = getChildCount() - 1; i >= 0; i--) {
             View child = getChildAt(i);
-            ParallaxLinearLayout.LayoutParams p = (LayoutParams) child.getLayoutParams();
+            LayoutParams p = (LayoutParams) child.getLayoutParams();
             if (p.parallaxFactor == 0)
                 continue;
             child.setTranslationX(getWidth() * -offset * p.parallaxFactor);
         }
     }
 
-    public static class LayoutParams extends LinearLayout.LayoutParams {
+    public static class LayoutParams extends PercentFrameLayout.LayoutParams {
         float parallaxFactor = 0f;
 
         @SuppressLint("CustomViewStyleable")

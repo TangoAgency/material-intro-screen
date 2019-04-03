@@ -1,12 +1,11 @@
 package agency.tango.materialintroscreen.listeners;
 
-import android.support.v4.view.CustomViewPager;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import agency.tango.materialintroscreen.adapter.SlidesAdapter;
 import agency.tango.materialintroscreen.animations.ViewTranslationWrapper;
+import androidx.viewpager.widget.CustomViewPager;
 
 public class ViewBehavioursOnPageChangeListener implements CustomViewPager.OnPageChangeListener {
     private final SlidesAdapter adapter;
@@ -19,17 +18,20 @@ public class ViewBehavioursOnPageChangeListener implements CustomViewPager.OnPag
         this.adapter = adapter;
     }
 
-    public ViewBehavioursOnPageChangeListener registerPageSelectedListener(IPageSelectedListener pageSelectedListener) {
+    public ViewBehavioursOnPageChangeListener registerPageSelectedListener(
+            IPageSelectedListener pageSelectedListener) {
         listeners.add(pageSelectedListener);
         return this;
     }
 
-    public ViewBehavioursOnPageChangeListener registerViewTranslationWrapper(ViewTranslationWrapper wrapper) {
+    public ViewBehavioursOnPageChangeListener registerViewTranslationWrapper(
+            ViewTranslationWrapper wrapper) {
         wrappers.add(wrapper);
         return this;
     }
 
-    public ViewBehavioursOnPageChangeListener registerOnPageScrolled(IPageScrolledListener pageScrolledListener) {
+    public ViewBehavioursOnPageChangeListener registerOnPageScrolled(
+            IPageScrolledListener pageScrolledListener) {
         pageScrolledListeners.add(pageScrolledListener);
         return this;
     }
@@ -64,6 +66,7 @@ public class ViewBehavioursOnPageChangeListener implements CustomViewPager.OnPag
 
     @Override
     public void onPageScrollStateChanged(int state) {
+        //This method is intentionally left blank, as it should do nothing
     }
 
     private boolean isFirstSlide(int position) {

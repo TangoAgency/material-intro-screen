@@ -2,11 +2,13 @@
 
 buildscript {
     repositories {
+        google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
-		classpath 'com.novoda:bintray-release:0.3.4'
+        classpath 'com.android.tools.build:gradle:3.5.0-alpha09'
+		classpath 'com.novoda:bintray-release:0.9'
+        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.4'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -14,11 +16,11 @@ buildscript {
 
 allprojects {
     repositories {
+        google()
         jcenter()
     }
 
     tasks.withType(Javadoc) {
-
         options.memberLevel = JavadocMemberLevel.PROTECTED
         options.links("http://docs.oracle.com/javase/7/docs/api/")
         options.links("http://developer.android.com/reference/")
@@ -26,7 +28,6 @@ allprojects {
         exclude '**/BuildConfig.java'
         exclude '**/R.java'
     }
-
 }
 
 task clean(type: Delete) {

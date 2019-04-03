@@ -9,7 +9,7 @@ Material intro screen is inspired by [Material Intro] and developed with love fr
   - [Easily add new slides][Intro Activity]
   - [Custom slides][Custom Slide]
   - [Parallax slides][Parallax Slide]
-  - Easy extensible api
+  - Easy and extensible api
   - Android TV support!
   - Material design at it's best!!!
 
@@ -35,7 +35,7 @@ public class IntroActivity extends MaterialIntroActivity
 ```xml
         <activity
             android:name=".IntroActivity"
-            android:theme="@style/Theme.Intro" />
+            android:theme="@style/Theme.MaterialIntro" />
 ```
 ### Step 4: 
 #### [Add slides:][Intro Activity]
@@ -50,15 +50,20 @@ public class IntroActivity extends MaterialIntroActivity
                 .possiblePermissions(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.READ_SMS})
                 .neededPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
                 .image(agency.tango.materialintroscreen.R.drawable.ic_next)
+                .grantPermissionMessage(R.string.txt_pls_grant_permission)
+                .grantPermissionError(R.string.txt_grant_permission_error)
+                .messageButtonColor(R.color.third_slide_buttons)
+                .messageButtonTextColor(R.color.white)
                 .title("title 3")
                 .description("Description 3")
                 .build(),
-                new MessageButtonBehaviour(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showMessage("We provide solutions to make you love your work");
-                    }
-                }, "Work with love"));
+              new MessageButtonBehaviour(new MessageButtonClickListener() {
+                  @Override
+                  public void onClick(Button messageButton) {
+                      messageButton.setText("Click me once again!");
+                      showMessage("We provide solutions to make you love your work");
+                  }
+              }, "Work with love"));
 }
 ```
 #### Explanation of SlideFragment usage:
@@ -71,6 +76,7 @@ public class IntroActivity extends MaterialIntroActivity
   - ```setSkipButtonVisible()``` &#8702; show skip button instead of back button on the left bottom of screen
   - ```hideBackButton()``` &#8702; hides any button on the left bottom of screen
   - ```enableLastSlideAlphaExitTransition()``` &#8702; set if the last slide should disapear with alpha hiding effect
+  - ```onLastSlidePassed``` &#8702; Override in order to perform some action after passing last slide
 
 #### Customizing view animations: 
 
@@ -92,25 +98,31 @@ getBackButtonTranslationWrapper()
 - ```getSkipButtonTranslationWrapper()``` 
 
 ## Custom slides
-#### Of course you are able to implement completely custom slides. You only need to extend SlideFragment and override following functions:
+#### Of course you are able to implement completely custom slides. You only need to extend SlideFragmentBase and override all needed by you functions.
  - ```backgroundColor()```
  - ```buttonsColor()```
  - ```canMoveFurther()``` (only if you want to stop user from being able to move further before he will do some action)
  - ```cantMoveFurtherErrorMessage()``` (as above)
- 
+ - ```neededPermissions()```
+ - ```possiblePermissions()```
+ - ```grantPermissionStringRes()```
+ - ```grantPermissionErrorStringRes()```
+ - ```messageButtonColor()```
+ - ```messageButtonTextColor()```
+   
 #### If you want to use parallax in a fragment please use one of the below views:
   - [```ParallaxFrameLayout```][ParallaxFrame]
   - [```ParallaxLinearLayout```][ParallaxLinear]
   - [```ParallaxRelativeLayout```][ParallaxRelative]
 
-#### And set there the [app:layout_parallaxFactor][ParallaxFactor] attribute:
+#### And set there the [app:mis_layout_parallaxFactor][ParallaxFactor] attribute:
 ```xml
 <agency.tango.materialintroscreen.parallax.ParallaxLinearLayout
 xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageView
         android:id="@+id/image_slide"
-        app:layout_parallaxFactor="0.6"/>
+        app:mis_layout_parallaxFactor="0.6"/>
 ```
 
 All features which are not available in simple Slide Fragment are shown here: [Custom Slide]
