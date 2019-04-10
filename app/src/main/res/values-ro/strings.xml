@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Material Intro</string>
+    <string name="check_to_pass">Accept termenii și condițiile.</string>
+    <string name="error_message">Vă rugăm să acceptați termenii și condițiile mai întâi.</string>
+    <string name="txt_grant_permission_error">Eroare! Vă rugăm, acordați permisiunile!</string>
+    <string name="txt_pls_grant_permission">Vă rugăm, acordați toate permisiunile</string>
+    <string name="launch_intro_activity">Lanseaza activitatea de introducere</string>
+</resources>

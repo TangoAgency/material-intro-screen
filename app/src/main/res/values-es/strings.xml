@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Material Intro</string>
+    <string name="check_to_pass">Acepto los términos y condiciones.</string>
+    <string name="error_message">Por favor, acepte los términos y condiciones antes.</string>
+    <string name="launch_intro_activity">Lanzar actividad de introducción</string>
+    <string name="txt_pls_grant_permission">Por favor, conceda todos los permisos</string>
+    <string name="txt_grant_permission_error">¡Error! Por favor, conceda todos los permisos</string>
+</resources>
