@@ -1,8 +1,10 @@
 package agency.tango.materialintro;
 
 import android.content.Intent;
-import android.support.v4.app.TaskStackBuilder;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.TaskStackBuilder;
+
 
 public class SplashActivity extends AppCompatActivity {
     @Override

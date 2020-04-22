@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinator_layout_slide"
@@ -25,7 +25,7 @@
         android:paddingTop="32dp"
         app:layout_behavior="agency.tango.materialintroscreen.MoveUpBehaviour">
 
-        <android.support.v7.widget.AppCompatButton
+        <Button
             android:id="@+id/button_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -87,5 +87,5 @@
         </LinearLayout>
     </LinearLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
