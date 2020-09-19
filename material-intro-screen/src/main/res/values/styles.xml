@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Intro" parent="Theme.AppCompat.NoActionBar">
+    <style name="Theme.Intro" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
-    <style name="ColoredButton" parent="Widget.AppCompat.Button.Colored">
+    <style name="ColoredButton" parent="Widget.MaterialComponents.Button">
         <item name="colorButtonNormal">@android:color/white</item>
         <item name="android:textColor">@android:color/black</item>
     </style>

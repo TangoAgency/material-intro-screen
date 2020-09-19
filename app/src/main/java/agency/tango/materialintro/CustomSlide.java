@@ -1,11 +1,12 @@
 package agency.tango.materialintro;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+
+import androidx.annotation.Nullable;
 
 import agency.tango.materialintroscreen.SlideFragment;
 

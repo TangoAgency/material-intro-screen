@@ -1,7 +1,8 @@
 package agency.tango.materialintroscreen.animations.translations;
 
-import android.support.annotation.FloatRange;
 import android.view.View;
+
+import androidx.annotation.FloatRange;
 
 import agency.tango.materialintroscreen.animations.IViewTranslation;
 

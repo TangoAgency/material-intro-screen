@@ -1,7 +1,8 @@
 package agency.tango.materialintroscreen;
 
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
+
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class SlideFragmentBuilder {

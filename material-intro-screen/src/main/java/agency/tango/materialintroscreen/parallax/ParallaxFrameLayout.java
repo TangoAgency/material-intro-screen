@@ -2,11 +2,12 @@ package agency.tango.materialintroscreen.parallax;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.FloatRange;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+
+import androidx.annotation.FloatRange;
 
 import agency.tango.materialintroscreen.R;
 
