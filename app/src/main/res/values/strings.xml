@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Material Intro</string>
+    <string name="app_name">Pulse</string>
     <string name="check_to_pass">I accept terms and conditions.</string>
     <string name="error_message">Please accept terms and conditions first.</string>
     <string name="launch_intro_activity">Launch intro activity</string>
